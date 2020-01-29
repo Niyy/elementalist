@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float lowJumpMultiplier = 2f;
 
 
-    private int retical_radius = 5;
+    private int retical_radius = 3;
     private int direction;
     private Rigidbody rigbod;
 
@@ -35,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
-        Jump();  
+        Jump();
+        ReticleMovement();
 
         Debugger();
     }
@@ -52,12 +53,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Reticle()
+    private void ReticleMovement()
     {
-        Vector3 left_stick = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-        Vector3 position = this.transform.position;
+        Vector3 left_stick_position = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f) * retical_radius;
+        left_stick_position += this.transform.position;
 
-
+        retical.transform.position = left_stick_position;
     }
 
 
