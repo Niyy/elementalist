@@ -62,10 +62,23 @@ public class PlayerController : MonoBehaviour
 
     private void ReticleMovement()
     {
-        Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
-        left_stick_position += this.transform.position;
+        RaycastHit hit;
+        Vector3 left_stick_position = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f) * retical_radius;
 
-        retical.transform.position = left_stick_position;
+        if(Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius))
+        {
+            retical.transform.position = hit.point;
+        }
+        else
+        {
+            left_stick_position += this.transform.position;
+            retical.transform.position = left_stick_position;
+        }
+
+        if(left_stick_position != this.transform.position)
+        {
+            retical.transform.position += Vector3.forward * -9.0f;
+        }
     }
 
     void OnEnable()
