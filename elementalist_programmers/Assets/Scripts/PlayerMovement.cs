@@ -12,14 +12,16 @@ public class PlayerMovement : MonoBehaviour
     public float lowJumpMultiplier = 2f;
 
 
-    private float retical_radius = 2.5f;
+    private float retical_radius = 3f;
     private int direction;
     private Rigidbody rigbod;
+    private Camera cam;
 
 
     // Start is called before the first frame update
     void Awake()
     {
+        cam = Camera.main;
         rigbod = GetComponent<Rigidbody>();
     }
 
@@ -42,23 +44,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Debugger()
-    {
-        Vector3 left_stick = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-        Vector3 position = this.transform.position;
-        position.z = -9;
-
-        Debug.Log("X " + Input.GetAxis("Horizontal") + "Y " + Input.GetAxis("Vertical"));
-        Debug.DrawRay(position, left_stick * 5, Color.red);
-    }
-
-
     private void ReticleMovement()
     {
+        RaycastHit hit;
         Vector3 left_stick_position = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f) * retical_radius;
-        left_stick_position += this.transform.position;
 
-        retical.transform.position = left_stick_position;
+        if(Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius))
+        {
+            retical.transform.position = hit.point;
+        }
+        else
+        {
+            left_stick_position += this.transform.position;
+            retical.transform.position = left_stick_position;
+        }
+
+        if(left_stick_position != this.transform.position)
+        {
+            retical.transform.position += Vector3.forward * -9.0f;
+        }
     }
 
 
@@ -85,6 +89,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
+    }
+
+
+    private void Debugger()
+    {
+        RaycastHit hit;
+        Vector3 left_stick_position = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f) * retical_radius;
+
+        Debug.DrawRay(this.transform.position, left_stick_position, Color.yellow);
     }
 }
 
