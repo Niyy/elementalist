@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigbod;
     protected float moveSpeed = 10f;
 
+    public bool jump = false;
     public float jumpForce = 7f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
         controls.Gameplay.Jump.performed += ctx => Jump();
+        controls.Gameplay.Jump.canceled += ctx => jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
     }
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        jump = true;
         rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
     }
 
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rigbod.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (rigbod.velocity.y > 0 && !jump)
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
