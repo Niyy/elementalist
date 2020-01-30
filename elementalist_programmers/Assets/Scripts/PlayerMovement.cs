@@ -15,32 +15,34 @@ public class PlayerMovement : MonoBehaviour
     private float retical_radius = 3f;
     private int direction;
     private Rigidbody rigbod;
-    private Camera cam;
 
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        cam = Camera.main;
         rigbod = GetComponent<Rigidbody>();
     }
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
 
 
+    private void Update() {
+
+        ReticleMovement();
+        Debugger();
+    }
+
+
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         Move();
         Jump();
-        ReticleMovement();
-
-        Debugger();
     }
 
 
