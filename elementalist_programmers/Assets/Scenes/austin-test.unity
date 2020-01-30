@@ -503,13 +503,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 498061331}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93823cc7b1195f46974985f7d8b70f0, type: 3}
+  m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jump: 0
   jumpForce: 7
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  retical: {fileID: 0}
+  retical: {fileID: 17066891}
 --- !u!54 &498061337
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -538,6 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jump: 0
   jumpForce: 7
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
