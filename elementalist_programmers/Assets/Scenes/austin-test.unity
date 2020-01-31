@@ -503,14 +503,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 498061331}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
+  m_Script: {fileID: 11500000, guid: d8c1564a71c86dd4fa1a90f6c99c821b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump: 0
-  jumpForce: 7
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  retical: {fileID: 17066891}
+  on_ground: 0
+  on_wall: 0
+  ray_height: 1
 --- !u!54 &498061337
 Rigidbody:
   m_ObjectHideFlags: 0

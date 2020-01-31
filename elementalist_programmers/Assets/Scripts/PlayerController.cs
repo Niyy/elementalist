@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
         rigbod = GetComponent<Rigidbody>();
         controls = new PlayerControls();
 
-        controls.Gameplay.Jump.performed += ctx => Jump();
+        controls.Gameplay.Jump.performed += ctx => jump = true;
         controls.Gameplay.Jump.canceled += ctx => jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
@@ -35,6 +36,10 @@ public class PlayerController : MonoBehaviour
         Move();
         Airborn();
         ReticleMovement();
+        if (jump && GetComponent<Collision>().on_ground)
+        {
+            Jump();
+        }
     }
 
     private void Move()
@@ -45,7 +50,6 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        jump = true;
         rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
     }
 
