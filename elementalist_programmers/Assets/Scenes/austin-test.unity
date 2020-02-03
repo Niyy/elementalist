@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168542921}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071067, w: 0.7071069}
-  m_LocalPosition: {x: -8.6, y: 4.44, z: -0.30273438}
+  m_LocalPosition: {x: -8.43, y: 4.44, z: -0.30273438}
   m_LocalScale: {x: 17.88613, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -413,7 +413,6 @@ GameObject:
   - component: {fileID: 498061332}
   - component: {fileID: 498061337}
   - component: {fileID: 498061338}
-  - component: {fileID: 498061336}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -494,23 +493,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &498061336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 498061331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jump: 0
-  jumpForce: 7
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  retical: {fileID: 17066891}
 --- !u!54 &498061337
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -544,6 +526,8 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   retical: {fileID: 17066891}
+  secondary_speed: 0
+  secondary_movement_time: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991256946}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071067, w: 0.7071069}
-  m_LocalPosition: {x: 8.4, y: 4.44, z: -0.30273438}
+  m_LocalPosition: {x: 8.44, y: 4.44, z: -0.30273438}
   m_LocalScale: {x: 17.88613, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -16,9 +16,22 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
 
+    // Retical variables
     public GameObject retical;
+
+
     private float retical_radius = 2.5f;
 
+
+    // Secondary Movement variables
+    public float secondary_speed;
+    public float secondary_movement_time;
+
+
+    private bool is_secondary_moving = false;
+    private float current_secondary_movement_time;
+    private Vector2 secondary_movement_target;
+    private Vector2 secondary_movement_velocity;
 
     // Start is called before the first frame update
     private void Awake()
@@ -27,6 +40,7 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
         controls.Gameplay.Jump.performed += ctx => Jump();
+        controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
         controls.Gameplay.Jump.canceled += ctx => jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
@@ -50,12 +64,16 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Airborn();
+        EngageSecondaryMovement();
     }
 
     private void Move()
     {
-        Vector3 direction = new Vector3(move.x, move.y, 0f);
-        rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+        if(!is_secondary_moving)
+        {
+            Vector3 direction = new Vector3(move.x, move.y, 0f);
+            rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+        }
     }
 
     private void Jump()
@@ -96,6 +114,34 @@ public class PlayerController : MonoBehaviour
             retical.transform.position += Vector3.forward * -9.0f;
         }
     }
+
+
+    private void ImplementSecondaryMovement()
+    {
+        current_secondary_movement_time = 0;
+        secondary_movement_velocity = new Vector2(move.x * secondary_speed, move.y * secondary_speed);
+        rigbod.velocity = secondary_movement_velocity;
+        is_secondary_moving = true;
+    }
+
+
+    private void EngageSecondaryMovement()
+    {
+        if(is_secondary_moving)
+        {
+            if (current_secondary_movement_time < secondary_movement_time)
+            {
+                rigbod.velocity = secondary_movement_velocity;
+                current_secondary_movement_time += Time.deltaTime;
+            }
+            else
+            {
+                is_secondary_moving = false;
+                rigbod.velocity = Vector2.zero;
+            }
+        }
+    }
+
 
     void OnEnable()
     {
