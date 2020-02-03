@@ -526,8 +526,8 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   retical: {fileID: 17066891}
-  secondary_speed: 0
-  secondary_movement_time: 0
+  secondary_speed: 20
+  secondary_movement_time: 0.3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

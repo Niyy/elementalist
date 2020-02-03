@@ -26,6 +26,12 @@ public class PlayerController : MonoBehaviour
     // Secondary Movement variables
     public float secondary_speed;
     public float secondary_movement_time;
+    public SecondaryMovementTypes secondary_movement = SecondaryMovementTypes.Dash;
+    public enum SecondaryMovementTypes
+    {
+        Dash,
+        Roll
+    }
 
 
     private bool is_secondary_moving = false;
@@ -119,7 +125,21 @@ public class PlayerController : MonoBehaviour
     private void ImplementSecondaryMovement()
     {
         current_secondary_movement_time = 0;
-        secondary_movement_velocity = new Vector2(move.x * secondary_speed, move.y * secondary_speed);
+        if(secondary_movement == SecondaryMovementTypes.Roll)
+        {
+            if(move.x < 0)
+            {
+                secondary_movement_velocity = new Vector2(-1 * secondary_speed, 0.0f);
+            }
+            else
+            {
+                secondary_movement_velocity = new Vector2(1 * secondary_speed, 0.0f);
+            }
+        }
+        else
+        {
+            secondary_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+        }
         rigbod.velocity = secondary_movement_velocity;
         is_secondary_moving = true;
     }
@@ -131,8 +151,8 @@ public class PlayerController : MonoBehaviour
         {
             if (current_secondary_movement_time < secondary_movement_time)
             {
-                rigbod.velocity = secondary_movement_velocity;
                 current_secondary_movement_time += Time.deltaTime;
+                rigbod.velocity = secondary_movement_velocity;
             }
             else
             {
