@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigbod;
     protected float moveSpeed = 10f;
     protected float wall_slide_speed = -2.0f;
-    public int facing_direction = 0;
+    public int facing_direction = 1;
 
     public bool held_jump = false;
     public bool jump = false;
@@ -50,7 +50,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         grounded = GetComponent<Collision>().on_ground;
-        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0);
+        //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
+        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x/facing_direction > 0));
         if((grounded || wall_sliding) && !new_jump)
         {
             wall_jump = false;
@@ -83,10 +84,7 @@ public class PlayerController : MonoBehaviour
         {
             rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .7f * Time.deltaTime);
         }
-        if (jump)
-        {
-            Airborn();
-        } 
+        Airborn();
         if (wall_sliding)
         {
             rigbod.velocity = (new Vector3(rigbod.velocity.x, rigbod.velocity.y));
@@ -106,7 +104,7 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             new_jump = true;
         }
-        else if (wall_sliding || (GetComponent<Collision>().on_wall && move.x != 0))
+        else if (wall_sliding || (GetComponent<Collision>().on_wall && (move.x/ facing_direction) > 0))
         {
             wall_sliding = false;
             rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing_direction, wall_jump_force * wall_jump_direction.y));
@@ -120,11 +118,11 @@ public class PlayerController : MonoBehaviour
 
     private void Airborn()
     {
-        if (rigbod.velocity.y < 0)
+        if (rigbod.velocity.y < 0 && !wall_sliding)
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rigbod.velocity.y > 0 && !held_jump)
+        else if (rigbod.velocity.y > 0 && !held_jump && jump)
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
