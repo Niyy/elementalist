@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - door_Up
-  - door_Down
   - door_Right
   - door_Left
+  - oldCam
+  - door
   layers:
   - Default
   - TransparentFX
