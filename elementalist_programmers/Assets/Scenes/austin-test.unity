@@ -539,6 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facing_direction: 0
+  held_jump: 0
   jump: 0
   jumpForce: 7
   fallMultiplier: 2.5
@@ -546,8 +547,9 @@ MonoBehaviour:
   grounded: 0
   wall_sliding: 0
   wall_jump: 0
-  wall_jump_direction: {x: 1, y: 1.3, z: 0}
-  wall_jump_force: 10
+  new_jump: 0
+  wall_jump_direction: {x: 1, y: 1.1, z: 0}
+  wall_jump_force: 13
   retical: {fileID: 17066891}
 --- !u!1 &519420028
 GameObject:

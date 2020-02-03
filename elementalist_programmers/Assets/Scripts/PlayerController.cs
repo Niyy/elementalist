@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     protected float wall_slide_speed = -2.0f;
     public int facing_direction = 0;
 
+    public bool held_jump = false;
     public bool jump = false;
     public float jumpForce = 7f;
     public float fallMultiplier = 2.5f;
@@ -22,7 +23,8 @@ public class PlayerController : MonoBehaviour
     public bool wall_sliding;
 
     public bool wall_jump = false;
-    public Vector3 wall_jump_direction = (new Vector3(1.0f, 1.3f, 0.0f));
+    public bool new_jump = false;
+    public Vector3 wall_jump_direction = (new Vector3(1.0f, 1.1f, 0.0f));
     public float wall_jump_force = 13f;
 
     public GameObject retical;
@@ -34,8 +36,8 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
 
-        controls.Gameplay.Jump.performed += ctx => { jump = true; Jump(); };
-        controls.Gameplay.Jump.canceled += ctx => jump = false;
+        controls.Gameplay.Jump.performed += ctx => { held_jump = true; Jump(); };
+        controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
     }
@@ -49,9 +51,14 @@ public class PlayerController : MonoBehaviour
     {
         grounded = GetComponent<Collision>().on_ground;
         wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0);
-        if(grounded)
+        if((grounded || wall_sliding) && !new_jump)
         {
             wall_jump = false;
+            jump = false;
+        }
+        else
+        {
+            new_jump = false;
         }
         Move();
         ReticleMovement();
@@ -74,9 +81,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .4f * Time.deltaTime);
+            rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .7f * Time.deltaTime);
         }
-        Airborn();
+        if (jump)
+        {
+            Airborn();
+        } 
         if (wall_sliding)
         {
             rigbod.velocity = (new Vector3(rigbod.velocity.x, rigbod.velocity.y));
@@ -92,14 +102,18 @@ public class PlayerController : MonoBehaviour
         if (grounded)
         {
             rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+            jump = true;
+            grounded = false;
+            new_jump = true;
         }
         else if (wall_sliding || (GetComponent<Collision>().on_wall && move.x != 0))
         {
             wall_sliding = false;
-            Vector3 added_force = new Vector3(wall_jump_force * wall_jump_direction.x * -facing_direction, wall_jump_force * wall_jump_direction.y);
-            rigbod.AddForce(added_force, ForceMode.Impulse);
-            facing_direction = facing_direction * -1;
+            rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing_direction, wall_jump_force * wall_jump_direction.y));
+
+            facing_direction *= -1;
             wall_jump = true;
+            new_jump = true;
         }        
     }
 
@@ -110,7 +124,7 @@ public class PlayerController : MonoBehaviour
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rigbod.velocity.y > 0 && !jump)
+        else if (rigbod.velocity.y > 0 && !held_jump)
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
