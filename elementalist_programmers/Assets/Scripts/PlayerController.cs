@@ -11,11 +11,19 @@ public class PlayerController : MonoBehaviour
     protected Vector2 move;
     private Rigidbody rigbod;
     protected float moveSpeed = 10f;
+    protected float wall_slide_speed = -2.0f;
+    public int facing_direction = 0;
 
     public bool jump = false;
     public float jumpForce = 7f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+    public bool grounded;
+    public bool wall_sliding;
+
+    public bool wall_jump = false;
+    public Vector3 wall_jump_direction = (new Vector3(1.0f, 1.3f, 0.0f));
+    public float wall_jump_force = 13f;
 
     public GameObject retical;
     private float retical_radius = 2.5f;
@@ -25,33 +33,76 @@ public class PlayerController : MonoBehaviour
         rigbod = GetComponent<Rigidbody>();
         controls = new PlayerControls();
 
-        controls.Gameplay.Jump.performed += ctx => jump = true;
+
+        controls.Gameplay.Jump.performed += ctx => { jump = true; Jump(); };
         controls.Gameplay.Jump.canceled += ctx => jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
     }
 
+    private void Start()
+    {
+        wall_jump_direction.Normalize();
+    }
+
     void Update()
     {
-        Move();
-        Airborn();
-        ReticleMovement();
-        if (jump && GetComponent<Collision>().on_ground)
+        grounded = GetComponent<Collision>().on_ground;
+        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0);
+        if(grounded)
         {
-            Jump();
+            wall_jump = false;
         }
+        Move();
+        ReticleMovement();
     }
 
     private void Move()
     {
         Vector3 direction = new Vector3(move.x, move.y, 0f);
-        rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+        if (move.x > 0)
+        {
+            facing_direction = 1;
+        }
+        else if (move.x < 0)
+        {
+            facing_direction = -1;
+        }
+        if (!wall_jump)
+        {
+            rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+        }
+        else
+        {
+            rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .4f * Time.deltaTime);
+        }
+        Airborn();
+        if (wall_sliding)
+        {
+            rigbod.velocity = (new Vector3(rigbod.velocity.x, rigbod.velocity.y));
+            if(rigbod.velocity.y < wall_slide_speed)
+            {
+                rigbod.velocity = (new Vector3(rigbod.velocity.x, wall_slide_speed, 0.0f));
+            }
+        }
     }
 
     private void Jump()
     {
-        rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+        if (grounded)
+        {
+            rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+        }
+        else if (wall_sliding || (GetComponent<Collision>().on_wall && move.x != 0))
+        {
+            wall_sliding = false;
+            Vector3 added_force = new Vector3(wall_jump_force * wall_jump_direction.x * -facing_direction, wall_jump_force * wall_jump_direction.y);
+            rigbod.AddForce(added_force, ForceMode.Impulse);
+            facing_direction = facing_direction * -1;
+            wall_jump = true;
+        }        
     }
+
 
     private void Airborn()
     {
