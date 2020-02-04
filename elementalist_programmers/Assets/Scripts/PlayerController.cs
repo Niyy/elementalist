@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool new_jump = false;
     public Vector3 wall_jump_direction = (new Vector3(.7f, 1f, 0.0f));
     public float wall_jump_force = 10f;
+    public bool wall_push = false;
 
     // Retical variables
     public GameObject retical;
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
         controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
-        controls.Gameplay.Jump.performed += ctx => { held_jump = true; Jump(); };
+        controls.Gameplay.Jump.performed += ctx => { held_jump = true; Jump();};
         controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
@@ -85,10 +86,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        grounded = GetComponent<Collision>().on_ground;
+        grounded = GetComponent<PlayerCollision>().on_ground;
+        wall_push = (move.x * facing > 0) && (GetComponent<PlayerCollision>().col_face == facing);
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
-        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x / facing > 0));
-        if ((grounded) && !new_jump)
+        wall_sliding = (GetComponent<PlayerCollision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || wall_push));
+        if ((grounded || wall_sliding) && !new_jump)
         {
             wall_jump = false;
             jump = false;
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             new_jump = true;
         }
-        else if (wall_sliding || (GetComponent<Collision>().on_wall && (move.x / facing) > 0))
+        else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
         {
             wall_sliding = false;
             rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
