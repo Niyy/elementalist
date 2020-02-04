@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool new_jump = false;
     public Vector3 wall_jump_direction = (new Vector3(.7f, 1f, 0.0f));
     public float wall_jump_force = 10f;
+    public bool on_wall;
 
     // Retical variables
     public GameObject retical;
@@ -85,7 +86,16 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        on_wall = GetComponent<Collision>().on_wall;
         grounded = GetComponent<Collision>().on_ground;
+
+        if(grounded || on_wall)
+        {
+            secondary_reset = true;
+        }
+
+        Debug.Log("Grounded: " + grounded + "Walled: " + on_wall);
+
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
         wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x / facing > 0));
         if ((grounded) && !new_jump)
@@ -188,7 +198,7 @@ public class PlayerController : MonoBehaviour
 
     private void ImplementSecondaryMovement()
     {
-        if (!is_secondary_moving && secondary_reset && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+        if (!is_secondary_moving && secondary_reset && on_wall && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
         {
             current_secondary_movement_time = 0;
             if (secondary_movement == SecondaryMovementTypes.Roll)
@@ -230,17 +240,12 @@ public class PlayerController : MonoBehaviour
             else
             {
                 is_secondary_moving = false;
+                secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
             }
         }
 
         Debug.DrawRay(next_position, Vector2.down, Color.green);
-    }
-
-
-    private void OnCollisionEnter(Collision col)
-    {
-        secondary_reset = true;
     }
 
 
