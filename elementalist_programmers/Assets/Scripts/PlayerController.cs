@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
 
     private bool is_secondary_moving = false;
+    private bool secondary_reset = true;
     private float current_secondary_movement_time;
     private Vector2 secondary_movement_target;
     private Vector2 secondary_movement_velocity;
@@ -86,8 +87,8 @@ public class PlayerController : MonoBehaviour
     {
         grounded = GetComponent<Collision>().on_ground;
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
-        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x/facing > 0));
-        if((grounded) && !new_jump)
+        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x / facing > 0));
+        if ((grounded) && !new_jump)
         {
             wall_jump = false;
             jump = false;
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
         {
             new_jump = false;
         }
+
         Move();
         EngageSecondaryMovement();
     }
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour
         if (!is_secondary_moving)
         {
             direction = new Vector3(move.x, move.y, 0f);
-            if(direction.x != 0)
+            if (direction.x != 0)
             {
                 facing = Mathf.Sign(direction.x);
             }
@@ -138,7 +140,7 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             new_jump = true;
         }
-        else if (wall_sliding || (GetComponent<Collision>().on_wall && (move.x/ facing) > 0))
+        else if (wall_sliding || (GetComponent<Collision>().on_wall && (move.x / facing) > 0))
         {
             wall_sliding = false;
             rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
@@ -146,7 +148,7 @@ public class PlayerController : MonoBehaviour
             facing *= -1f;
             wall_jump = true;
             new_jump = true;
-        }        
+        }
     }
 
 
@@ -186,19 +188,23 @@ public class PlayerController : MonoBehaviour
 
     private void ImplementSecondaryMovement()
     {
+        if (!is_secondary_moving && secondary_reset && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+        {
+            current_secondary_movement_time = 0;
+            if (secondary_movement == SecondaryMovementTypes.Roll)
+            {
+                secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
+            }
+            else
+            {
+                secondary_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+                grounded = false;
+            }
 
-        current_secondary_movement_time = 0;
-        if (secondary_movement == SecondaryMovementTypes.Roll)
-        {
-            secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
+            rigbod.velocity = secondary_movement_velocity;
+            is_secondary_moving = true;
+            wall_jump = false;
         }
-        else
-        {
-            secondary_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
-        }
-        rigbod.velocity = secondary_movement_velocity;
-        is_secondary_moving = true;
-        wall_jump = false;
     }
 
 
@@ -223,13 +229,18 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-
                 is_secondary_moving = false;
                 rigbod.velocity = Vector2.zero;
             }
         }
 
         Debug.DrawRay(next_position, Vector2.down, Color.green);
+    }
+
+
+    private void OnCollisionEnter(Collision col)
+    {
+        secondary_reset = true;
     }
 
 

@@ -550,8 +550,8 @@ MonoBehaviour:
   wall_jump_direction: {x: 0.7, y: 1, z: 0}
   wall_jump_force: 13
   retical: {fileID: 17066891}
-  secondary_speed: 0
-  secondary_movement_time: 0
+  secondary_speed: 20
+  secondary_movement_time: 0.2
   secondary_movement: 0
   facing: 0
 --- !u!1 &519420028
