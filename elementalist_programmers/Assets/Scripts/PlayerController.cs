@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
 
 
     // Direction variable
-    Vector3 direction;
+    private Vector3 direction;
+    private float facing;
 
 
     // Start is called before the first frame update
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Update() 
+    private void Update()
     {
         ReticleMovement();
     }
@@ -80,10 +81,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if(!is_secondary_moving)
+        if (!is_secondary_moving)
         {
             direction = new Vector3(move.x, move.y, 0f);
             rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+
+            if (direction.x != 0)
+            {
+                facing = Mathf.Sign(direction.x);
+            }
         }
     }
 
@@ -110,7 +116,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
 
-        if(Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius))
+        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius))
         {
             retical.transform.position = hit.point;
         }
@@ -120,7 +126,7 @@ public class PlayerController : MonoBehaviour
             retical.transform.position = left_stick_position;
         }
 
-        if(left_stick_position != this.transform.position)
+        if (left_stick_position != this.transform.position)
         {
             retical.transform.position += Vector3.forward * -9.0f;
         }
@@ -130,9 +136,9 @@ public class PlayerController : MonoBehaviour
     private void ImplementSecondaryMovement()
     {
         current_secondary_movement_time = 0;
-        if(secondary_movement == SecondaryMovementTypes.Roll)
+        if (secondary_movement == SecondaryMovementTypes.Roll)
         {
-            secondary_movement_velocity = new Vector2(Mathf.Sign(direction.x), 0.0f) * secondary_speed;
+            secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
         }
         else
         {
@@ -145,13 +151,13 @@ public class PlayerController : MonoBehaviour
 
     private void EngageSecondaryMovement()
     {
-        Vector2 next_position = this.transform.position + new Vector3(Mathf.Sign(direction.x), 0.0f, 0.0f);
+        Vector2 next_position = this.transform.position + new Vector3(facing * 0.75f, 0.0f, 0.0f);
 
-        if(is_secondary_moving)
+        if (is_secondary_moving)
         {
             RaycastHit check_down;
 
-            if(secondary_movement == SecondaryMovementTypes.Roll
+            if (secondary_movement == SecondaryMovementTypes.Roll
             && !Physics.Raycast(next_position, Vector2.down * 2.0f, out check_down, 1.0f))
             {
                 current_secondary_movement_time = secondary_movement_time;
@@ -164,7 +170,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-        
+
                 is_secondary_moving = false;
                 rigbod.velocity = Vector2.zero;
             }
