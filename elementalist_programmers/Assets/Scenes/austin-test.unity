@@ -243,7 +243,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168542921}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -301,13 +301,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168542921}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071067, w: 0.7071069}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -8.43, y: 4.44, z: -0.30273438}
   m_LocalScale: {x: 17.88613, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &226282564
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226282564}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 498061333}
   - component: {fileID: 498061332}
   - component: {fileID: 498061337}
+  - component: {fileID: 498061336}
   - component: {fileID: 498061338}
   m_Layer: 0
   m_Name: Capsule
@@ -427,7 +428,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498061331}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -493,6 +494,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &498061336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498061331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c1564a71c86dd4fa1a90f6c99c821b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on_ground: 0
+  on_wall: 0
+  ray_height: 1
+  ray_width: 0.501
 --- !u!54 &498061337
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -521,14 +538,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  held_jump: 0
   jump: 0
   jumpForce: 7
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+  grounded: 0
+  wall_sliding: 0
+  wall_jump: 0
+  new_jump: 1
+  wall_jump_direction: {x: 0.7, y: 1, z: 0}
+  wall_jump_force: 13
   retical: {fileID: 17066891}
-  secondary_speed: 20
-  secondary_movement_time: 0.2
-  secondary_movement: 1
+  secondary_speed: 0
+  secondary_movement_time: 0
+  secondary_movement: 0
+  facing: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +663,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449682096}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -798,7 +823,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991256946}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -856,10 +881,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991256946}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071067, w: 0.7071069}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 8.44, y: 4.44, z: -0.30273438}
   m_LocalScale: {x: 17.88613, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}

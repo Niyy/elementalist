@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
 
     public bool wall_jump = false;
     public bool new_jump = false;
-    public Vector3 wall_jump_direction = (new Vector3(1.0f, 1.1f, 0.0f));
-    public float wall_jump_force = 13f;
+    public Vector3 wall_jump_direction = (new Vector3(.7f, 1f, 0.0f));
+    public float wall_jump_force = 10f;
 
     // Retical variables
     public GameObject retical;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     // Direction variable
     private Vector3 direction;
-    private float facing;
+    public float facing;
 
 
     // Start is called before the first frame update
@@ -86,8 +86,8 @@ public class PlayerController : MonoBehaviour
     {
         grounded = GetComponent<Collision>().on_ground;
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
-        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x/facing_direction > 0));
-        if((grounded || wall_sliding) && !new_jump)
+        wall_sliding = (GetComponent<Collision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || move.x/facing > 0));
+        if((grounded) && !new_jump)
         {
             wall_jump = false;
             jump = false;
@@ -105,11 +105,9 @@ public class PlayerController : MonoBehaviour
         if (!is_secondary_moving)
         {
             direction = new Vector3(move.x, move.y, 0f);
-            rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
-
-            if (direction.x != 0)
+            if(direction.x != 0)
             {
-                facing = Mathf.Sign(move.x);
+                facing = Mathf.Sign(direction.x);
             }
             if (!wall_jump)
             {
@@ -117,7 +115,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .7f * Time.deltaTime);
+                rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .7f * Time.fixedDeltaTime);
             }
             Airborn();
             if (wall_sliding)
