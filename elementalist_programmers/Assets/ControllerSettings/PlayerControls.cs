@@ -268,6 +268,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3d4b89a7-8217-4421-81f9-96c33bc5b8ae"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""cdcf173d-a151-4bfb-9a97-f8cb4658eded"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -279,8 +290,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fd3cb698-16f0-422d-96f2-12ed66ac93e8"",
-                    ""path"": ""<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/hat"",
+                    ""id"": ""8bfd2cf6-042f-4250-a616-0a82eabb39df"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -290,8 +301,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8bfd2cf6-042f-4250-a616-0a82eabb39df"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""785e6a23-92d5-4ebc-a6e2-23550b8b5569"",
+                    ""path"": ""<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/hat"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
