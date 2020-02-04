@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 secondary_movement_target;
     private Vector2 secondary_movement_velocity;
 
+
+    // Direction variable
+    Vector3 direction;
+
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -55,7 +60,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
+        direction = Vector2.right;
     }
 
 
@@ -77,7 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!is_secondary_moving)
         {
-            Vector3 direction = new Vector3(move.x, move.y, 0f);
+            direction = new Vector3(move.x, move.y, 0f);
             rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
         }
     }
@@ -127,14 +132,7 @@ public class PlayerController : MonoBehaviour
         current_secondary_movement_time = 0;
         if(secondary_movement == SecondaryMovementTypes.Roll)
         {
-            if(move.x < 0)
-            {
-                secondary_movement_velocity = new Vector2(-1 * secondary_speed, 0.0f);
-            }
-            else
-            {
-                secondary_movement_velocity = new Vector2(1 * secondary_speed, 0.0f);
-            }
+            secondary_movement_velocity = new Vector2(Mathf.Sign(direction.x), 0.0f) * secondary_speed;
         }
         else
         {
@@ -147,8 +145,18 @@ public class PlayerController : MonoBehaviour
 
     private void EngageSecondaryMovement()
     {
+        Vector2 next_position = this.transform.position + new Vector3(Mathf.Sign(direction.x), 0.0f, 0.0f);
+
         if(is_secondary_moving)
         {
+            RaycastHit check_down;
+
+            if(secondary_movement == SecondaryMovementTypes.Roll
+            && !Physics.Raycast(next_position, Vector2.down * 2.0f, out check_down, 1.0f))
+            {
+                current_secondary_movement_time = secondary_movement_time;
+            }
+
             if (current_secondary_movement_time < secondary_movement_time)
             {
                 current_secondary_movement_time += Time.deltaTime;
@@ -156,10 +164,13 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+        
                 is_secondary_moving = false;
                 rigbod.velocity = Vector2.zero;
             }
         }
+
+        Debug.DrawRay(next_position, Vector2.down, Color.green);
     }
 
 
