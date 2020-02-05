@@ -22,18 +22,13 @@ public class NextLevel : MonoBehaviour
     public Material closed;
     public Material open;
 
-    //array of players
-    GameObject[] players;
-    //list of players from the array
-    public List<GameObject> playerList;
+    bool opning;
+
+
 
     private void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-            playerList.Add(player);
-        }
+    
         nextRoomSpawnLocation = spawnNextRoom.transform.position;
         LoadCams();
 
@@ -49,7 +44,7 @@ public class NextLevel : MonoBehaviour
         if (closedDoor == false)
         {
             currentDoor.GetComponent<Renderer>().material = open;
-            MoveToNextRoom();
+            StartCoroutine(MoveToNextRoom());
         }
 
         if (closedDoor == true)
@@ -70,21 +65,30 @@ public class NextLevel : MonoBehaviour
     /// next players will be able to move(Player movement needs to be compleated)
     /// Final fade back in and Doors will be closed again(fade from another project will be in soon and close door done)
     /// </summary>
-    void MoveToNextRoom()
+    public IEnumerator MoveToNextRoom()
     {
-        nextRoomCam.SetActive(true);
-        newCams.enabled = true;
-        print("Next Rooms cam is up");
-        oldCams.enabled = false;
-        oldCam.SetActive(false);
-
-        foreach (GameObject player in playerList)
+        if (opning == false)
         {
-            player.transform.position = nextRoomSpawnLocation;
-            print("I moved a player");
+            opning = true;
+            StartCoroutine(FindObjectOfType<FadeInOut>().transistion());
+            yield return new WaitForSeconds(1);
+            nextRoomCam.SetActive(true);
+            newCams.enabled = true;
+            print("Next Rooms cam is up");
+            oldCams.enabled = false;
+            oldCam.SetActive(false);
+
+            foreach (GameObject player in FindObjectOfType<PlayerManager>().playerList)
+            {
+                player.transform.position = nextRoomSpawnLocation;
+                print("I moved a player");
+            }
+            closedDoor = true;
+            opning = false;
         }
-        closedDoor = true;
     }
+
+
     void LoadCams()
     {
         oldCams = oldCam.GetComponent<AudioListener>();
@@ -101,5 +105,4 @@ public class NextLevel : MonoBehaviour
         if (oldCam.tag == "MainCamera")
             oldCams.enabled = true;
     }
-
 }
