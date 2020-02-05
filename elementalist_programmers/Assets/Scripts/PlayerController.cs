@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     protected float moveSpeed = 10f;
     protected float wall_slide_speed = -2.0f;
 
-    public bool held_jump = false;
+    public bool held_jump = false;  
     public bool jump = false;
     public float jumpForce = 7f;
     public float fallMultiplier = 2.5f;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
 
     private float retical_radius = 2.5f;
+    private GameObject ui_retical;
 
 
     // Secondary Movement variables
@@ -58,6 +59,10 @@ public class PlayerController : MonoBehaviour
     public float facing;
 
 
+    // Camera for player
+    Camera player_camera;
+
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -69,6 +74,9 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+
+        ui_retical = GameObject.Find("/Canvas/UI_Retical");
+        player_camera = Camera.main;
     }
 
     // Start is called before the first frame update
@@ -90,12 +98,10 @@ public class PlayerController : MonoBehaviour
         on_wall = GetComponent<PlayerCollision>().on_wall;
         grounded = GetComponent<PlayerCollision>().on_ground;
 
-        if(grounded || on_wall)
+        if(grounded)
         {
             secondary_reset = true;
         }
-
-        Debug.Log("Grounded: " + grounded + "Walled: " + on_wall);
 
         wall_push = (move.x * facing > 0) && (GetComponent<PlayerCollision>().col_face == facing);
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
@@ -195,12 +201,14 @@ public class PlayerController : MonoBehaviour
         {
             retical.transform.position += Vector3.forward * -9.0f;
         }
+
+        ui_retical.GetComponent<RectTransform>().anchoredPosition = retical.transform.position;
     }
 
 
     private void ImplementSecondaryMovement()
     {
-        if (!is_secondary_moving && secondary_reset && on_wall && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+        if (!is_secondary_moving && secondary_reset && !on_wall && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
         {
             current_secondary_movement_time = 0;
             if (secondary_movement == SecondaryMovementTypes.Roll)
