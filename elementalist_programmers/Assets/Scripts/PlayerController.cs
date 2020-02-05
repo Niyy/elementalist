@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     protected float moveSpeed = 10f;
     protected float wall_slide_speed = -2.0f;
 
-    public bool held_jump = false;  
+    public bool held_jump = false;
     public bool jump = false;
     public float jumpForce = 7f;
     public float fallMultiplier = 2.5f;
@@ -63,6 +63,10 @@ public class PlayerController : MonoBehaviour
     Camera player_camera;
 
 
+    // Canvas
+    Canvas canvas;
+
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -70,13 +74,14 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
         controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
-        controls.Gameplay.Jump.performed += ctx => { held_jump = true; Jump();};
+        controls.Gameplay.Jump.performed += ctx => { held_jump = true; Jump(); };
         controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
 
         ui_retical = GameObject.Find("/Canvas/UI_Retical");
         player_camera = Camera.main;
+        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
     }
 
     // Start is called before the first frame update
@@ -98,7 +103,7 @@ public class PlayerController : MonoBehaviour
         on_wall = GetComponent<PlayerCollision>().on_wall;
         grounded = GetComponent<PlayerCollision>().on_ground;
 
-        if(grounded)
+        if (grounded)
         {
             secondary_reset = true;
         }
@@ -197,12 +202,7 @@ public class PlayerController : MonoBehaviour
             retical.transform.position = left_stick_position;
         }
 
-        if (left_stick_position != this.transform.position)
-        {
-            retical.transform.position += Vector3.forward * -9.0f;
-        }
-
-        ui_retical.GetComponent<RectTransform>().anchoredPosition = retical.transform.position;
+        ui_retical.transform.position = player_camera.WorldToScreenPoint(retical.transform.position);
     }
 
 
@@ -268,4 +268,19 @@ public class PlayerController : MonoBehaviour
     {
         controls.Gameplay.Disable();
     }
+
+
+    // Source: https://stackoverflow.com/questions/45046256/move-ui-recttransform-to-world-position
+    public Vector3 worldToUISpace(Canvas parentCanvas, Vector3 worldPos)
+    {
+        //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        Vector2 movePos;
+
+        //Convert the screenpoint to ui rectangle local point
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, parentCanvas.worldCamera, out movePos);
+        //Convert the local point to world point
+        return parentCanvas.transform.TransformPoint(movePos);
+    }
+
 }
