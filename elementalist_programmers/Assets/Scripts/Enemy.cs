@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        whoAmIKilling();
+        WhoAmIKilling();
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void whoAmIKilling()
+    void WhoAmIKilling()
     {
         if(findTarget == true)
         {
