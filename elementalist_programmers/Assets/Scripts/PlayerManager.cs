@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> playerList;
 
 
-    void Start()
+    void Awake()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
