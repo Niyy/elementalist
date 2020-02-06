@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //[SerializeField]
+    //private InputManagement controls;
     PlayerControls controls;
     protected Vector2 move;
     private Rigidbody rigbod;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float wall_jump_force = 10f;
     public bool on_wall;
     public bool wall_push = false;
+    int player_id;
 
     // Retical variables
     public GameObject retical;
@@ -63,12 +66,15 @@ public class PlayerController : MonoBehaviour
     {
         rigbod = GetComponent<Rigidbody>();
         controls = new PlayerControls();
-
         controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
-        controls.Gameplay.Jump.performed += ctx => { held_jump = true; Jump();};
-        controls.Gameplay.Jump.canceled += ctx => held_jump = false;
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
+        //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
+        //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+    }
+    private void OnMove(InputValue value)
+    {
+        move = value.Get<Vector2>();
     }
 
     // Start is called before the first frame update
@@ -82,6 +88,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         ReticleMovement();
+       
     }
 
 
@@ -143,7 +150,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void OnJump(InputValue value)
     {
         if (grounded)
         {
