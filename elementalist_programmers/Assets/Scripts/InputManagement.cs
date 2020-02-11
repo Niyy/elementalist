@@ -36,7 +36,7 @@ public class InputManagement : MonoBehaviour
         {
             players[i] = InputUser.CreateUserWithoutPairedDevices();
         }
-
+        
     }
 
     public void OnControlsChanged(InputUser user, InputUserChange change, InputDevice device)
@@ -77,7 +77,8 @@ public class InputManagement : MonoBehaviour
                 {
                     // pair the new Gamepad device to that user
                     players[i] = InputUser.PerformPairingWithDevice(control.device, players[i]);
-                    PlayerInput.Instantiate(prefab[i], -1, controlScheme, -1, pair_with_device);
+                    //players[i].ActivateControlScheme(controlScheme);
+                    PlayerInput p1 = PlayerInput.Instantiate(prefab[i], -1, controlScheme, -1, pair_with_device);
                     return;
                 }
             }

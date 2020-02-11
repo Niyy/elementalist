@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 secondary_movement_target;
     private Vector2 secondary_movement_velocity;
 
+    PlayerInput inputAction;
 
     // Direction variable
     private Vector3 direction;
