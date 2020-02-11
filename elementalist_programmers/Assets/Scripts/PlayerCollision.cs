@@ -22,25 +22,40 @@ public class PlayerCollision : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        RaycastHit hit;
+        RaycastHit  hit_ground,
+                    hit_left,
+                    hit_right;
         Ray y_Ray = new Ray(transform.position, Vector3.down);
         Ray left_ray = new Ray(transform.position, Vector3.left);
         Ray right_ray = new Ray(transform.position, Vector3.right);
-        on_ground = Physics.Raycast(y_Ray, out hit, ray_height);
-        left_col = Physics.Raycast(left_ray, out hit, ray_width);
-        right_col = Physics.Raycast(right_ray, out hit, ray_width);
+        on_ground = Physics.Raycast(y_Ray, out hit_ground, ray_height);
+        left_col = Physics.Raycast(left_ray, out hit_left, ray_width);
+        right_col = Physics.Raycast(right_ray, out hit_right, ray_width);
+
+        
         if (right_col)
         {
             col_face = 1;
+
+            if(hit_right.collider.gameObject.layer == 9)
+            {
+                right_col = false;
+            }
         }
         else if (left_col)
         {
             col_face = -1;
+
+            if(hit_left.collider.gameObject.layer == 9)
+            {
+                left_col = false;
+            }
         }
         else
         {
             col_face = 0;
         }
-        on_wall = (right_col || left_col );
+
+        on_wall = (right_col || left_col);
     }
 }

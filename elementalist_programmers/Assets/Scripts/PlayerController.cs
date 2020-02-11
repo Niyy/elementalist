@@ -221,6 +221,7 @@ public class PlayerController : MonoBehaviour
                 grounded = false;
             }
 
+            Physics.IgnoreLayerCollision(8, 9, true);
             rigbod.velocity = secondary_movement_velocity;
             is_secondary_moving = true;
             wall_jump = false;
@@ -249,6 +250,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
                 secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
@@ -256,6 +258,12 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.DrawRay(next_position, Vector2.down, Color.green);
+    }
+
+
+    public bool IsInVulnerable()
+    {
+        return is_secondary_moving;
     }
 
 
@@ -268,19 +276,4 @@ public class PlayerController : MonoBehaviour
     {
         controls.Gameplay.Disable();
     }
-
-
-    // Source: https://stackoverflow.com/questions/45046256/move-ui-recttransform-to-world-position
-    public Vector3 worldToUISpace(Canvas parentCanvas, Vector3 worldPos)
-    {
-        //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        Vector2 movePos;
-
-        //Convert the screenpoint to ui rectangle local point
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, parentCanvas.worldCamera, out movePos);
-        //Convert the local point to world point
-        return parentCanvas.transform.TransformPoint(movePos);
-    }
-
 }
