@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-
-
     //array of players
     GameObject[] players;
     //list of players from the array
@@ -20,6 +18,4 @@ public class PlayerManager : MonoBehaviour
             playerList.Add(player);
         }
     }
-
-
 }

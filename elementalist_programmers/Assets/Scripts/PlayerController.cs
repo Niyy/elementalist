@@ -7,28 +7,36 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    // Respawn Variables
+    [Header("Respawn Variables")]
+    public GameObject respawn_point;
+
+
     PlayerControls controls;
     protected Vector2 move;
     private Rigidbody rigbod;
     protected float moveSpeed = 10f;
-    protected float wall_slide_speed = -2.0f;
 
+    [Header("Jumping Variables")]
     public bool held_jump = false;
     public bool jump = false;
     public float jumpForce = 7f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public bool grounded;
-    public bool wall_sliding;
 
+    [Header("Wall Jumping Variables")]
     public bool wall_jump = false;
     public bool new_jump = false;
     public Vector3 wall_jump_direction = (new Vector3(.7f, 1f, 0.0f));
     public float wall_jump_force = 10f;
     public bool on_wall;
     public bool wall_push = false;
+    public bool wall_sliding;
+    protected float wall_slide_speed = -2.0f;
 
     // Retical variables
+    [Header("Reticle Variables")]
     public GameObject retical;
 
 
@@ -37,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Secondary Movement variables
+    [Header("Secondary Movement Variables")]
     public float secondary_speed;
     public float secondary_movement_time;
     public SecondaryMovementTypes secondary_movement = SecondaryMovementTypes.Dash;
@@ -275,5 +284,12 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         controls.Gameplay.Disable();
+    }
+
+
+    public void SetRespawnPoint(GameObject newSpawnPoint)
+    {
+        Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
+        respawn_point = newSpawnPoint;
     }
 }

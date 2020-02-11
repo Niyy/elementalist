@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2860172928236456597}
   - component: {fileID: 2860172928236456598}
   - component: {fileID: 2860172928236456599}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,19 +140,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawn_point: {fileID: 0}
   held_jump: 0
   jump: 0
   jumpForce: 7
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   grounded: 0
-  wall_sliding: 0
   wall_jump: 0
   new_jump: 0
   wall_jump_direction: {x: 0.7, y: 1, z: 0}
   wall_jump_force: 10
   on_wall: 0
   wall_push: 0
+  wall_sliding: 0
   retical: {fileID: 0}
   secondary_speed: 20
   secondary_movement_time: 0.2
