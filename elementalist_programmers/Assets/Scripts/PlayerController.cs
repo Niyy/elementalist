@@ -76,6 +76,11 @@ public class PlayerController : MonoBehaviour
     Canvas canvas;
 
 
+    // Death Variables
+    private float death_timer;
+    private float current_timer;
+
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -291,5 +296,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
         respawn_point = newSpawnPoint;
+    }
+
+
+    public void PlayerDeath(float death_time)
+    {
+
     }
 }
