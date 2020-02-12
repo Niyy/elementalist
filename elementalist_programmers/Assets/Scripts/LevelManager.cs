@@ -14,8 +14,8 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (coins >= coinsNeededForBoss)
-            bossDoor.closedDoor = false;
+        //if (coins >= coinsNeededForBoss)
+           // bossDoor.closedDoor = false;
     }
 
 }

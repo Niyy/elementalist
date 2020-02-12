@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyC : Enemy
 {
 
-    
+   
     private Rigidbody rb;
     private Vector2 movement;
     
@@ -18,6 +18,7 @@ public class EnemyC : Enemy
 
     private void Update()
     {
+        death();
         Vector3 direction = target.transform.position - transform.position;
         
         direction.Normalize();
