@@ -5,13 +5,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // health but its one hit kill so just a true or false
-    bool alive = true;
+    public bool alive = true;
     //allows the Level desginer to set if they want the enemy to target one indvidual player or not
     public bool findTarget = false;
     //Who am I trying to kill
     public GameObject target;
     //Enemys speed
     public float speed = 0f;
+
+    public RoomManager myRoom;
+
 
 
 
@@ -28,10 +31,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (alive == false)
-        {
-            Destroy(this.gameObject);
-        }
+        death();
 
 
 
@@ -49,5 +49,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
+    public void death()
+    {
+        if (alive == false)
+        {
+            myRoom.enemys.Remove(this.gameObject);
+            Destroy(this.gameObject);
+        }
+    }
 }
