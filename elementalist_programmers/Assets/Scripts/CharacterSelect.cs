@@ -5,20 +5,43 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelect : MonoBehaviour
 {
-    public GameObject[] prefab;
-    PlayerInputManager playerInputManager;
-    InputDevice pairWithDevice;
-    // Start is called before the first frame update
-    void Start()
+    private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,2f,0), new Vector3(-1.5f, 2f, 0), new Vector3(1.5f, 2f, 0), new Vector3(4.5f, 2f, 0) }; 
+    Vector2 move;
+    Vector3 position;
+    int choice;
+
+    private void OnMove(InputValue value)
     {
-        playerInputManager = new PlayerInputManager();
-        playerInputManager.playerPrefab = prefab[1];
-        playerInputManager.JoinPlayer(-1, -1, null, pairWithDevice: Keyboard.current);
+        move = value.Get<Vector2>();
+        if (move.x > 0f)
+        {
+            choice++;
+            if(choice > selections.Length - 1)
+            {
+                choice = 0;
+            }
+        }
+        else if (move.x < 0f)
+        {
+            choice--;
+            if(choice < 0)
+            {
+                choice = (selections.Length - 1);
+            }
+        }
+        Debug.Log(choice);
+        transform.position = selections[choice];
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
+        transform.position = selections[0];
+    }
+
+    private void Awake()
+    {
+        Debug.Log("onenable length: " + selections.Length);
         
+        choice = 0;
     }
 }

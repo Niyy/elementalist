@@ -17,13 +17,12 @@ public class DetectUsers : MonoBehaviour
         playerInputManager = new PlayerInputManager();
         InputUser.listenForUnpairedDeviceActivity = 4;
         InputUser.onUnpairedDeviceUsed += ListenForUnpairedDevices;
-
     }
 
     void ListenForUnpairedDevices(InputControl control, InputEventPtr arg)
     {
         Debug.Log("Found unpaired device");
-        if (control.device is Gamepad || control.device is Keyboard)
+        if ((control.device is Gamepad || control.device is Keyboard))
         {
             InputDevice pair_with_device = control.device;
             if (playerInputManager.playerCount < 4)
@@ -32,6 +31,11 @@ public class DetectUsers : MonoBehaviour
                 playerInputManager.JoinPlayer(-1, -1, controlScheme, pair_with_device);
             }
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        InputUser.listenForUnpairedDeviceActivity = 0;
     }
 }
 
