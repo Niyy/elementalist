@@ -41,6 +41,6 @@ public class Interactable : MonoBehaviour
 
     private void ActivateCollectable()
     {
-
+        Destroy(this.gameObject);
     }
 }
