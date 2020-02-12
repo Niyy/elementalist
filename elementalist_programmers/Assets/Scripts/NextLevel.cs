@@ -44,7 +44,6 @@ public class NextLevel : MonoBehaviour
         if (closedDoor == false)
         {
             currentDoor.GetComponent<Renderer>().material = open;
-            StartCoroutine(MoveToNextRoom());
         }
 
         if (closedDoor == true)
@@ -104,5 +103,16 @@ public class NextLevel : MonoBehaviour
             nextRoomCam.SetActive(true);
         if (oldCam.tag == "MainCamera")
             oldCams.enabled = true;
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag.Equals("Player") 
+            && closedDoor == false)
+        {
+            StartCoroutine(MoveToNextRoom());
+        }
     }
 }
