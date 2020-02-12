@@ -18,6 +18,12 @@ public class Interactable : MonoBehaviour
     private GameObject level_manager;
 
 
+    private void Awake() 
+    {
+        level_manager = GameObject.Find("LevelManager");
+    }
+
+
     private void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.tag.Equals("Player"))
@@ -41,6 +47,7 @@ public class Interactable : MonoBehaviour
 
     private void ActivateCollectable()
     {
+        level_manager.GetComponent<LevelManager>().AddToCollectedCoins();
         Destroy(this.gameObject);
     }
 }

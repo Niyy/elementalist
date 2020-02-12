@@ -18,4 +18,9 @@ public class LevelManager : MonoBehaviour
            // bossDoor.closedDoor = false;
     }
 
+
+    public void AddToCollectedCoins(int amount_add = 1)
+    {
+        coins += amount_add;
+    }
 }
