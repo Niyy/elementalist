@@ -14,7 +14,7 @@ public class DetectUsers : MonoBehaviour
     private void Start()
     {
 
-        playerInputManager = new PlayerInputManager();
+        playerInputManager = GetComponent<PlayerInputManager>();
         InputUser.listenForUnpairedDeviceActivity = 4;
         InputUser.onUnpairedDeviceUsed += ListenForUnpairedDevices;
     }

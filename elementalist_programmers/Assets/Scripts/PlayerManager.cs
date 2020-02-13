@@ -8,17 +8,18 @@ public class PlayerManager : MonoBehaviour
     //save instance of a player
     //array of players
     GameObject[] players;
-    //list of players from the array
     public List<GameObject> playerList;
 
 
     void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-            playerList.Add(player);
-        }
+        DontDestroyOnLoad(this.gameObject);
+
+        //playerList.Add();
+    }
+    void GetPlayers()
+    {
+
     }
 
     List<GameObject> GetPlayerList()

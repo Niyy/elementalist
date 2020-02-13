@@ -396,7 +396,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""650fa057-29ce-4752-98fe-178007be73c6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Back"",
