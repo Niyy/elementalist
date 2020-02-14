@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelector : MonoBehaviour
 {
+    PlayerInput playerInput;
     private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,0), new Vector3(-1.5f, 4f, 0), new Vector3(1.5f, 4f, 0), new Vector3(4.5f, 4f, 0) }; 
     Vector2 move;
     Vector3 position;
@@ -20,6 +21,7 @@ public class CharacterSelector : MonoBehaviour
 
     private void Start()
     {
+        playerInput = GetComponent<PlayerInput>();
         transform.position = selections[0];
         CharSel = GameObject.Find("CharacterSelect");
     }
@@ -63,7 +65,7 @@ public class CharacterSelector : MonoBehaviour
             return;
         }
         print("onselect");
-        selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice);
+        selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice,playerInput);
     }
 
     private void OnBack()

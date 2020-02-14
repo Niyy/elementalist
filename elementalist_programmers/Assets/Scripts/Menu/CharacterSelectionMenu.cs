@@ -1,11 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterSelectionMenu : MonoBehaviour
 {
-    private bool[] character_free = new bool[] {true,true,true,true};
-    public GameObject[] characters;
+    private struct Character
+    {
+        public bool free;
+        PlayerInput playerInput;
+        public Character(bool _free, PlayerInput _playerInput)
+        {
+            free = _free;
+            playerInput = _playerInput;
+        }
+    }
+    private Character[] characters = new Character[] { new Character(true, null), new Character(true, null), new Character(true, null), new Character(true, null) };
+    public GameObject[] prefabs;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +29,11 @@ public class CharacterSelectionMenu : MonoBehaviour
         
     }
     
-    public bool CharacterAvailable(int choice)
+    public bool CharacterAvailable(int choice, PlayerInput playerInput)
     {
-        if (character_free[choice])
+        if (characters[choice].free)
         {
-            character_free[choice] = false;
+            characters[choice] = new Character(false, playerInput);
             return true;
         }
         else
@@ -33,6 +44,9 @@ public class CharacterSelectionMenu : MonoBehaviour
 
     void BeginGame()
     {
+        for(int i = 0; i < characters.Length; i++)
+        {
 
+        }
     }
 }
