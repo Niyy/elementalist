@@ -248,7 +248,9 @@ MonoBehaviour:
   target: {fileID: 0}
   myRoom: {fileID: 0}
   direction: 1
-  patrol_wait_timer: 0
+  patrol_wait_timer: 2
+  search_arch: 0
+  sight_distance: 0
 --- !u!1 &518295230
 GameObject:
   m_ObjectHideFlags: 0
