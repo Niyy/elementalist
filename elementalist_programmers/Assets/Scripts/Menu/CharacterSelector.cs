@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelector : MonoBehaviour
 {
-    public PlayerInput playerInput;
     private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,1f), new Vector3(-1.5f, 4f, 1f), new Vector3(1.5f, 4f, 1f), new Vector3(4.5f, 4f, 1f) }; 
     Vector2 move;
     Vector3 position;
     int choice;
     bool selected = false;
     bool starting = true;
+    bool selecting = true;
     GameObject CharSel;
 
     private void Awake()
@@ -21,7 +21,6 @@ public class CharacterSelector : MonoBehaviour
 
     private void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
         transform.position = selections[0];
         CharSel = GameObject.Find("CharacterSelect");
     }
@@ -65,7 +64,7 @@ public class CharacterSelector : MonoBehaviour
         {
             return;
         }
-        selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice,playerInput);
+        selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice, this.transform.parent.gameObject);
         transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
     }
 
@@ -85,12 +84,13 @@ public class CharacterSelector : MonoBehaviour
 
     private void OnStartGame()
     {
-        if (!selected)
+        if (!selected || !selecting)
         {
             return;
         }
         else
         {
+            selecting = false;
             CharSel.GetComponent<CharacterSelectionMenu>().BeginGame();
         }
     }

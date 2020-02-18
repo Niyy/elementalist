@@ -74,12 +74,12 @@ public class PlayerController : MonoBehaviour
         //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
-        if (unsaved)
-        {
-            GameObject playerManager = GameObject.Find("PlayerManager");
-            unsaved = false;
-            playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
-        }
+        //if (unsaved)
+        //{
+        //    GameObject playerManager = GameObject.Find("PlayerManager");
+        //    unsaved = false;
+        //    playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
+        //}
     }
     private void OnMove(InputValue value)
     {
