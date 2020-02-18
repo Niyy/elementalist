@@ -12,10 +12,18 @@ public class PlayerController : MonoBehaviour
     public GameObject respawn_point;
 
 
+    // Movement Variables
+    [Header("Movement Variables")]
+    public float stunned_wait_timer;
+
     PlayerControls controls;
     protected Vector2 move;
     private Rigidbody rigbod;
     protected float moveSpeed = 10f;
+    private bool stunned;
+    private float stunned_counter;
+    private Vector3 stunned_forces;
+
 
     [Header("Jumping Variables")]
     public bool held_jump = false;
@@ -24,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public bool grounded;
+
 
     [Header("Wall Jumping Variables")]
     public bool wall_jump = false;
@@ -64,8 +73,16 @@ public class PlayerController : MonoBehaviour
 
 
     // Direction variable
-    private Vector3 direction;
+    [Header("Direction Variables")]
+    [Range(-1, 1)]
     public float facing;
+    
+
+    private Vector3 direction;
+
+
+    //Combat variables
+    private bool attacking;
 
 
     // Camera for player
@@ -95,7 +112,11 @@ public class PlayerController : MonoBehaviour
 
         ui_retical = GameObject.Find("/Canvas/UI_Retical");
         player_camera = Camera.main;
+        retical = GameObject.Find("/Reticle");
         canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
+        stunned = false;
+
+        stunned_counter = stunned_wait_timer;
     }
 
     // Start is called before the first frame update
@@ -135,13 +156,14 @@ public class PlayerController : MonoBehaviour
             new_jump = false;
         }
 
+        
         Move();
         EngageSecondaryMovement();
     }
 
     private void Move()
     {
-        if (!is_secondary_moving)
+        if (!is_secondary_moving && !stunned)
         {
             direction = new Vector3(move.x, move.y, 0f);
             if (direction.x != 0)
@@ -165,6 +187,10 @@ public class PlayerController : MonoBehaviour
                     rigbod.velocity = (new Vector3(rigbod.velocity.x, wall_slide_speed, 0.0f));
                 }
             }
+        }
+        else
+        {
+            StunnedActions();
         }
     }
 
@@ -222,7 +248,8 @@ public class PlayerController : MonoBehaviour
 
     private void ImplementSecondaryMovement()
     {
-        if (!is_secondary_moving && secondary_reset && !on_wall && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+        if (!is_secondary_moving && secondary_reset && !on_wall && !stunned
+            && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
         {
             current_secondary_movement_time = 0;
             if (secondary_movement == SecondaryMovementTypes.Roll)
@@ -292,6 +319,24 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void StunnedActions()
+    {
+        if(stunned_counter == 0)
+        {
+            rigbod.velocity = stunned_forces;
+        }
+
+        if(stunned_counter < stunned_wait_timer && rigbod.velocity != Vector3.zero)
+        {
+            stunned_counter += Time.deltaTime;
+        }
+        else
+        {
+            stunned = false;
+        }
+    }
+
+
     public void SetRespawnPoint(GameObject newSpawnPoint)
     {
         Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
@@ -302,5 +347,20 @@ public class PlayerController : MonoBehaviour
     public void PlayerDeath(float death_time)
     {
 
+    }
+
+
+    public void Recoil(float recoil_speed, int enemy_direction)
+    {
+        stunned_forces = new Vector3(enemy_direction * recoil_speed, rigbod.velocity.y, 0.0f);
+        stunned = true;
+        stunned_counter = 0;
+        Debug.Log("Shouldn't I be flying back. " + rigbod.velocity);
+    }
+
+
+    public bool GetAttackStatus()
+    {
+        return attacking;
     }
 }
