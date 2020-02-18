@@ -81,6 +81,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
 
 
+    //Combat variables
+    private bool attacking;
+
+
     // Camera for player
     Camera player_camera;
 
