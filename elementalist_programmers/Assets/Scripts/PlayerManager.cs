@@ -7,7 +7,6 @@ public class PlayerManager : MonoBehaviour
 
     //save instance of a player
     //array of players
-    GameObject[] players;
     public List<GameObject> playerList;
 
 
@@ -17,9 +16,9 @@ public class PlayerManager : MonoBehaviour
 
         //playerList.Add();
     }
-    void GetPlayers()
+    public void GetPlayers(GameObject player)
     {
-
+        playerList.Add(player);
     }
 
     List<GameObject> GetPlayerList()

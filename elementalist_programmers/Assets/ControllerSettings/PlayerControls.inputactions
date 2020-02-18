@@ -234,7 +234,7 @@
                 {
                     "name": "",
                     "id": "1458df28-bb20-4cdd-afae-efb6a9f86128",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -389,6 +389,14 @@
                     "name": "Back",
                     "type": "Button",
                     "id": "39618e5c-58bf-4f0f-8944-e7d5e748958e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "StartGame",
+                    "type": "Button",
+                    "id": "f206619c-b63d-439c-aa68-cb27c78eb843",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -574,7 +582,7 @@
                 {
                     "name": "",
                     "id": "15beb032-c62a-4763-88e6-109ec5497483",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -601,6 +609,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d8a8935-7f0a-4315-aa9a-5faed256c768",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6bf4b33-c00c-4f64-89b1-36b0a2ab2f41",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

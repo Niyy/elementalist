@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelector : MonoBehaviour
 {
-    PlayerInput playerInput;
-    private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,0), new Vector3(-1.5f, 4f, 0), new Vector3(1.5f, 4f, 0), new Vector3(4.5f, 4f, 0) }; 
+    public PlayerInput playerInput;
+    private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,1f), new Vector3(-1.5f, 4f, 1f), new Vector3(1.5f, 4f, 1f), new Vector3(4.5f, 4f, 1f) }; 
     Vector2 move;
     Vector3 position;
     int choice;
@@ -28,7 +28,7 @@ public class CharacterSelector : MonoBehaviour
 
     private void Update()
     {
-        transform.position = selections[choice];
+        
         starting = false;
     }
 
@@ -55,23 +55,43 @@ public class CharacterSelector : MonoBehaviour
                 choice = (selections.Length - 1);
             }
         }
-        
+        transform.position = selections[choice];
+
     }
 
     private void OnSelect()
     {
-        if (selected)
+        if (selected || starting)
         {
             return;
         }
-        print("onselect");
         selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice,playerInput);
+        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
     }
 
     private void OnBack()
     {
-        print("onback");
+        if (!selected || starting)
+        {
+            return;
+        }
+        else
+        {
+            selected = false;
+            CharSel.GetComponent<CharacterSelectionMenu>().RemoveSelection(choice);
+            transform.position = selections[choice];
+        }
     }
 
-
+    private void OnStartGame()
+    {
+        if (!selected)
+        {
+            return;
+        }
+        else
+        {
+            CharSel.GetComponent<CharacterSelectionMenu>().BeginGame();
+        }
+    }
 }

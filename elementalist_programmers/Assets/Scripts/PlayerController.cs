@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     //[SerializeField]
-    //private InputManagement controls;
+    public PlayerInput playerInput;
     PlayerControls controls;
     protected Vector2 move;
     private Rigidbody rigbod;
@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
     public float facing;
 
+    bool unsaved = true;
+    
 
     // Start is called before the first frame update
     private void Awake()
@@ -72,6 +74,12 @@ public class PlayerController : MonoBehaviour
         //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        if (unsaved)
+        {
+            GameObject playerManager = GameObject.Find("PlayerManager");
+            unsaved = false;
+            playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
+        }
     }
     private void OnMove(InputValue value)
     {
