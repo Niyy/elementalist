@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
 
         ui_retical = GameObject.Find("/Canvas/UI_Retical");
+        retical = GameObject.Find("/Reticle");
         player_camera = Camera.main;
         canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
     }

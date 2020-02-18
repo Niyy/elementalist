@@ -8,22 +8,30 @@ public class EnemyB : Enemy
     [Range(-1, 1)]
     public int direction;
     public float patrol_wait_timer;
+
+
+    private float current_patrol_timer;
+    private new Rigidbody rigidbody;
+    private float lowJumpMultiplier = 2f;
+
+
+    [Header("Movement Variables")]
+    public float offset = 0.75f;
     public float search_arch;
     public float sight_distance;
 
 
-    private float current_patrol_timer;
-
-
-    private new Rigidbody rigidbody;
-    private float lowJumpMultiplier = 2f;
+    private float cur_search_arch;
+    private float arch_adder;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        current_patrol_timer = 0;
+        current_patrol_timer = patrol_wait_timer;
+        cur_search_arch = 0;
         rigidbody = this.GetComponent<Rigidbody>();
+        arch_adder = search_arch / 16.0f;
     }
 
 
@@ -31,23 +39,25 @@ public class EnemyB : Enemy
     void FixedUpdate()
     {
         EngageMovement();
+        SearchLineOfSight();
     }
 
 
     private void Update()
     {
-        DebugStatements();
+       
     }
 
 
     private void EngageMovement()
     {
-        Vector2 next_position = this.transform.position + new Vector3(direction * 0.75f, 0.0f, 0.0f);
+        Vector2 next_position = this.transform.position + new Vector3(direction * offset, 0.0f, 0.0f);
         RaycastHit check_down;
-        if(current_patrol_timer > patrol_wait_timer)
+
+        if(current_patrol_timer < patrol_wait_timer)
         {
             current_patrol_timer += Time.deltaTime;
-            this.rigidbody.velocity = Vector2.zero;
+            this.rigidbody.velocity = new Vector2(0.0f, this.rigidbody.velocity.y);
         }
         else
         {
@@ -62,19 +72,40 @@ public class EnemyB : Enemy
             }
         }
 
-        Debug.DrawRay(next_position, Vector2.down, Color.green);
+        Debug.DrawRay(next_position, Vector2.down * 2.0f, Color.yellow);
     }
 
 
     private void SearchLineOfSight()
     {
         RaycastHit line_of_sight;
+        Vector3 search_point = new Vector3(direction * Mathf.Cos(cur_search_arch * Mathf.Deg2Rad), 
+                                            Mathf.Sin(cur_search_arch * Mathf.Deg2Rad), 0.0f);
 
-    }
+        if(Physics.Raycast(this.transform.position, search_point, out line_of_sight, sight_distance))
+        {
+            if(line_of_sight.collider.gameObject.tag.Equals("Player"))
+            {
+                current_patrol_timer = 0;
+                Debug.DrawLine(this.transform.position, line_of_sight.point, Color.red);
+            }
+            else
+            {
+                Debug.DrawLine(this.transform.position, line_of_sight.point, Color.green);
+                cur_search_arch += arch_adder;
+            }
+        }
+        else
+        {
+            Debug.DrawRay(this.transform.position, search_point * sight_distance, Color.yellow);
+            Debug.Log("Current angle: " + cur_search_arch);
+            cur_search_arch += arch_adder;
+        }
 
 
-    private void DebugStatements()
-    {
-        Debug.DrawRay(this.transform.position + (Vector2.right * offset), new Vector2(direction, 0.0f), Color.yellow, sight_distance);
+        if(cur_search_arch > search_arch || cur_search_arch <= -search_arch)
+        {
+            arch_adder = -arch_adder;
+        }
     }
 }

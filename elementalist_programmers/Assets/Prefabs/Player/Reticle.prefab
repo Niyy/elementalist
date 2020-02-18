@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3932687617251709603}
   - component: {fileID: 17066892}
   m_Layer: 0
-  m_Name: Retical
+  m_Name: Reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
