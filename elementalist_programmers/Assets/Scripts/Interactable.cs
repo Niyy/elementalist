@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Interactable : MonoBehaviour
 {
-    public GameObject room_manager;
+    public RoomManager room_manager;
     public InteractableChoice interactable_choice;
     public enum InteractableChoice
     {
@@ -48,6 +48,10 @@ public class Interactable : MonoBehaviour
     private void ActivateCollectable()
     {
         level_manager.GetComponent<LevelManager>().AddToCollectedCoins();
+        if (room_manager.switchs.Contains(this.gameObject))
+        {
+            room_manager.switchs.Remove(this.gameObject);
+        }    
         Destroy(this.gameObject);
     }
 }
