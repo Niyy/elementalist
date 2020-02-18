@@ -31,7 +31,15 @@ public class EnemyB : Enemy
         current_patrol_timer = patrol_wait_timer;
         cur_search_arch = 0;
         rigidbody = this.GetComponent<Rigidbody>();
-        arch_adder = search_arch / 16.0f;
+
+        if(search_arch == 0)
+        {
+            arch_adder = 0;
+        }
+        else
+        {
+            arch_adder = search_arch / 16.0f;
+        }
     }
 
 
