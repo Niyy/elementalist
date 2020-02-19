@@ -68,9 +68,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
-        controls = new PlayerControls();
-        controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
-        controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
+        //controls = new PlayerControls();
+        //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
+        //controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
         //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour
         {
             rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
             jump = true;
+            print(jump);
             grounded = false;
             new_jump = true;
         }
@@ -179,6 +180,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnJumpPress(InputValue value)
+    {
+        held_jump = value.isPressed;
+    }
 
     private void Airborn()
     {
@@ -186,7 +191,7 @@ public class PlayerController : MonoBehaviour
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rigbod.velocity.y > 0 && !held_jump && jump)
+        else if (rigbod.velocity.y > 0 && !held_jump)
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
@@ -267,13 +272,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void OnEnable()
-    {
-        controls.Gameplay.Enable();
-    }
+    //void OnEnable()
+    //{
+    //    controls.Gameplay.Enable();
+    //}
 
-    private void OnDisable()
-    {
-        controls.Gameplay.Disable();
-    }
+    //private void OnDisable()
+    //{
+     //   controls.Gameplay.Disable();
+    //}
 }

@@ -8,7 +8,7 @@ public class PlayerCollision : MonoBehaviour
 {
     public bool on_ground, on_wall;
     public float ray_height = 1.0f;
-    public float ray_width = 0.501f;
+    public float ray_width = 0.500f;
     public float col_face = 1;
     bool left_col = false;
     bool right_col = false;

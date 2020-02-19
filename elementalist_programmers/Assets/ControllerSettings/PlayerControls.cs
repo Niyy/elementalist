@@ -35,6 +35,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""JumpPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdf0abc6-0ce5-47b2-bd73-71f4a5ac56db"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""029bb9a0-bc30-4f15-86eb-2283fcb90f6f"",
@@ -375,6 +383,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dcb59849-9d5d-42a6-a06d-e07bd97a9596"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""314b76ad-8bf7-41ff-bbfc-1aeb90780b9a"",
+                    ""path"": ""<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/button2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c080f9a1-ad54-428e-a8c6-d1f70d641195"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JumpPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -656,6 +697,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_JumpPress = m_Gameplay.FindAction("JumpPress", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
         m_Gameplay_Special = m_Gameplay.FindAction("Special", throwIfNotFound: true);
@@ -717,6 +759,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_JumpPress;
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_Aim;
     private readonly InputAction m_Gameplay_Special;
@@ -727,6 +770,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @JumpPress => m_Wrapper.m_Gameplay_JumpPress;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
         public InputAction @Special => m_Wrapper.m_Gameplay_Special;
@@ -746,6 +790,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                @JumpPress.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJumpPress;
+                @JumpPress.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJumpPress;
+                @JumpPress.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJumpPress;
                 @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
@@ -768,6 +815,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @JumpPress.started += instance.OnJumpPress;
+                @JumpPress.performed += instance.OnJumpPress;
+                @JumpPress.canceled += instance.OnJumpPress;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
@@ -845,6 +895,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnJumpPress(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);

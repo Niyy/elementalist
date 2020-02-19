@@ -52,6 +52,7 @@ public class CharacterSelectionMenu : MonoBehaviour
                 prefabs[i].GetComponent<Rigidbody>().constraints = ~RigidbodyConstraints.FreezePositionX & ~RigidbodyConstraints.FreezePositionY;
                 prefabs[i].transform.parent = characters[i].parent.transform;
                 characters[i].parent.GetComponent<PlayerInput>().SwitchCurrentActionMap("Gameplay");
+                characters[i].parent.transform.GetChild(0).gameObject.active = false;
                 //PlayerInput.Instantiate(prefabs[i], -1, "PlayerControls", -1, characters[i].playerInput.devices[0]);
                 Debug.Log("freeing character");
                 //Debug.Log(characters[i].playerInput.user);
