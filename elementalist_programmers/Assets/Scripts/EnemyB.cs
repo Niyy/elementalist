@@ -50,12 +50,6 @@ public class EnemyB : Enemy
     }
 
 
-    private void Update()
-    {
-       
-    }
-
-
     private void EngageMovement()
     {
         Vector2 next_position = this.transform.position + new Vector3(direction * offset, 0.0f, 0.0f);
