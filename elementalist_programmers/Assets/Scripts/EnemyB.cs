@@ -8,6 +8,9 @@ public class EnemyB : Enemy
     public float offset = 0.75f;
     public float search_arch;
     public float sight_distance;
+
+    
+    [Header("B-Tier Variables")]
     [Range(-1, 1)]
     public int direction;
     public float patrol_wait_timer;
@@ -22,6 +25,16 @@ public class EnemyB : Enemy
 
     [Header("Attack Variables")]
     public float recoil_speed;
+
+    
+    [Header("Movement Variables")]
+    public float offset = 0.75f;
+    public float search_arch;
+    public float sight_distance;
+
+
+    private float cur_search_arch;
+    private float arch_adder;
 
 
     // Start is called before the first frame update
@@ -39,6 +52,8 @@ public class EnemyB : Enemy
         {
             arch_adder = search_arch / 16.0f;
         }
+        
+        arch_adder = search_arch / 16.0f;
     }
 
 
@@ -99,6 +114,7 @@ public class EnemyB : Enemy
         else
         {
             Debug.DrawRay(this.transform.position, search_point * sight_distance, Color.yellow);
+            Debug.Log("Current angle: " + cur_search_arch);
             cur_search_arch += arch_adder;
         }
 
