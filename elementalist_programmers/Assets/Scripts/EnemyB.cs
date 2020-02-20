@@ -9,6 +9,10 @@ public class EnemyB : Enemy
     public float search_arch;
     public float sight_distance;
 
+
+    private float cur_search_arch;
+    private float arch_adder;
+
     
     [Header("B-Tier Variables")]
     [Range(-1, 1)]
@@ -16,25 +20,12 @@ public class EnemyB : Enemy
     public float patrol_wait_timer;
 
 
-    private float cur_search_arch;
-    private float arch_adder;
     private float current_patrol_timer;
     private new Rigidbody rigidbody;
-    private float lowJumpMultiplier = 2f;
 
 
     [Header("Attack Variables")]
     public float recoil_speed;
-
-    
-    [Header("Movement Variables")]
-    public float offset = 0.75f;
-    public float search_arch;
-    public float sight_distance;
-
-
-    private float cur_search_arch;
-    private float arch_adder;
 
 
     // Start is called before the first frame update
