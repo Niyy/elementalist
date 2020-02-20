@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ryan-menutest.unity
     guid: c2271d0df2e9c3d44b74bf44e2624bf7
+  - enabled: 1
+    path: Assets/Scenes/ryan-test.unity
+    guid: 76198eab8baaa8c4bbeacd44fd4dd8fb
   m_configObjects: {}

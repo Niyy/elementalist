@@ -5,8 +5,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public void SpawnPlayer(GameObject prefab, string control_scheme, InputDevice pair_with_device)
+    public List<GameObject> players;
+
+    private void Start()
     {
-        PlayerInput.Instantiate(prefab, -1, control_scheme, -1, pair_with_device);
+        players = GameObject.Find("PlayerManager").GetComponent<PlayerManager>().GetPlayerList();
+        float i = 0f;
+        foreach (GameObject player in players)
+        {
+            Instantiate(player, transform.localPosition + new Vector3(i,0f), transform.localRotation);
+            i+=1.25f;
+        }
+    }
+
+    /*void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Vector3 size = new Vector3(1f, 2f);
+        Gizmos.DrawSphere(transform.position, 1);
+        //Gizmos.DrawIcon(transform.position, "sv_icon_dot10_pix16_gizmo");
+    }
+    */
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, 1);
     }
 }

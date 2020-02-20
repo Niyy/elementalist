@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
     public float facing;
 
-    bool unsaved = true;
+    //bool unsaved = true;
     
 
     // Start is called before the first frame update

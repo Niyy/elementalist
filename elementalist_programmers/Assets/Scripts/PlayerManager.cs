@@ -19,9 +19,10 @@ public class PlayerManager : MonoBehaviour
     public void GetPlayers(GameObject player)
     {
         playerList.Add(player);
+        player.GetComponent<DontDestroyOnLoad>().enabled = true;
     }
 
-    List<GameObject> GetPlayerList()
+    public List<GameObject> GetPlayerList()
     {
         return playerList;
     }
