@@ -16,10 +16,13 @@ public class PlayerManager : MonoBehaviour
 
         //playerList.Add();
     }
+
+
     public void GetPlayers(GameObject player)
     {
         playerList.Add(player);
     }
+
 
     List<GameObject> GetPlayerList()
     {

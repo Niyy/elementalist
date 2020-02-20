@@ -14,10 +14,12 @@ public class CharacterSelector : MonoBehaviour
     bool selecting = true;
     GameObject CharSel;
 
+
     private void Awake()
     {
         choice = 0;
     }
+
 
     private void Start()
     {
