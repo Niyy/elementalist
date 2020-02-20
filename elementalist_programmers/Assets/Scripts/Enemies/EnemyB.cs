@@ -105,7 +105,6 @@ public class EnemyB : Enemy
         else
         {
             Debug.DrawRay(this.transform.position, search_point * sight_distance, Color.yellow);
-            Debug.Log("Current angle: " + cur_search_arch);
             cur_search_arch += arch_adder;
         }
 
@@ -130,7 +129,6 @@ public class EnemyB : Enemy
             else
             {
                 player.GetComponent<PlayerController>().Recoil(recoil_speed, direction);
-                Debug.Log("I will no let pass.");
             }
         }
     }

@@ -50,11 +50,12 @@ public class PlayerController : MonoBehaviour
 
     // Retical variables
     [Header("Reticle Variables")]
-    public GameObject retical;
+    public GameObject ui_retical_prefab;
 
 
     private float retical_radius = 2.5f;
     private GameObject ui_retical;
+    private GameObject retical;
 
 
     // Secondary Movement variables
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour
     // Death Variables
     private float death_timer;
     private float current_timer;
+    private bool death_status;
 
     bool unsaved = true;
     
@@ -123,11 +125,13 @@ public class PlayerController : MonoBehaviour
         //}
 
         ui_retical = GameObject.Find("/Canvas/UI_Retical");
-        retical = GameObject.Find("/Reticle");
         player_camera = Camera.main;
-        retical = GameObject.Find("/Reticle");
+        retical = new GameObject("Reticle_" + this.gameObject.name);
         canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
+
         stunned = false;
+        death_status = false;
+        attacking = false;
 
         stunned_counter = stunned_wait_timer;
     }
@@ -147,7 +151,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         ReticleMovement();
-       
     }
 
 
@@ -269,26 +272,29 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void ImplementSecondaryMovement()
+    private void OnDash()
     {
-        if (!is_secondary_moving && secondary_reset && !on_wall && !stunned
-            && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+        if(!death_status)
         {
-            current_secondary_movement_time = 0;
-            if (secondary_movement == SecondaryMovementTypes.Roll)
+            if (!is_secondary_moving && secondary_reset && !on_wall && !stunned
+                && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
-                secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
-            }
-            else
-            {
-                secondary_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
-                grounded = false;
-            }
+                current_secondary_movement_time = 0;
+                if (secondary_movement == SecondaryMovementTypes.Roll)
+                {
+                    secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
+                }
+                else
+                {
+                    secondary_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+                    grounded = false;
+                }
 
-            Physics.IgnoreLayerCollision(8, 9, true);
-            rigbod.velocity = secondary_movement_velocity;
-            is_secondary_moving = true;
-            wall_jump = false;
+                Physics.IgnoreLayerCollision(8, 9, true);
+                rigbod.velocity = secondary_movement_velocity;
+                is_secondary_moving = true;
+                wall_jump = false;
+            }
         }
     }
 
@@ -325,12 +331,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public bool IsInVulnerable()
-    {
-        return is_secondary_moving;
-    }
-
-
     private void StunnedActions()
     {
         if(stunned_counter == 0)
@@ -356,9 +356,21 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void PlayerDeath(float death_time)
+    public void PlayerDeath(float death_time = 0.0f)
     {
+        death_status = true;
+        this.GetComponent<MeshRenderer>().enabled = false;
+        this.GetComponent<Collider>().isTrigger = true;
+        rigbod.isKinematic = true;
+    }
 
+
+    public void Revive()
+    {
+        death_status = false;
+        this.GetComponent<MeshRenderer>().enabled = true;
+        this.GetComponent<Collider>().isTrigger = false;
+        rigbod.isKinematic = false;
     }
 
 
@@ -367,7 +379,6 @@ public class PlayerController : MonoBehaviour
         stunned_forces = new Vector3(enemy_direction * recoil_speed, rigbod.velocity.y, 0.0f);
         stunned = true;
         stunned_counter = 0;
-        Debug.Log("Shouldn't I be flying back. " + rigbod.velocity);
     }
 
 
@@ -375,6 +386,14 @@ public class PlayerController : MonoBehaviour
     {
         return attacking;
     }
+
+
+    public bool IsInVulnerable()
+    {
+        return is_secondary_moving;
+    }
+
+
     //void OnEnable()
     //{
     //    controls.Gameplay.Enable();
