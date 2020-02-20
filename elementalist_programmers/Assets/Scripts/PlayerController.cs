@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+<<<<<<< HEAD
     // Respawn Variables
     [Header("Respawn Variables")]
     public GameObject respawn_point;
@@ -16,6 +17,10 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Variables")]
     public float stunned_wait_timer;
 
+=======
+    //[SerializeField]
+    public PlayerInput playerInput;
+>>>>>>> 73b9b5459527f9c3a8295233cab76c861c32e184
     PlayerControls controls;
     protected Vector2 move;
     private Rigidbody rigbod;
@@ -41,8 +46,12 @@ public class PlayerController : MonoBehaviour
     public float wall_jump_force = 10f;
     public bool on_wall;
     public bool wall_push = false;
+<<<<<<< HEAD
     public bool wall_sliding;
     protected float wall_slide_speed = -2.0f;
+=======
+    int player_id;
+>>>>>>> 73b9b5459527f9c3a8295233cab76c861c32e184
 
     // Retical variables
     [Header("Reticle Variables")]
@@ -71,6 +80,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 secondary_movement_target;
     private Vector2 secondary_movement_velocity;
 
+    PlayerInput inputAction;
 
     // Direction variable
     [Header("Direction Variables")]
@@ -97,11 +107,14 @@ public class PlayerController : MonoBehaviour
     private float death_timer;
     private float current_timer;
 
+    bool unsaved = true;
+    
 
     // Start is called before the first frame update
     private void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
+<<<<<<< HEAD
         controls = new PlayerControls();
 
         controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
@@ -118,6 +131,24 @@ public class PlayerController : MonoBehaviour
         stunned = false;
 
         stunned_counter = stunned_wait_timer;
+=======
+        //controls = new PlayerControls();
+        //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
+        //controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
+        //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
+        //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        //if (unsaved)
+        //{
+        //    GameObject playerManager = GameObject.Find("PlayerManager");
+        //    unsaved = false;
+        //    playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
+        //}
+    }
+    private void OnMove(InputValue value)
+    {
+        move = value.Get<Vector2>();
+>>>>>>> 73b9b5459527f9c3a8295233cab76c861c32e184
     }
 
     // Start is called before the first frame update
@@ -131,6 +162,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         ReticleMovement();
+       
     }
 
 
@@ -195,12 +227,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void OnJump(InputValue value)
     {
         if (grounded)
         {
             rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
             jump = true;
+            print(jump);
             grounded = false;
             new_jump = true;
         }
@@ -215,6 +248,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnJumpPress(InputValue value)
+    {
+        held_jump = value.isPressed;
+    }
 
     private void Airborn()
     {
@@ -222,7 +259,7 @@ public class PlayerController : MonoBehaviour
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rigbod.velocity.y > 0 && !held_jump && jump)
+        else if (rigbod.velocity.y > 0 && !held_jump)
         {
             rigbod.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
@@ -303,6 +340,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+<<<<<<< HEAD
     public bool IsInVulnerable()
     {
         return is_secondary_moving;
@@ -364,4 +402,15 @@ public class PlayerController : MonoBehaviour
     {
         return attacking;
     }
+=======
+    //void OnEnable()
+    //{
+    //    controls.Gameplay.Enable();
+    //}
+
+    //private void OnDisable()
+    //{
+     //   controls.Gameplay.Disable();
+    //}
+>>>>>>> 73b9b5459527f9c3a8295233cab76c861c32e184
 }

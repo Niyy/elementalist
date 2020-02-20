@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+<<<<<<< HEAD
+=======
+
+    //save instance of a player
+>>>>>>> 73b9b5459527f9c3a8295233cab76c861c32e184
     //array of players
-    GameObject[] players;
-    //list of players from the array
     public List<GameObject> playerList;
 
 
     void Awake()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-            playerList.Add(player);
-        }
+        DontDestroyOnLoad(this.gameObject);
+
+        //playerList.Add();
     }
+    public void GetPlayers(GameObject player)
+    {
+        playerList.Add(player);
+    }
+<<<<<<< HEAD
+=======
+
+    List<GameObject> GetPlayerList()
+    {
+        return playerList;
+    }
+
+>>>>>>> 73b9b5459527f9c3a8295233cab76c861c32e184
 }
