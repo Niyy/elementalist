@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class EnemyB : Enemy
 {
-    [Header("B-Tier Variables")]
-    [Range(-1, 1)]
-    public int direction;
-    public float patrol_wait_timer;
-
-
-    private float current_patrol_timer;
-    private new Rigidbody rigidbody;
-    private float lowJumpMultiplier = 2f;
-
-
     [Header("Movement Variables")]
     public float offset = 0.75f;
     public float search_arch;
@@ -24,6 +13,20 @@ public class EnemyB : Enemy
     private float cur_search_arch;
     private float arch_adder;
 
+    
+    [Header("B-Tier Variables")]
+    [Range(-1, 1)]
+    public int direction;
+    public float patrol_wait_timer;
+
+
+    private float current_patrol_timer;
+    private new Rigidbody rigidbody;
+
+
+    [Header("Attack Variables")]
+    public float recoil_speed;
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +34,16 @@ public class EnemyB : Enemy
         current_patrol_timer = patrol_wait_timer;
         cur_search_arch = 0;
         rigidbody = this.GetComponent<Rigidbody>();
+
+        if(search_arch == 0)
+        {
+            arch_adder = 0;
+        }
+        else
+        {
+            arch_adder = search_arch / 16.0f;
+        }
+        
         arch_adder = search_arch / 16.0f;
     }
 
@@ -40,12 +53,6 @@ public class EnemyB : Enemy
     {
         EngageMovement();
         SearchLineOfSight();
-    }
-
-
-    private void Update()
-    {
-       
     }
 
 
@@ -98,7 +105,6 @@ public class EnemyB : Enemy
         else
         {
             Debug.DrawRay(this.transform.position, search_point * sight_distance, Color.yellow);
-            Debug.Log("Current angle: " + cur_search_arch);
             cur_search_arch += arch_adder;
         }
 
@@ -107,5 +113,29 @@ public class EnemyB : Enemy
         {
             arch_adder = -arch_adder;
         }
+    }
+
+
+    private void OnCollisionEnter(Collision collision) 
+    {
+        if(collision.collider.gameObject.tag.Equals("Player"))
+        {
+            GameObject player = collision.gameObject;
+
+            if(Mathf.Sign(direction) == -Mathf.Sign(player.transform.position.x - this.transform.position.x))
+            {
+                Hit();
+            }
+            else
+            {
+                player.GetComponent<PlayerController>().Recoil(recoil_speed, direction);
+            }
+        }
+    }
+
+
+    private void Hit()
+    {
+        Destroy(this.gameObject);
     }
 }

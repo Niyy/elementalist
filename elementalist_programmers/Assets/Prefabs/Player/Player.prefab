@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2860172928236456601}
   - component: {fileID: 2860172928236456602}
   - component: {fileID: 2860172928236456603}
-  - component: {fileID: 2860172928236456596}
   - component: {fileID: 2860172928236456597}
   - component: {fileID: 2860172928236456598}
   - component: {fileID: 2860172928236456599}
+  - component: {fileID: 6707771015252325599}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -81,20 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &2860172928236456596
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
-  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2860172928236456597
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawn_point: {fileID: 0}
+  stunned_wait_timer: 1
   held_jump: 0
   jump: 0
   jumpForce: 7
@@ -159,3 +146,16 @@ MonoBehaviour:
   secondary_movement_time: 0.2
   secondary_movement: 0
   facing: 0
+--- !u!65 &6707771015252325599
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860172928236456592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
