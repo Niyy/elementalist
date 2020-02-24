@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
     // Death Variables
     private float death_timer;
+    private GameObject reviver;
     private float current_timer;
     public bool death_status;
 
@@ -154,8 +155,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        ReticleMovement();
-        TestFunctions();
+        if(!death_status)
+        {
+            ReticleMovement();
+            TestFunctions();
+        }
     }
 
 
@@ -182,9 +186,12 @@ public class PlayerController : MonoBehaviour
             new_jump = false;
         }
 
-        
-        Move();
-        EngageSecondaryMovement();
+        if(!death_status)
+        {
+            Move();
+            EngageSecondaryMovement();
+        }
+        Revive();
     }
 
     private void Move()
@@ -222,22 +229,25 @@ public class PlayerController : MonoBehaviour
 
     private void OnJump(InputValue value)
     {
-        if (grounded)
+        if(!death_status)
         {
-            rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-            jump = true;
-            print(jump);
-            grounded = false;
-            new_jump = true;
-        }
-        else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
-        {
-            wall_sliding = false;
-            rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
+            if (grounded)
+            {
+                rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+                jump = true;
+                print(jump);
+                grounded = false;
+                new_jump = true;
+            }
+            else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
+            {
+                wall_sliding = false;
+                rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
 
-            facing *= -1f;
-            wall_jump = true;
-            new_jump = true;
+                facing *= -1f;
+                wall_jump = true;
+                new_jump = true;
+            }
         }
     }
 
@@ -263,7 +273,8 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
 
-        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius))
+        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius)
+            && !hit.collider.gameObject.tag.Equals("Player"))
         {
             retical.transform.position = hit.point;
         }
@@ -379,18 +390,22 @@ public class PlayerController : MonoBehaviour
 
     private void Revive()
     {
-        death_status = false;
-        this.GetComponent<MeshRenderer>().enabled = true;
-        this.GetComponent<Collider>().isTrigger = false;
-        rigbod.isKinematic = false;
+        if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
+        {
+            death_status = false;
+            this.GetComponent<MeshRenderer>().enabled = true;
+            this.GetComponent<Collider>().isTrigger = false;
+            rigbod.isKinematic = false;
+            reviver = null;
+        }
     }
 
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>())
+        if(col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
         {
-            Revive();
+            reviver = col.gameObject;
         }
 
         Debug.Log("Someone there.");
@@ -406,6 +421,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerDeath(float death_time = 0.0f)
     {
         death_status = true;
+        ui_retical.SetActive(false);
         this.GetComponent<MeshRenderer>().enabled = false;
         this.GetComponent<Collider>().isTrigger = true;
         rigbod.isKinematic = true;
