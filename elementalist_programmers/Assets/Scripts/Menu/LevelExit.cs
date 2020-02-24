@@ -5,9 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
+    private GameObject playerManager;
+
+    private void Start()
+    {
+        
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-
+        GameObject playerManager = GameObject.Find("PlayerManager");
+        playerManager.GetComponent<PlayerManager>().RemovePlayers();
         SceneManager.LoadScene(1);
     }
 }

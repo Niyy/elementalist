@@ -13,7 +13,9 @@ public class PlayerSpawner : MonoBehaviour
         float i = 0f;
         foreach (GameObject player in players)
         {
-            Instantiate(player, transform.localPosition + new Vector3(i,0f), transform.localRotation);
+            player.transform.GetChild(1).gameObject.SetActive(true);
+            player.transform.GetChild(1).transform.position = transform.localPosition + new Vector3(i, 0f);
+            //Instantiate(player, transform.localPosition + new Vector3(i,0f), transform.localRotation);
             i+=1.25f;
         }
     }
