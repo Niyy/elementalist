@@ -7,6 +7,7 @@ public class LevelExit : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+
         SceneManager.LoadScene(1);
     }
 }

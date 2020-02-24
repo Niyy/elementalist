@@ -91,6 +91,7 @@ public class CharacterSelector : MonoBehaviour
         else
         {
             selecting = false;
+            CharSel.GetComponent<DetectUsers>().DisableListening();
             CharSel.GetComponent<CharacterSelectionMenu>().BeginGame();
         }
     }

@@ -26,10 +26,4 @@ public class PlayerSpawner : MonoBehaviour
         //Gizmos.DrawIcon(transform.position, "sv_icon_dot10_pix16_gizmo");
     }
     */
-    void OnDrawGizmos()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, 1);
-    }
 }

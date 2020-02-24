@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
     //save instance of a player
     //array of players
     public List<GameObject> playerList;
+    public GameObject[] selectors;
+    public GameObject[] characters;
 
 
     void Start()
@@ -19,7 +21,6 @@ public class PlayerManager : MonoBehaviour
     public void GetPlayers(GameObject player)
     {
         playerList.Add(player);
-        player.GetComponent<DontDestroyOnLoad>().enabled = true;
     }
 
     public List<GameObject> GetPlayerList()

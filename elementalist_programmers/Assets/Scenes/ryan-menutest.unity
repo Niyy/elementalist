@@ -1003,6 +1003,30 @@ PrefabInstance:
       propertyPath: prefabs.Array.data[3]
       value: 
       objectReference: {fileID: 6339703087459913161}
+    - target: {fileID: 596980667769842366, guid: 37818a25d62a527448618984b94f2bbf,
+        type: 3}
+      propertyPath: prefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 6623363309141840120, guid: 16e9f201691d48745aadb6da97304b2e,
+        type: 3}
+    - target: {fileID: 596980667769842366, guid: 37818a25d62a527448618984b94f2bbf,
+        type: 3}
+      propertyPath: prefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 6623363309141840120, guid: 16e9f201691d48745aadb6da97304b2e,
+        type: 3}
+    - target: {fileID: 596980667769842366, guid: 37818a25d62a527448618984b94f2bbf,
+        type: 3}
+      propertyPath: prefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 6623363309141840120, guid: 16e9f201691d48745aadb6da97304b2e,
+        type: 3}
+    - target: {fileID: 596980667769842366, guid: 37818a25d62a527448618984b94f2bbf,
+        type: 3}
+      propertyPath: prefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 6623363309141840120, guid: 16e9f201691d48745aadb6da97304b2e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37818a25d62a527448618984b94f2bbf, type: 3}
 --- !u!1001 &1883387960361711283
