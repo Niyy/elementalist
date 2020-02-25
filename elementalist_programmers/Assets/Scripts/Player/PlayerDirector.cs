@@ -8,6 +8,6 @@ public class PlayerDirector : MonoBehaviour
     void Start()
     {
         GameObject playerManager = GameObject.Find("PlayerManager");
-        playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
+        playerManager.GetComponent<PlayerManager>().SetPlayers(this.gameObject);
     }
 }

@@ -5,26 +5,31 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
 
-    //save instance of a player
+    public static PlayerManager Instance;
     //array of players
-    public struct PlayerStruct
-    {
-        public GameObject player;
-        public int character;
-
-    }
     public List<GameObject> playerList;
     public GameObject[] selectors;
     public GameObject[] characters;
 
 
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
 
         //playerList.Add();
     }
-    public void GetPlayers(GameObject player)
+    public void SetPlayers(GameObject player)
     {
         playerList.Add(player);
         GameObject selector = Instantiate(selectors[playerList.Count - 1]);
@@ -46,6 +51,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
+                player.transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
                 player.GetComponent<DontDestroyOnLoad>().enabled = true;
                 player.transform.GetChild(0).gameObject.SetActive(false);
                 player.transform.GetChild(1).gameObject.SetActive(false);

@@ -271,6 +271,12 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(next_position, Vector2.down, Color.green);
     }
 
+    public void Neutralize()
+    {
+        rigbod.velocity = Vector3.zero;
+        move = Vector2.zero;
+    }
+
 
     //void OnEnable()
     //{

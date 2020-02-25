@@ -20,12 +20,16 @@ public class PlayerSpawner : MonoBehaviour
         }
     }
 
-    /*void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Vector3 size = new Vector3(1f, 2f);
-        Gizmos.DrawSphere(transform.position, 1);
+        for (float i = 0; i < 5f; i+=1.25f)
+        {
+            Gizmos.DrawCube(transform.position + new Vector3(i, 0f), new Vector3(1, 2, 1));
+        }
+        //Gizmos.DrawCube(transform.position, new Vector3(1,2,1));
         //Gizmos.DrawIcon(transform.position, "sv_icon_dot10_pix16_gizmo");
     }
-    */
+    
 }
