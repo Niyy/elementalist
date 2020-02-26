@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 2860172928236456603}
   - component: {fileID: 2860172928236456597}
   - component: {fileID: 2860172928236456598}
-  - component: {fileID: 2860172928236456599}
   - component: {fileID: 6707771015252325599}
+  - component: {fileID: 1552307326116782250}
   m_Layer: 8
-  m_Name: Player
+  m_Name: ElectricPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2860172928236456592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1803514, y: -2.49, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,7 +114,20 @@ MonoBehaviour:
   ray_height: 1
   ray_width: 0.501
   col_face: 1
---- !u!114 &2860172928236456599
+--- !u!65 &6707771015252325599
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860172928236456592}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1552307326116782250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,11 +136,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2860172928236456592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debc1daef58293d44b7018d18f2159bb, type: 3}
+  m_Script: {fileID: 11500000, guid: ee32c50f2cbd9fa47abab1f4611cc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   respawn_point: {fileID: 0}
-  stunned_wait_timer: 1
+  stunned_wait_timer: 0
   rigbod: {fileID: 0}
   held_jump: 0
   jump: 0
@@ -143,20 +156,7 @@ MonoBehaviour:
   wall_push: 0
   wall_sliding: 0
   retical: {fileID: 0}
-  secondary_speed: 20
-  secondary_movement_time: 0.2
+  secondary_speed: 0
+  secondary_movement_time: 0
   secondary_movement: 0
   facing: 0
---- !u!65 &6707771015252325599
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
-  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
