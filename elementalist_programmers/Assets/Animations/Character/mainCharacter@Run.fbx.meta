@@ -19,7 +19,33 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'mainCharacter1_LeftUpLeg'
+      : position error = 20730.371094 mm\n\t'mainCharacter1_LeftLeg' : position error
+      = 36205.785156 mm\n\t'mainCharacter1_LeftFoot' : position error = 37683.253906
+      mm\n\t'mainCharacter1_LeftToeBase' : position error = 13322.090820 mm\n\t'mainCharacter1_RightUpLeg'
+      : position error = 15680.658203 mm\n\t'mainCharacter1_RightLeg' : position error
+      = 36205.812500 mm\n\t'mainCharacter1_RightFoot' : position error = 37683.222656
+      mm\n\t'mainCharacter1_RightToeBase' : position error = 13322.079102 mm\n\t'mainCharacter1_Spine'
+      : position error = 10830.125000 mm\n\t'mainCharacter1_Spine1' : position error
+      = 14908.377930 mm\n\t'mainCharacter1_Spine2' : position error = 14892.932617
+      mm\n\t'mainCharacter1_LeftShoulder' : position error = 9464.708984 mm\n\t'mainCharacter1_LeftArm'
+      : position error = 9913.380859 mm\n\t'mainCharacter1_LeftForeArm' : position
+      error = 25280.921875 mm\n\t'mainCharacter1_LeftHand' : position error = 24717.712891
+      mm\n\t'mainCharacter1_LeftHandThumb1' : position error = 4600.754883 mm\n\t'mainCharacter1_LeftHandThumb2'
+      : position error = 2467.189697 mm\n\t'mainCharacter1_LeftHandThumb3' : position
+      error = 2354.581543 mm\n\t'mainCharacter1_LeftHandMiddle1' : position error
+      = 8175.609375 mm\n\t'mainCharacter1_LeftHandMiddle2' : position error = 4502.665527
+      mm\n\t'mainCharacter1_LeftHandMiddle3' : position error = 3536.368652 mm\n\t'mainCharacter1_RightShoulder'
+      : position error = 9464.708008 mm\n\t'mainCharacter1_RightArm' : position error
+      = 9913.371094 mm\n\t'mainCharacter1_RightForeArm' : position error = 25280.945313
+      mm\n\t'mainCharacter1_RightHand' : position error = 24717.722656 mm\n\t'mainCharacter1_RightHandThumb1'
+      : position error = 4600.753418 mm\n\t'mainCharacter1_RightHandThumb2' : position
+      error = 2467.191650 mm\n\t'mainCharacter1_RightHandThumb3' : position error
+      = 2354.581787 mm\n\t'mainCharacter1_RightHandMiddle1' : position error = 8175.617188
+      mm\n\t'mainCharacter1_RightHandMiddle2' : position error = 4502.675293 mm\n\t'mainCharacter1_RightHandMiddle3'
+      : position error = 3536.368164 mm\n\t'mainCharacter1_Neck' : position error
+      = 14877.813477 mm\n\t'mainCharacter1_Head' : position error = 26366.205078 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -46,7 +72,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

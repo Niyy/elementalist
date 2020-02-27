@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 067b26b4950ce31a5b9eea2c979262c7
+guid: 3303b6407aef8f44ea38de8ddf2a160a
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -19,7 +19,33 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'mainCharacter1_LeftUpLeg'
+      : position error = 20730.371094 mm\n\t'mainCharacter1_LeftLeg' : position error
+      = 36205.808594 mm\n\t'mainCharacter1_LeftFoot' : position error = 37683.265625
+      mm\n\t'mainCharacter1_LeftToeBase' : position error = 13322.087891 mm\n\t'mainCharacter1_RightUpLeg'
+      : position error = 15680.660156 mm\n\t'mainCharacter1_RightLeg' : position error
+      = 36205.777344 mm\n\t'mainCharacter1_RightFoot' : position error = 37683.253906
+      mm\n\t'mainCharacter1_RightToeBase' : position error = 13322.095703 mm\n\t'mainCharacter1_Spine'
+      : position error = 10830.125977 mm\n\t'mainCharacter1_Spine1' : position error
+      = 14908.375977 mm\n\t'mainCharacter1_Spine2' : position error = 14892.930664
+      mm\n\t'mainCharacter1_LeftShoulder' : position error = 9464.708008 mm\n\t'mainCharacter1_LeftArm'
+      : position error = 9913.369141 mm\n\t'mainCharacter1_LeftForeArm' : position
+      error = 25280.947266 mm\n\t'mainCharacter1_LeftHand' : position error = 24717.718750
+      mm\n\t'mainCharacter1_LeftHandThumb1' : position error = 4600.753418 mm\n\t'mainCharacter1_LeftHandThumb2'
+      : position error = 2467.192139 mm\n\t'mainCharacter1_LeftHandThumb3' : position
+      error = 2354.583252 mm\n\t'mainCharacter1_LeftHandMiddle1' : position error
+      = 8175.616211 mm\n\t'mainCharacter1_LeftHandMiddle2' : position error = 4502.678223
+      mm\n\t'mainCharacter1_LeftHandMiddle3' : position error = 3536.361816 mm\n\t'mainCharacter1_RightShoulder'
+      : position error = 9464.708008 mm\n\t'mainCharacter1_RightArm' : position error
+      = 9913.371094 mm\n\t'mainCharacter1_RightForeArm' : position error = 25280.931641
+      mm\n\t'mainCharacter1_RightHand' : position error = 24717.705078 mm\n\t'mainCharacter1_RightHandThumb1'
+      : position error = 4600.753906 mm\n\t'mainCharacter1_RightHandThumb2' : position
+      error = 2467.191895 mm\n\t'mainCharacter1_RightHandThumb3' : position error
+      = 2354.579590 mm\n\t'mainCharacter1_RightHandMiddle1' : position error = 8175.614258
+      mm\n\t'mainCharacter1_RightHandMiddle2' : position error = 4502.672852 mm\n\t'mainCharacter1_RightHandMiddle3'
+      : position error = 3536.366211 mm\n\t'mainCharacter1_Neck' : position error
+      = 14877.815430 mm\n\t'mainCharacter1_Head' : position error = 26366.302734 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -35,18 +61,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Idle
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 1
-      lastFrame: 30
+      firstFrame: -1
+      lastFrame: 115
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -100,7 +126,7 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 3
     human:
@@ -899,7 +925,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 067b26b4950ce31a5b9eea2c979262c7,
+    type: 3}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
