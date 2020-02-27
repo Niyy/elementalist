@@ -8,16 +8,20 @@ public class EnemyB : Enemy
     public float offset = 0.75f;
     public float search_arch;
     public float sight_distance;
+
+
+    private float cur_search_arch;
+    private float arch_adder;
+
+    
+    [Header("B-Tier Variables")]
     [Range(-1, 1)]
     public int direction;
     public float patrol_wait_timer;
 
 
-    private float cur_search_arch;
-    private float arch_adder;
     private float current_patrol_timer;
     private new Rigidbody rigidbody;
-    private float lowJumpMultiplier = 2f;
 
 
     [Header("Attack Variables")]
@@ -39,6 +43,8 @@ public class EnemyB : Enemy
         {
             arch_adder = search_arch / 16.0f;
         }
+        
+        arch_adder = search_arch / 16.0f;
     }
 
 
@@ -123,7 +129,6 @@ public class EnemyB : Enemy
             else
             {
                 player.GetComponent<PlayerController>().Recoil(recoil_speed, direction);
-                Debug.Log("I will no let pass.");
             }
         }
     }

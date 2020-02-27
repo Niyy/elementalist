@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Base Enemy Variables")]
+    public float speed = 0f;
     // health but its one hit kill so just a true or false
     public bool alive = true;
     //allows the Level desginer to set if they want the enemy to target one indvidual player or not
@@ -11,8 +13,6 @@ public class Enemy : MonoBehaviour
     //Who am I trying to kill
     public GameObject target;
     //Enemys speed
-    public float speed = 0f;
-
     public RoomManager myRoom;
 
 

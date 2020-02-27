@@ -35,5 +35,11 @@ public class EnemyC : Enemy
     }
 
 
-
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider.tag.Equals("Player"))
+        {
+            collider.GetComponent<PlayerController>().PlayerDeath();
+        }
+    }
 }
