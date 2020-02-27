@@ -105,11 +105,9 @@ public class PlayerController : MonoBehaviour
     private float current_timer;
     public bool death_status;
 
-    bool unsaved = true;
-
-
     [Header("Testing variables")]
     public bool death_test = false;
+    //bool unsaved = true;
     
 
     // Start is called before the first frame update
@@ -344,6 +342,12 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.DrawRay(next_position, Vector2.down, Color.green);
+    }
+
+    public void Neutralize()
+    {
+        rigbod.velocity = Vector3.zero;
+        move = Vector2.zero;
     }
 
 

@@ -14,7 +14,6 @@ public class DetectUsers : MonoBehaviour
 
     private void Start()
     {
-
         playerInputManager = GetComponent<PlayerInputManager>();
         InputUser.listenForUnpairedDeviceActivity = 4;
         InputUser.onUnpairedDeviceUsed += ListenForUnpairedDevices;
@@ -38,5 +37,10 @@ public class DetectUsers : MonoBehaviour
     {
         InputUser.listenForUnpairedDeviceActivity = 0;
     }
-}
 
+    public void DisableListening()
+    {
+        InputUser.listenForUnpairedDeviceActivity = 0;
+    }
+
+}
