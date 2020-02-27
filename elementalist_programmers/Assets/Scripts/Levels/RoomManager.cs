@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    public List<NextLevel> normal_Doors;
+    public List<Door> normal_Doors;
 
     public List<GameObject> enemys;
 
@@ -14,7 +14,7 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < normal_Doors.Count; i++)
         {
-            normal_Doors[i].closedDoor = true;
+            normal_Doors[i].open = true;
         }
 
 
@@ -34,7 +34,7 @@ public class RoomManager : MonoBehaviour
         {
             for (int i = 0; i < normal_Doors.Count; i++)
             {
-                normal_Doors[i].closedDoor = false;
+                normal_Doors[i].open = true;
             }
         }
 
