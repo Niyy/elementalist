@@ -9,7 +9,7 @@ using UnityEngine.InputSystem.LowLevel;
 public class DetectUsers : MonoBehaviour
 {
     PlayerInputManager playerInputManager;
-    public GameObject[] prefab;
+    public GameObject prefab;
     string controlScheme = "PlayerControls";
 
     private void Start()
@@ -27,7 +27,7 @@ public class DetectUsers : MonoBehaviour
             InputDevice pair_with_device = control.device;
             if (playerInputManager.playerCount < 4)
             {
-                playerInputManager.playerPrefab = prefab[(playerInputManager.playerCount)];
+                playerInputManager.playerPrefab = prefab;
                 playerInputManager.JoinPlayer(-1, -1, controlScheme, pair_with_device);
             }
         }
