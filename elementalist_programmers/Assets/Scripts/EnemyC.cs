@@ -5,24 +5,29 @@ using UnityEngine;
 public class EnemyC : Enemy
 {
 
-   
+
     private Rigidbody rb;
     private Vector2 movement;
-    
+    public float detectionRadius = 5f;
+
 
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        WhoAmIKilling();
+        //WhoAmIKilling();
     }
 
     private void Update()
     {
         death();
-        Vector3 direction = target.transform.position - transform.position;
-        
-        direction.Normalize();
-        movement = direction;
+        if(target)
+        {
+            Vector3 direction = target.transform.position - transform.position;
+
+            direction.Normalize();
+            movement = direction;
+        }
+      
     }
     private void FixedUpdate()
     {
