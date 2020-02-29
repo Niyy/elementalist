@@ -35,11 +35,30 @@ public class LevelManager : MonoBehaviour
 
         camTarget.transform.position = roomsPosInLevel[0];
     }
+    private void Start()
+    {
+        foreach (var item in roomsCenter)
+        {
+            item.SetActive(false);
+        }
+        roomsCenter[0].SetActive(true);
+    }
 
 
 
-
-
+    public int getCurrentRoom()
+    {
+        int index = 0;
+        for (int i = 0; i < roomsCenter.Length; i++)
+        {
+            if(roomsCenter[i].activeSelf == true)
+            {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
 
     public void AddToCollectedCoins(int amount_add = 1)
     {

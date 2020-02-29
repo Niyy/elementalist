@@ -10,14 +10,12 @@ public class RoomManager : MonoBehaviour
 
     public List<GameObject> switchs;
 
-    private void Start()
+    private void OnEnable()
     {
         for (int i = 0; i < normal_Doors.Count; i++)
         {
-            normal_Doors[i].open = true;
+            normal_Doors[i].open = false;
         }
-
-
 
     }
 
@@ -34,6 +32,7 @@ public class RoomManager : MonoBehaviour
         {
             for (int i = 0; i < normal_Doors.Count; i++)
             {
+                print("Room Manager I opened doorssssssssssss");
                 normal_Doors[i].open = true;
             }
         }
