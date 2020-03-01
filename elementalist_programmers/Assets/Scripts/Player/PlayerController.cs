@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     public PlayerInput playerInput;
     PlayerControls controls;
     protected Vector2 move;
-    private Rigidbody rigbod;
-    private bool stunned;
-    private float stunned_counter;
-    private Vector3 stunned_forces;
+    protected Rigidbody rigbod;
+    protected bool stunned;
+    protected float stunned_counter;
+    protected Vector3 stunned_forces;
 
 
     [Header("Jumping Variables")]
@@ -54,16 +54,16 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private float retical_radius = 2.5f;
-    private GameObject ui_retical;
-    private GameObject retical;
+    protected float retical_radius = 2.5f;
+    protected GameObject ui_retical;
+    protected GameObject retical;
 
     // Secondary Movement variables
     [Header("Secondary Movement Variables")]
-    protected float secondary_speed;
-    protected float secondary_movement_time;
-    protected SecondaryMovementTypes secondary_movement = SecondaryMovementTypes.Dash;
-    protected enum SecondaryMovementTypes
+    public float secondary_speed = 20;
+    public float secondary_movement_time = 0.2f;
+    public SecondaryMovementTypes secondary_movement = SecondaryMovementTypes.Dash;
+    public enum SecondaryMovementTypes
     {
         Dash,
         Roll
@@ -100,9 +100,9 @@ public class PlayerController : MonoBehaviour
 
 
     // Death Variables
-    private float death_timer;
-    private GameObject reviver;
-    private float current_timer;
+    protected float death_timer;
+    protected GameObject reviver;
+    protected float current_timer;
     public bool death_status;
     [Header("Testing variables")]
     public bool death_test = false;
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
         stunned_counter = stunned_wait_timer;
     }
-    private void OnMove(InputValue value)
+    protected void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
     }
@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnJump(InputValue value)
+    protected void OnJump(InputValue value)
     {
         if(!death_status)
         {
@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnJumpPress(InputValue value)
+    protected void OnJumpPress(InputValue value)
     {
         held_jump = value.isPressed;
     }
@@ -288,7 +288,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private void OnDash()
+    protected void OnDash()
     {
         if(!death_status)
         {
@@ -372,13 +372,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void TestFunctions()
+    protected void TestFunctions()
     {
         TestDeath();
     }
 
 
-    private void TestDeath()
+    protected void TestDeath()
     {
         if(death_test)
         {
@@ -395,7 +395,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Revive()
+    protected void Revive()
     {
         if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
         {
@@ -408,7 +408,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider col)
+    protected void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
         {
