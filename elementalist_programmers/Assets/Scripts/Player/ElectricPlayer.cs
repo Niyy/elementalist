@@ -9,12 +9,14 @@ public class ElectricPlayer : PlayerController
     bool st_running = false;
 
     public float special_speed = 25f;
-    public float special_dash_time = 0.2f;
+    public float special_dash_time = 0.3f;
     bool is_special_dashing = false;
     bool special_reset = true;
     float current_special_movement_time;
     Vector2 special_movement_target;
     Vector2 special_movement_velocity;
+
+    bool enemy_hit = false;
 
     public override void FixedUpdate()
     {
@@ -71,15 +73,13 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
-                special_reset = false;
             }
         }
     }
 
     public override void AttackHit()
     {
-        print("special");
-        special_reset = true;
+        enemy_hit = true;
     }
 
     protected void EngageSpecialMovement()
@@ -98,8 +98,10 @@ public class ElectricPlayer : PlayerController
             {
                 //Physics.IgnoreLayerCollision(8, 9, false);
                 is_special_dashing = false;
-                rigbod.velocity = Vector2.zero;
+                if(!stunned)rigbod.velocity = Vector2.zero;
                 attacking = false;
+                special_reset = enemy_hit;
+                enemy_hit = false;
             }
         }
     }

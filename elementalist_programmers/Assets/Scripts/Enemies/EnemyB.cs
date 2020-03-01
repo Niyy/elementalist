@@ -124,7 +124,16 @@ public class EnemyB : Enemy
 
             if(Mathf.Sign(direction) == -Mathf.Sign(player.transform.position.x - this.transform.position.x))
             {
-                Hit();
+                if (player.GetComponent<PlayerController>().GetAttackStatus() == true)
+                {
+                    player.GetComponent<PlayerController>().AttackHit();
+                    Hit();
+                }
+                else
+                {
+                    player.GetComponent<PlayerController>().PlayerDeath();
+                }
+                
             }
             else
             {

@@ -450,7 +450,7 @@ public class PlayerController : MonoBehaviour
 
     public virtual void AttackHit()
     {
-        print("basic");
+
     }
 
     public bool IsInVulnerable()
