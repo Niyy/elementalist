@@ -340,6 +340,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1c7d8d13-f52b-491b-838e-d8b447e10fa5",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3dd7b1ff-1188-479b-8790-a121012ab21a",
                     "path": "<Gamepad>/start",
                     "interactions": "",

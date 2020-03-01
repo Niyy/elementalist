@@ -44,7 +44,16 @@ public class EnemyC : Enemy
     {
         if(collider.tag.Equals("Player"))
         {
-            collider.GetComponent<PlayerController>().PlayerDeath();
+            if(collider.GetComponent<PlayerController>().GetAttackStatus() == true)
+            {
+                collider.GetComponent<PlayerController>().AttackHit();
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                collider.GetComponent<PlayerController>().PlayerDeath();
+            }
         }
+        
     }
 }

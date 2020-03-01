@@ -448,6 +448,10 @@ public class PlayerController : MonoBehaviour
         return attacking;
     }
 
+    public virtual void AttackHit()
+    {
+        print("basic");
+    }
 
     public bool IsInVulnerable()
     {
