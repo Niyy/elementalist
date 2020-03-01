@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
     {
         if (open)
         openDoor();
-        open = false;
+       
     }
 
     void openDoor()
@@ -35,6 +35,10 @@ public class Door : MonoBehaviour
 
         if (other.tag == "Player")
         {
+
+            LevelManager._instance.roomsCenter[roomIndex].SetActive(true);
+            int currRoom = LevelManager._instance.getCurrentRoom();
+            LevelManager._instance.roomsCenter[currRoom].SetActive(false);
             LevelManager._instance.camTarget.transform.position = LevelManager._instance.roomsPosInLevel[roomIndex];
 
             foreach (GameObject player in FindObjectOfType<PlayerManager>().playerList)
