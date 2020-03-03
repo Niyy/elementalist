@@ -12,7 +12,7 @@ public class Buttons : MonoBehaviour
         SceneManager.LoadScene(nextLevel);
     }
 
-    public void quirButton()
+    public void quitButton()
     {
         Application.Quit();
     }

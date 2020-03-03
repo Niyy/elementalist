@@ -25,7 +25,6 @@ public class NextLevel : MonoBehaviour
     bool opning;
 
 
-
     private void Start()
     {
     
@@ -109,10 +108,12 @@ public class NextLevel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag.Equals("Player") 
-            && closedDoor == false)
-        {
-            StartCoroutine(MoveToNextRoom());
-        }
+        //if(other.gameObject.tag.Equals("Player") 
+        //    && closedDoor == false)
+        //{
+        //    StartCoroutine(MoveToNextRoom());
+        //}
+
+
     }
 }

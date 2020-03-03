@@ -9,12 +9,11 @@ using UnityEngine.InputSystem.LowLevel;
 public class DetectUsers : MonoBehaviour
 {
     PlayerInputManager playerInputManager;
-    public GameObject[] prefab;
+    public GameObject prefab;
     string controlScheme = "PlayerControls";
 
     private void Start()
     {
-
         playerInputManager = GetComponent<PlayerInputManager>();
         InputUser.listenForUnpairedDeviceActivity = 4;
         InputUser.onUnpairedDeviceUsed += ListenForUnpairedDevices;
@@ -28,7 +27,7 @@ public class DetectUsers : MonoBehaviour
             InputDevice pair_with_device = control.device;
             if (playerInputManager.playerCount < 4)
             {
-                playerInputManager.playerPrefab = prefab[(playerInputManager.playerCount)];
+                playerInputManager.playerPrefab = prefab;
                 playerInputManager.JoinPlayer(-1, -1, controlScheme, pair_with_device);
             }
         }
@@ -38,5 +37,10 @@ public class DetectUsers : MonoBehaviour
     {
         InputUser.listenForUnpairedDeviceActivity = 0;
     }
-}
 
+    public void DisableListening()
+    {
+        InputUser.listenForUnpairedDeviceActivity = 0;
+    }
+
+}

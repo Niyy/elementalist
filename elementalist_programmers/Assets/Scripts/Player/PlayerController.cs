@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     public PlayerInput playerInput;
     PlayerControls controls;
     protected Vector2 move;
-    private Rigidbody rigbod;
-    private bool stunned;
-    private float stunned_counter;
-    private Vector3 stunned_forces;
+    protected Rigidbody rigbod;
+    protected bool stunned;
+    protected float stunned_counter;
+    protected Vector3 stunned_forces;
 
 
     [Header("Jumping Variables")]
@@ -53,15 +53,15 @@ public class PlayerController : MonoBehaviour
     public GameObject ui_retical_prefab;
 
 
-    private float retical_radius = 2.5f;
-    private GameObject ui_retical;
-    private GameObject retical;
 
+    protected float retical_radius = 2.5f;
+    protected GameObject ui_retical;
+    protected GameObject retical;
 
     // Secondary Movement variables
     [Header("Secondary Movement Variables")]
-    public float secondary_speed;
-    public float secondary_movement_time;
+    public float secondary_speed = 20;
+    public float secondary_movement_time = 0.2f;
     public SecondaryMovementTypes secondary_movement = SecondaryMovementTypes.Dash;
     public enum SecondaryMovementTypes
     {
@@ -70,11 +70,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private bool is_secondary_moving = false;
-    private bool secondary_reset = true;
-    private float current_secondary_movement_time;
-    private Vector2 secondary_movement_target;
-    private Vector2 secondary_movement_velocity;
+    protected bool is_secondary_moving = false;
+    protected bool secondary_reset = true;
+    protected float current_secondary_movement_time;
+    protected Vector2 secondary_movement_target;
+    protected Vector2 secondary_movement_velocity;
 
     PlayerInput inputAction;
 
@@ -84,38 +84,36 @@ public class PlayerController : MonoBehaviour
     public float facing;
     
 
-    private Vector3 direction;
+    protected Vector3 direction;
 
 
     //Combat variables
-    private bool attacking;
+    protected bool attacking;
 
 
     // Camera for player
-    Camera player_camera;
+    protected Camera player_camera;
 
 
     // Canvas
-    Canvas canvas;
+    protected Canvas canvas;
 
 
     // Death Variables
-    private float death_timer;
-    private GameObject reviver;
-    private float current_timer;
+    protected float death_timer;
+    protected GameObject reviver;
+    protected float current_timer;
     public bool death_status;
-
-    bool unsaved = true;
-
-
     [Header("Testing variables")]
     public bool death_test = false;
+    //bool unsaved = true;
     
 
     // Start is called before the first frame update
-    private void Awake()
+    protected void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
+
         //controls = new PlayerControls();
         //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
         //controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
@@ -140,20 +138,20 @@ public class PlayerController : MonoBehaviour
 
         stunned_counter = stunned_wait_timer;
     }
-    private void OnMove(InputValue value)
+    protected void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
     }
 
     // Start is called before the first frame update
-    private void Start()
+    protected void Start()
     {
         direction = Vector2.right;
         wall_jump_direction.Normalize();
     }
 
 
-    private void Update()
+    protected void Update()
     {
         if(!death_status)
         {
@@ -163,7 +161,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         on_wall = GetComponent<PlayerCollision>().on_wall;
         grounded = GetComponent<PlayerCollision>().on_ground;
@@ -194,7 +192,7 @@ public class PlayerController : MonoBehaviour
         Revive();
     }
 
-    private void Move()
+    protected void Move()
     {
         if (!is_secondary_moving && !stunned)
         {
@@ -227,7 +225,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnJump(InputValue value)
+
+    protected void OnJump(InputValue value)
     {
         if(!death_status)
         {
@@ -251,12 +250,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnJumpPress(InputValue value)
+    protected void OnJumpPress(InputValue value)
     {
         held_jump = value.isPressed;
     }
 
-    private void Airborn()
+    protected void Airborn()
     {
         if (rigbod.velocity.y < 0 && !wall_sliding)
         {
@@ -268,7 +267,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ReticleMovement()
+    protected void ReticleMovement()
     {
         RaycastHit hit;
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
@@ -288,7 +287,8 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnDash()
+
+    protected void OnDash()
     {
         if(!death_status)
         {
@@ -315,7 +315,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void EngageSecondaryMovement()
+    protected void EngageSecondaryMovement()
     {
         Vector2 next_position = this.transform.position + new Vector3(facing * 0.75f, 0.0f, 0.0f);
 
@@ -347,7 +347,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void StunnedActions()
+    public void Neutralize()
+    {
+        rigbod.velocity = Vector3.zero;
+        move = Vector2.zero;
+    }
+
+
+    protected void StunnedActions()
     {
         if(stunned_counter == 0)
         {
@@ -365,13 +372,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void TestFunctions()
+    protected void TestFunctions()
     {
         TestDeath();
     }
 
 
-    private void TestDeath()
+    protected void TestDeath()
     {
         if(death_test)
         {
@@ -388,7 +395,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Revive()
+    protected void Revive()
     {
         if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
         {
@@ -401,7 +408,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider col)
+    protected void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
         {
@@ -441,6 +448,10 @@ public class PlayerController : MonoBehaviour
         return attacking;
     }
 
+    public virtual void AttackHit()
+    {
+
+    }
 
     public bool IsInVulnerable()
     {
