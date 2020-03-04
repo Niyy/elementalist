@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     //[SerializeField]
     public PlayerInput playerInput;
-    PlayerControls controls;
+    //PlayerControls controls;
     protected Vector2 move;
     protected Rigidbody rigbod;
     protected bool stunned;
@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     public bool wall_sliding;
     protected float wall_slide_speed = -2.0f;
     int player_id;
+    protected float wall_jump_interpolant = 0f;
+    public float wj_interpolant_gain = 0.1f;
 
     // Retical variables
     [Header("Reticle Variables")]
@@ -118,6 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         rigbod = GetComponent<Rigidbody>();
 
+        //old input method
         //controls = new PlayerControls();
         //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
         //controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
@@ -184,6 +187,7 @@ public class PlayerController : MonoBehaviour
         if ((grounded || wall_sliding) && !new_jump)
         {
             wall_jump = false;
+            wall_jump_interpolant = 0f;
             jump = false;
         }
         else
@@ -214,7 +218,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), .7f * Time.fixedDeltaTime);
+                rigbod.velocity = Vector3.Lerp(rigbod.velocity, (new Vector3(direction.x * moveSpeed, rigbod.velocity.y)), wall_jump_interpolant * Time.deltaTime);
+                if (wall_jump_interpolant * Time.deltaTime < 1.0f)
+                {
+                    wall_jump_interpolant += wj_interpolant_gain;
+                }
+                else
+                {
+                    wall_jump = false;
+                }
             }
             Airborn();
             if (wall_sliding)

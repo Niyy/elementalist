@@ -12,6 +12,10 @@ public class PlayerCollision : MonoBehaviour
     public float col_face = 1;
     bool left_col = false;
     bool right_col = false;
+    bool mid_ground_col = false;
+    bool left_ground_col = false;
+    bool right_ground_col = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +29,25 @@ public class PlayerCollision : MonoBehaviour
         RaycastHit  hit_ground,
                     hit_left,
                     hit_right;
-        Ray y_Ray = new Ray(transform.position, Vector3.down);
+        Ray y_ray = new Ray(transform.position, Vector3.down);
+        Ray left_y_ray = new Ray((transform.position - new Vector3(transform.lossyScale.x / 2, 0f)), Vector3.down);
+        Ray right_y_ray = new Ray((transform.position + new Vector3(transform.lossyScale.x / 2, 0f)), Vector3.down);
         Ray left_ray = new Ray(transform.position, Vector3.left);
         Ray right_ray = new Ray(transform.position, Vector3.right);
-        on_ground = Physics.Raycast(y_Ray, out hit_ground, ray_height);
+        mid_ground_col = Physics.Raycast(y_ray, out hit_ground, ray_height);
+        left_ground_col = Physics.Raycast(left_y_ray, out hit_ground, ray_height);
+        right_ground_col = Physics.Raycast(right_y_ray, out hit_ground, ray_height);
         left_col = Physics.Raycast(left_ray, out hit_left, ray_width);
         right_col = Physics.Raycast(right_ray, out hit_right, ray_width);
+
+        if (mid_ground_col || left_ground_col || right_ground_col)
+        {
+            on_ground = true;
+        }
+        else
+        {
+            on_ground = false;
+        }
 
         
         if (right_col)
