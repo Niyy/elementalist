@@ -107,6 +107,10 @@ public class PlayerController : MonoBehaviour
     [Header("Testing variables")]
     public bool death_test = false;
     //bool unsaved = true;
+
+
+    // Animator
+    protected Animator animator;
     
 
     // Start is called before the first frame update
@@ -137,6 +141,8 @@ public class PlayerController : MonoBehaviour
         attacking = false;
 
         stunned_counter = stunned_wait_timer;
+
+        animator = GetComponentInChildren<Animator>();
     }
     protected void OnMove(InputValue value)
     {
@@ -157,6 +163,7 @@ public class PlayerController : MonoBehaviour
         {
             ReticleMovement();
             TestFunctions();
+            AnimationHandler();
         }
     }
 
@@ -222,6 +229,27 @@ public class PlayerController : MonoBehaviour
         else
         {
             StunnedActions();
+        }
+    }
+
+
+    protected void AnimationHandler()
+    {
+        if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall)
+        {
+            animator.SetBool("holding_on_wall", true);
+        }
+        else if(animator.GetBool("holding_on_wall") && !GetComponent<PlayerCollision>().on_wall)
+        {
+            animator.SetBool("holding_on_wall", false);
+        }
+        if(!animator.GetBool("running") && (Vector2)rigbod.velocity != new Vector2(0.0f, rigbod.velocity.y))
+        {
+            animator.SetBool("running", true);
+        }
+        else if(animator.GetBool("running") && (Vector2)rigbod.velocity == new Vector2(0.0f, rigbod.velocity.y))
+        {
+            animator.SetBool("running", false);
         }
     }
 
