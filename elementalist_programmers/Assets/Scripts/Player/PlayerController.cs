@@ -237,7 +237,18 @@ public class PlayerController : MonoBehaviour
     {
         int angle = 0;
 
-        if(facing == 1)
+        if(GetComponent<PlayerCollision>().on_wall && !GetComponent<PlayerCollision>().on_ground)
+        {
+            if(facing == 1)
+            {
+                angle = 0;
+            }
+            else 
+            {
+                angle = 180;
+            }
+        }
+        else if(facing == 1)
         {
             angle = 180;
         }
@@ -246,15 +257,6 @@ public class PlayerController : MonoBehaviour
             && !GetComponent<PlayerCollision>().on_ground)
         {
             animator.SetBool("holding_on_wall", true);
-            
-            if(angle == 0)
-            {
-                angle = 180;
-            }
-            else 
-            {
-                angle = 0;
-            }
         }
         else if(animator.GetBool("holding_on_wall") && 
         !GetComponent<PlayerCollision>().on_wall || GetComponent<PlayerCollision>().on_ground)
@@ -263,11 +265,13 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(!animator.GetBool("running") && (Vector2)rigbod.velocity != new Vector2(0.0f, rigbod.velocity.y))
+        if(!animator.GetBool("running") && (Vector2)rigbod.velocity != new Vector2(0.0f, rigbod.velocity.y)
+            && GetComponent<PlayerCollision>().on_ground)
         {
             animator.SetBool("running", true);
         }
-        else if(animator.GetBool("running") && (Vector2)rigbod.velocity == new Vector2(0.0f, rigbod.velocity.y))
+        else if(animator.GetBool("running") && ((Vector2)rigbod.velocity == new Vector2(0.0f, rigbod.velocity.y)
+                || !GetComponent<PlayerCollision>().on_ground))
         {
             animator.SetBool("running", false);
         }
