@@ -253,24 +253,25 @@ public class PlayerController : MonoBehaviour
             angle = 180;
         }
 
+
         if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall 
             && !GetComponent<PlayerCollision>().on_ground)
         {
+            animator.SetBool("running", false);
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && 
-        !GetComponent<PlayerCollision>().on_wall || GetComponent<PlayerCollision>().on_ground)
+        else if(animator.GetBool("holding_on_wall") && !GetComponent<PlayerCollision>().on_wall 
+                || GetComponent<PlayerCollision>().on_ground)
         {
             animator.SetBool("holding_on_wall", false);
         }
 
-
-        if(!animator.GetBool("running") && (Vector2)rigbod.velocity != new Vector2(0.0f, rigbod.velocity.y)
+        if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && GetComponent<PlayerCollision>().on_ground)
         {
             animator.SetBool("running", true);
         }
-        else if(animator.GetBool("running") && ((Vector2)rigbod.velocity == new Vector2(0.0f, rigbod.velocity.y)
+        else if(animator.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
                 || !GetComponent<PlayerCollision>().on_ground))
         {
             animator.SetBool("running", false);
