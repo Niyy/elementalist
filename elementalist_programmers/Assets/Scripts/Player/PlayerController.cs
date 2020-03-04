@@ -235,14 +235,34 @@ public class PlayerController : MonoBehaviour
 
     protected void AnimationHandler()
     {
-        if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall)
+        int angle = 0;
+
+        if(facing == 1)
+        {
+            angle = 180;
+        }
+
+        if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall 
+            && !GetComponent<PlayerCollision>().on_ground)
         {
             animator.SetBool("holding_on_wall", true);
+            
+            if(angle == 0)
+            {
+                angle = 180;
+            }
+            else 
+            {
+                angle = 0;
+            }
         }
-        else if(animator.GetBool("holding_on_wall") && !GetComponent<PlayerCollision>().on_wall)
+        else if(animator.GetBool("holding_on_wall") && 
+        !GetComponent<PlayerCollision>().on_wall || GetComponent<PlayerCollision>().on_ground)
         {
             animator.SetBool("holding_on_wall", false);
         }
+
+
         if(!animator.GetBool("running") && (Vector2)rigbod.velocity != new Vector2(0.0f, rigbod.velocity.y))
         {
             animator.SetBool("running", true);
@@ -251,6 +271,8 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("running", false);
         }
+
+        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
     }
 
 
