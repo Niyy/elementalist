@@ -248,17 +248,20 @@ public class PlayerController : MonoBehaviour
     protected void AnimationHandler()
     {
         int angle = 0;
+        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
-        if(GetComponent<PlayerCollision>().on_wall && !GetComponent<PlayerCollision>().on_ground)
+        if(player_collision.on_wall && !player_collision.on_ground)
         {
             if(facing == 1)
             {
                 angle = 0;
             }
-            else 
+            else
             {
                 angle = 180;
             }
+
+            Debug.Log("facing");
         }
         else if(facing == 1)
         {
@@ -266,25 +269,24 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall 
-            && !GetComponent<PlayerCollision>().on_ground)
+        if(!animator.GetBool("holding_on_wall") && player_collision.on_wall 
+            && !player_collision.on_ground)
         {
-            animator.SetBool("running", false);
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && !GetComponent<PlayerCollision>().on_wall 
-                || GetComponent<PlayerCollision>().on_ground)
+        else if(animator.GetBool("holding_on_wall") && (!player_collision.on_wall 
+                || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
 
         if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-            && GetComponent<PlayerCollision>().on_ground)
+            && player_collision.on_ground)
         {
             animator.SetBool("running", true);
         }
         else if(animator.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-                || !GetComponent<PlayerCollision>().on_ground))
+                || !player_collision.on_ground || player_collision.on_wall))
         {
             animator.SetBool("running", false);
         }
