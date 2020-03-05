@@ -52,6 +52,7 @@ public class EnemyC : Enemy
             if(collider.GetComponent<PlayerController>().GetAttackStatus() == true)
             {
                 collider.GetComponent<PlayerController>().AttackHit();
+                alive = false;
                 death();
             }
             else

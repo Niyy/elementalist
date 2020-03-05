@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
         icecube.transform.localScale = GetComponent<Renderer>().bounds.size;
         GetComponent<Rigidbody>().isKinematic = true;
         icecube.GetComponent<Renderer>().material = ice_material;
+        alive = false;
         //icecube.GetComponent<Renderer>().material.color = new Color(130f/255f, 245f/255f, 207f/255f, 60f/255f);
     }
 
@@ -65,7 +66,10 @@ public class Enemy : MonoBehaviour
         if (alive == false)
         {
             myRoom.enemys.Remove(this.gameObject);
-            Destroy(this.gameObject);
+            if (!frozen)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -1,12 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:elementalist_programmers/Assets/Prefabs/player/WaterCharacter.prefab.meta
-guid: 563211946fc792048a64b8076b064bd0
+guid: e62dad73ad09b814ab34a48ae9c6b564
 PrefabImporter:
-=======
-guid: 9dddf549864774a6dbe58421c7f7e445
-folderAsset: yes
-DefaultImporter:
->>>>>>> master:elementalist_programmers/Assets/Animations/Character.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

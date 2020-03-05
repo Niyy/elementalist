@@ -13,6 +13,7 @@ public class CharacterSelector : MonoBehaviour
     bool starting = true;
     bool selecting = true;
     GameObject CharSel;
+    float last_move_time = 0f;
 
 
     private void Awake()
@@ -35,10 +36,12 @@ public class CharacterSelector : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        if (selected || starting)
+        float time = Time.unscaledTime;
+        if (selected || starting || time < last_move_time + 0.2)
         {
             return;
         }
+        last_move_time = time;
         move = value.Get<Vector2>();
         if (move.x > 0f)
         {
