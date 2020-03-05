@@ -14,7 +14,9 @@ public class Enemy : MonoBehaviour
     public GameObject target;
     //Enemys speed
     public RoomManager myRoom;
-
+    //if enemy is currently frozen
+    protected bool frozen = false;
+    public Material ice_material;
 
 
 
@@ -32,9 +34,18 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         death();
+    }
 
-
-
+    public void Freeze()
+    {
+        frozen = true;
+        GameObject icecube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        icecube.transform.position = transform.position;
+        icecube.transform.parent = transform;
+        icecube.transform.localScale = GetComponent<Renderer>().bounds.size;
+        GetComponent<Rigidbody>().isKinematic = true;
+        icecube.GetComponent<Renderer>().material = ice_material;
+        //icecube.GetComponent<Renderer>().material.color = new Color(130f/255f, 245f/255f, 207f/255f, 60f/255f);
     }
 
     public void WhoAmIKilling()

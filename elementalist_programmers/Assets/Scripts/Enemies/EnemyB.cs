@@ -51,8 +51,12 @@ public class EnemyB : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        EngageMovement();
-        SearchLineOfSight();
+        if (!frozen)
+        {
+            EngageMovement();
+            SearchLineOfSight();
+        }
+        
     }
 
 
@@ -118,26 +122,40 @@ public class EnemyB : Enemy
 
     private void OnCollisionEnter(Collision collision) 
     {
-        if(collision.collider.gameObject.tag.Equals("Player"))
+        if (!frozen)
         {
-            GameObject player = collision.gameObject;
-
-            if(Mathf.Sign(direction) == -Mathf.Sign(player.transform.position.x - this.transform.position.x))
+            if (collision.collider.gameObject.tag.Equals("Player"))
             {
-                if (player.GetComponent<PlayerController>().GetAttackStatus() == true)
+                GameObject player = collision.gameObject;
+
+                if (Mathf.Sign(direction) == -Mathf.Sign(player.transform.position.x - this.transform.position.x))
                 {
-                    player.GetComponent<PlayerController>().AttackHit();
-                    Hit();
+                    if (player.GetComponent<PlayerController>().GetAttackStatus() == true)
+                    {
+                        player.GetComponent<PlayerController>().AttackHit();
+                        Hit();
+                    }
+                    else
+                    {
+                        player.GetComponent<PlayerController>().PlayerDeath();
+                    }
+
                 }
                 else
                 {
-                    player.GetComponent<PlayerController>().PlayerDeath();
+                    player.GetComponent<PlayerController>().Recoil(recoil_speed, direction);
                 }
-                
             }
-            else
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!frozen)
+        {
+            if (other.gameObject.tag.Equals("Freeze"))
             {
-                player.GetComponent<PlayerController>().Recoil(recoil_speed, direction);
+                Freeze();
             }
         }
     }
