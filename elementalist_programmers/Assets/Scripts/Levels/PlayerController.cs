@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 
@@ -111,7 +110,7 @@ public class PlayerController : MonoBehaviour
     
 
     // Start is called before the first frame update
-    public virtual void Awake()
+    protected void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
 
@@ -428,7 +427,6 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerDeath(float death_time = 0.0f)
     {
-        SceneManager.LoadScene(0);
         death_status = true;
         ui_retical.SetActive(false);
         this.GetComponent<MeshRenderer>().enabled = false;
@@ -440,7 +438,6 @@ public class PlayerController : MonoBehaviour
     public void Recoil(float recoil_speed, int enemy_direction)
     {
         stunned_forces = new Vector3(enemy_direction * recoil_speed, rigbod.velocity.y, 0.0f);
-        print("stun: " + stunned_forces);
         stunned = true;
         stunned_counter = 0;
     }

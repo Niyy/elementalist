@@ -8,16 +8,25 @@ public class ElectricPlayer : PlayerController
     // Update is called once per frame
     bool st_running = false;
 
+    public float maxSpeed = 15;
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
+    float dSpeed;
     bool is_special_dashing = false;
     bool special_reset = true;
     float current_special_movement_time;
     Vector2 special_movement_target;
     Vector2 special_movement_velocity;
 
-    bool enemy_hit = false;
+    public Material player_mat;
+    public Material special_mat;
 
+    bool enemy_hit = false;
+    public override void Awake()
+    {
+        dSpeed = moveSpeed;
+        base.Awake();
+    }
     public override void FixedUpdate()
     {
         GainSpeed();
@@ -45,7 +54,7 @@ public class ElectricPlayer : PlayerController
                 StopCoroutine("StopTimer");
                 st_running = false;
             }
-            if (moveSpeed < 20f) moveSpeed += 0.02f;
+            if (moveSpeed < maxSpeed) moveSpeed += 0.02f;
         }
     }
 
@@ -53,7 +62,7 @@ public class ElectricPlayer : PlayerController
     {
         st_running = true;
         yield return new WaitForSeconds(0.2f);
-        moveSpeed = 10f;
+        moveSpeed = dSpeed;
         print("leaving coroutine");
     }
 
@@ -73,6 +82,7 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
+                transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
             }
         }
     }
@@ -102,6 +112,7 @@ public class ElectricPlayer : PlayerController
                 attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;
+                transform.GetChild(0).GetComponent<Renderer>().material = player_mat;
             }
         }
     }
