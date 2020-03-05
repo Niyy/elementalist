@@ -21,6 +21,7 @@ public class LineOfSight : MonoBehaviour
             {
                 GetComponent<SphereCollider>().enabled = false;
                 parent.target = other.gameObject;
+                Destroy(this.gameObject);
                 found = true;
             }
         }

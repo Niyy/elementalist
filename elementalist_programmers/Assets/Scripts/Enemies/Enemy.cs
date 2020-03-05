@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     //allows the Level desginer to set if they want the enemy to target one indvidual player or not
     public bool findTarget = false;
     //Who am I trying to kill
-    public GameObject target;
+    [HideInInspector] public GameObject target;
     //Enemys speed
     public RoomManager myRoom;
     //if enemy is currently frozen

@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> playerList;
     public GameObject[] selectors;
     public GameObject[] characters;
+    public bool character_select = false;
 
 
     private void Awake()
@@ -25,15 +26,18 @@ public class PlayerManager : MonoBehaviour
     }
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         //playerList.Add();
     }
     public void SetPlayers(GameObject player)
     {
         playerList.Add(player);
-        GameObject selector = Instantiate(selectors[playerList.Count - 1]);
-        selector.transform.parent = playerList[playerList.Count  - 1].transform;
+        if (character_select)
+        {
+            GameObject selector = Instantiate(selectors[playerList.Count - 1]);
+            selector.transform.parent = playerList[playerList.Count - 1].transform;
+        }
     }
 
 

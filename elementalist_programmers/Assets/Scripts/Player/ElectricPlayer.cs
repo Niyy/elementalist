@@ -8,16 +8,25 @@ public class ElectricPlayer : PlayerController
     // Update is called once per frame
     bool st_running = false;
 
+    public float maxSpeed = 15;
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
+    float dSpeed;
     bool is_special_dashing = false;
     bool special_reset = true;
     float current_special_movement_time;
     Vector2 special_movement_target;
     Vector2 special_movement_velocity;
 
-    bool enemy_hit = false;
+    public Material player_mat;
+    public Material special_mat;
 
+    bool enemy_hit = false;
+    public override void Awake()
+    {
+        dSpeed = moveSpeed;
+        base.Awake();
+    }
     public override void FixedUpdate()
     {
         GainSpeed();
@@ -45,7 +54,7 @@ public class ElectricPlayer : PlayerController
                 StopCoroutine("StopTimer");
                 st_running = false;
             }
-            if (moveSpeed < 20f) moveSpeed += 0.02f;
+            if (moveSpeed < maxSpeed) moveSpeed += 0.02f;
         }
     }
 
@@ -53,7 +62,7 @@ public class ElectricPlayer : PlayerController
     {
         st_running = true;
         yield return new WaitForSeconds(0.2f);
-        moveSpeed = 10f;
+        moveSpeed = dSpeed;
         print("leaving coroutine");
     }
 
@@ -65,7 +74,7 @@ public class ElectricPlayer : PlayerController
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_special_movement_time = 0;
-                special_movement_velocity = new Vector2(move.x, move.y) * special_speed;
+                special_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
                 grounded = false;
 
                 //Physics.IgnoreLayerCollision(8, 9, true);
@@ -73,7 +82,7 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
-                GetComponent<Renderer>().material.color = Color.red;
+                transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
             }
         }
     }
@@ -90,7 +99,7 @@ public class ElectricPlayer : PlayerController
         if (is_special_dashing)
         {
 
-            if (current_special_movement_time < special_dash_time && !stunned)
+            if (current_special_movement_time < secondary_movement_time && !stunned)
             {
                 current_special_movement_time += Time.deltaTime;
                 rigbod.velocity = special_movement_velocity;
@@ -103,7 +112,7 @@ public class ElectricPlayer : PlayerController
                 attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;
-                GetComponent<Renderer>().material.color = Color.white;
+                transform.GetChild(0).GetComponent<Renderer>().material = player_mat;
             }
         }
     }

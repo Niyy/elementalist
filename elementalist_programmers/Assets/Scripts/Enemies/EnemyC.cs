@@ -8,7 +8,7 @@ public class EnemyC : Enemy
 
     private Rigidbody rb;
     private Vector2 movement;
-    public float detectionRadius = 5f;
+    //ublic float detectionRadius = 5f;
 
 
     private void Start()
