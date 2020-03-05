@@ -65,7 +65,7 @@ public class ElectricPlayer : PlayerController
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_special_movement_time = 0;
-                special_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+                special_movement_velocity = new Vector2(move.x, move.y) * special_speed;
                 grounded = false;
 
                 //Physics.IgnoreLayerCollision(8, 9, true);
@@ -73,6 +73,7 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
+                GetComponent<Renderer>().material.color = Color.red;
             }
         }
     }
@@ -89,7 +90,7 @@ public class ElectricPlayer : PlayerController
         if (is_special_dashing)
         {
 
-            if (current_special_movement_time < secondary_movement_time && !stunned)
+            if (current_special_movement_time < special_dash_time && !stunned)
             {
                 current_special_movement_time += Time.deltaTime;
                 rigbod.velocity = special_movement_velocity;
@@ -102,6 +103,7 @@ public class ElectricPlayer : PlayerController
                 attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;
+                GetComponent<Renderer>().material.color = Color.white;
             }
         }
     }
