@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
 
 
     //[SerializeField]
-    public PlayerInput playerInput;
     //PlayerControls controls;
     protected Vector2 move;
     protected Rigidbody rigbod;
@@ -114,9 +113,16 @@ public class PlayerController : MonoBehaviour
 
     // Animator
     protected Animator animator;
-    
 
-    // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+        ui_retical = GameObject.Find("/Canvas/UI_Retical");
+        player_camera = Camera.main;
+        retical = new GameObject("Reticle_" + this.gameObject.name);
+        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
+    }
+
     public virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
@@ -128,17 +134,6 @@ public class PlayerController : MonoBehaviour
         //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
-        //if (unsaved)
-        //{
-        //    GameObject playerManager = GameObject.Find("PlayerManager");
-        //    unsaved = false;
-        //    playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
-        //}
-
-        ui_retical = GameObject.Find("/Canvas/UI_Retical");
-        player_camera = Camera.main;
-        retical = new GameObject("Reticle_" + this.gameObject.name);
-        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
 
         stunned = false;
         death_status = false;
@@ -355,7 +350,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     protected void OnDash()
     {
         if(!death_status)
@@ -475,6 +469,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    protected void PlayerReset()
+    {
+        death_status = false;
+        
+        this.GetComponent<MeshRenderer>().enabled = true;
+        this.GetComponent<Collider>().isTrigger = false;
+        rigbod.isKinematic = false;
+        Neutralize();
+        stunned = false;
+        death_status = false;
+        attacking = false;
+
+        stunned_counter = stunned_wait_timer;
+        gameObject.SetActive(false);
+    }
+
 
     protected void OnTriggerEnter(Collider col)
     {
@@ -495,12 +505,19 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerDeath(float death_time = 0.0f)
     {
-        SceneManager.LoadScene(0);
-        death_status = true;
-        ui_retical.SetActive(false);
-        this.GetComponent<MeshRenderer>().enabled = false;
-        this.GetComponent<Collider>().isTrigger = true;
-        rigbod.isKinematic = true;
+        if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerReset();
+        }
+        else
+        {
+            death_status = true;
+            ui_retical.SetActive(false);
+            this.GetComponent<MeshRenderer>().enabled = false;
+            this.GetComponent<Collider>().isTrigger = true;
+            rigbod.isKinematic = true;
+        } 
     }
 
 

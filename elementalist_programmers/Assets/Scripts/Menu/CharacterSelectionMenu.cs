@@ -16,14 +16,9 @@ public class CharacterSelectionMenu : MonoBehaviour
             parent = _parent;
         }
     }
-    public GameObject playerManager;
+
     private Character[] characters = new Character[] { new Character(true, null), new Character(true, null), new Character(true, null), new Character(true, null) };
     public GameObject[] prefabs;
-
-    private void Start()
-    {
-        GameObject playerManager = GameObject.Find("PlayerManager");
-    }
 
     public bool CharacterAvailable(int choice, GameObject parent)
     {

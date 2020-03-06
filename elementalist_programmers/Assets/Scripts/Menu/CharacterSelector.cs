@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelector : MonoBehaviour
 {
-    private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,1f), new Vector3(-1.5f, 4f, 1f), new Vector3(1.5f, 4f, 1f), new Vector3(4.5f, 4f, 1f) }; 
+    //private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,1f), new Vector3(-1.5f, 4f, 1f), new Vector3(1.5f, 4f, 1f), new Vector3(4.5f, 4f, 1f) };
+    private List<Vector3> selections;
     Vector2 move;
     Vector3 position;
     int choice;
@@ -13,6 +14,7 @@ public class CharacterSelector : MonoBehaviour
     bool starting = true;
     bool selecting = true;
     GameObject CharSel;
+    CharacterSelectionMenu CharSelMenu;
     float last_move_time = 0f;
 
 
@@ -24,13 +26,18 @@ public class CharacterSelector : MonoBehaviour
 
     private void Start()
     {
-        transform.position = selections[0];
+        selections = new List<Vector3> { };
         CharSel = GameObject.Find("CharacterSelect");
+        CharSelMenu = CharSel.GetComponent<CharacterSelectionMenu>();
+        foreach (GameObject character in CharSelMenu.prefabs)
+        {
+            selections.Add(character.transform.position + Vector3.up * character.GetComponent<Renderer>().bounds.size.y);
+        }
+        transform.position = selections[0];
     }
 
     private void Update()
     {
-        
         starting = false;
     }
 
@@ -46,7 +53,7 @@ public class CharacterSelector : MonoBehaviour
         if (move.x > 0f)
         {
             choice++;
-            if(choice > selections.Length - 1)
+            if(choice > selections.Count - 1)
             {
                 choice = 0;
             }
@@ -56,7 +63,7 @@ public class CharacterSelector : MonoBehaviour
             choice--;
             if(choice < 0)
             {
-                choice = (selections.Length - 1);
+                choice = (selections.Count - 1);
             }
         }
         transform.position = selections[choice];
@@ -69,7 +76,7 @@ public class CharacterSelector : MonoBehaviour
         {
             return;
         }
-        selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice, this.transform.parent.gameObject);
+        selected = CharSelMenu.CharacterAvailable(choice, this.transform.parent.gameObject);
         transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
     }
 
@@ -82,7 +89,7 @@ public class CharacterSelector : MonoBehaviour
         else
         {
             selected = false;
-            CharSel.GetComponent<CharacterSelectionMenu>().RemoveSelection(choice);
+            CharSelMenu.RemoveSelection(choice);
             transform.position = selections[choice];
         }
     }
@@ -97,7 +104,7 @@ public class CharacterSelector : MonoBehaviour
         {
             selecting = false;
             CharSel.GetComponent<DetectUsers>().DisableListening();
-            CharSel.GetComponent<CharacterSelectionMenu>().BeginGame();
+            CharSelMenu.BeginGame();
         }
     }
 }

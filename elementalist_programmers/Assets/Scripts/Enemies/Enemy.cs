@@ -53,10 +53,10 @@ public class Enemy : MonoBehaviour
     {
         if (findTarget == true)
         {
-            int amountOfPlayers = FindObjectOfType<PlayerManager>().playerList.Count;
+            int amountOfPlayers = PlayerManager.Instance.playerList.Count;
             int myTarget = Random.Range(0, amountOfPlayers);
             print(myTarget);
-            target = FindObjectOfType<PlayerManager>().playerList[myTarget];
+            target = PlayerManager.Instance.playerList[myTarget];
             print(target);
         }
     }
