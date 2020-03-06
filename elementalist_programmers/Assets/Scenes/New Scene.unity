@@ -163,11 +163,54 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &80349119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80349117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba7dccdfdd07d944b5796f723604664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawn_point: {fileID: 0}
+  moveSpeed: 7
+  stunned_wait_timer: 0
+  playerInput: {fileID: 0}
+  held_jump: 0
+  jump: 0
+  jumpForce: 7
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  grounded: 0
+  wall_jump: 0
+  new_jump: 0
+  wall_jump_direction: {x: 0.7, y: 1, z: 0}
+  wall_jump_force: 10
+  on_wall: 0
+  wall_push: 0
+  wall_sliding: 0
+  wj_interpolant_gain: 0.1
+  ui_retical_prefab: {fileID: 389712871}
+  secondary_speed: 20
+  secondary_movement_time: 0.2
+  secondary_movement: 0
+  facing: 0
+  death_status: 0
+  death_test: 0
 --- !u!4 &80349122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2860172928236456601, guid: d8063132f442653438442a39dea04bfd,
     type: 3}
   m_PrefabInstance: {fileID: 1130482212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &389712871 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 77215479, guid: bce4bc742d0bf204bbc29db500067914,
+    type: 3}
+  m_PrefabInstance: {fileID: 754093729}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &740263413
 GameObject:
@@ -575,6 +618,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2860172928236456602, guid: d8063132f442653438442a39dea04bfd, type: 3}
     - {fileID: 2860172928236456603, guid: d8063132f442653438442a39dea04bfd, type: 3}
+    - {fileID: 2860172928236456599, guid: d8063132f442653438442a39dea04bfd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d8063132f442653438442a39dea04bfd, type: 3}
 --- !u!1 &1283635961
 GameObject:
