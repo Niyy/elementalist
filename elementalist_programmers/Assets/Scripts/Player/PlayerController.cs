@@ -146,7 +146,10 @@ public class PlayerController : MonoBehaviour
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
+
+        Debug.Log("Awake set-up done. " + animator);
     }
+
     protected void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
