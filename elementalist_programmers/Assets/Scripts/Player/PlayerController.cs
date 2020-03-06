@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    protected void PlayerReset()
+    public void PlayerReset()
     {
         death_status = false;
         
@@ -517,6 +517,7 @@ public class PlayerController : MonoBehaviour
             this.GetComponent<MeshRenderer>().enabled = false;
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
+            PlayerManager.Instance.LivingPlayersCheck();
         } 
     }
 

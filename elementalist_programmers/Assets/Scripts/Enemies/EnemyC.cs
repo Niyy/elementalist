@@ -8,12 +8,14 @@ public class EnemyC : Enemy
 
     private Rigidbody rb;
     private Vector2 movement;
+    GameObject detector;
     //ublic float detectionRadius = 5f;
 
 
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        detector = transform.GetChild(0).gameObject;
         //WhoAmIKilling();
     }
 
@@ -58,6 +60,7 @@ public class EnemyC : Enemy
             else
             {
                 collider.GetComponent<PlayerController>().PlayerDeath();
+                detector.GetComponent<LineOfSight>().Retarget();
             }
         }
         

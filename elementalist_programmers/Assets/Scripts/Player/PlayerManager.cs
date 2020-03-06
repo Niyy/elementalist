@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Playmode { singleplayer, multiplayer }
 
@@ -84,4 +85,23 @@ public class PlayerManager : MonoBehaviour
         ModeCheck();
     }
 
+    public void LivingPlayersCheck()
+    {
+        bool players_remain = false;
+        foreach(GameObject player in playerList)
+        {
+            if (!player.transform.GetChild(0).GetComponent<PlayerController>().death_status)
+            {
+                players_remain = true;
+            }
+        }
+        if (!players_remain)
+        {
+            foreach (GameObject player in playerList)
+            {
+                player.transform.GetChild(0).GetComponent<PlayerController>().PlayerReset();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+    }
 }

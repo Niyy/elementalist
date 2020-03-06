@@ -72,12 +72,21 @@ public class CharacterSelector : MonoBehaviour
 
     private void OnSelect()
     {
-        if (selected || starting)
+        if (starting)
         {
             return;
         }
+        if (selected)
+        {
+            OnBack();
+            return;
+        }
         selected = CharSelMenu.CharacterAvailable(choice, this.transform.parent.gameObject);
-        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+        if (selected)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+        }
+        
     }
 
     private void OnBack()
