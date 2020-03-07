@@ -16,6 +16,8 @@ public class CharacterSelector : MonoBehaviour
     GameObject CharSel;
     CharacterSelectionMenu CharSelMenu;
     float last_move_time = 0f;
+    public float add_height = 0f;
+    public float selection_drop = 1f;
 
 
     private void Awake()
@@ -31,7 +33,7 @@ public class CharacterSelector : MonoBehaviour
         CharSelMenu = CharSel.GetComponent<CharacterSelectionMenu>();
         foreach (GameObject character in CharSelMenu.prefabs)
         {
-            selections.Add(character.transform.position + Vector3.up * character.GetComponent<Renderer>().bounds.size.y);
+            selections.Add(character.transform.position + (Vector3.up * character.GetComponent<Renderer>().bounds.size.y) + (Vector3.up * add_height));
         }
         transform.position = selections[0];
     }
@@ -84,7 +86,7 @@ public class CharacterSelector : MonoBehaviour
         selected = CharSelMenu.CharacterAvailable(choice, this.transform.parent.gameObject);
         if (selected)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y - selection_drop, transform.position.z);
         }
         
     }
