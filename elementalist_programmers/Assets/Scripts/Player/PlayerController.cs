@@ -224,7 +224,10 @@ public class PlayerController : MonoBehaviour
                     wall_jump = false;
                 }
             }
-            Airborn();
+            if (!grounded)
+            {
+                Airborn();
+            }
             if (wall_sliding)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, rigbod.velocity.y));
@@ -289,7 +292,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void OnJump(InputValue value)
+    public virtual void OnJump(InputValue value)
     {
         if(!death_status)
         {
@@ -318,7 +321,7 @@ public class PlayerController : MonoBehaviour
         held_jump = value.isPressed;
     }
 
-    protected void Airborn()
+    public virtual void Airborn()
     {
         if (rigbod.velocity.y < 0 && !wall_sliding)
         {

@@ -6,7 +6,11 @@ using UnityEngine.InputSystem;
 public class WaterPlayer : PlayerController
 {
     // Update is called once per frame
-    bool st_running = false;
+    bool hover = true;
+    public float hover_multiplayer = .2f;
+    bool hovering = false;
+    public float hover_time = 4f;
+    public float hover_elapsed_time;
 
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
@@ -23,6 +27,8 @@ public class WaterPlayer : PlayerController
         if (grounded)
         {
             special_reset = true;
+            hover = false;
+            hover_elapsed_time = 0f;
         }
         base.FixedUpdate();
         if (!death_status)
@@ -55,6 +61,39 @@ public class WaterPlayer : PlayerController
     public override void AttackHit()
     {
         enemy_hit = true;
+    }
+
+    public override void Airborn()
+    {
+
+        if (hover && held_jump && hover_elapsed_time < hover_time)
+        {
+            if (!hovering)
+            {
+                hovering = true;
+                rigbod.velocity = new Vector3(rigbod.velocity.x, 0f);
+            }
+            rigbod.AddForce(-Physics.gravity+Vector3.up* hover_multiplayer);
+            hover_elapsed_time += 0.02f;
+        }
+        else
+        {
+            hovering = false;
+            base.Airborn();
+        }
+    }
+
+    public override void OnJump(InputValue value)
+    {
+        base.OnJump(value);
+        if (!death_status)
+        {
+            //hover if player holds jump again
+            if(!grounded && !(wall_sliding || wall_push) )
+            {
+                hover = true;
+            }
+        }
     }
 
     protected void EngageSpecialMovement()

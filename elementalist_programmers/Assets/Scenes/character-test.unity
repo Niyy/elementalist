@@ -852,6 +852,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3932687617251709604, guid: d08f2b6b9885971c281bbb7314f4be88,
+        type: 3}
+      propertyPath: m_Name
+      value: Reticle
+      objectReference: {fileID: 0}
     - target: {fileID: 3932687617251709603, guid: d08f2b6b9885971c281bbb7314f4be88,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -906,11 +911,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932687617251709604, guid: d08f2b6b9885971c281bbb7314f4be88,
-        type: 3}
-      propertyPath: m_Name
-      value: Reticle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d08f2b6b9885971c281bbb7314f4be88, type: 3}
@@ -1050,6 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce8876870e1f5c46b0aaccb97dea156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  found: 0
 --- !u!135 &1662318204
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1235,6 +1236,16 @@ PrefabInstance:
     - target: {fileID: 4012245450922631660, guid: e62dad73ad09b814ab34a48ae9c6b564,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059864958838210720, guid: e62dad73ad09b814ab34a48ae9c6b564,
+        type: 3}
+      propertyPath: hover_multiplayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059864958838210720, guid: e62dad73ad09b814ab34a48ae9c6b564,
+        type: 3}
+      propertyPath: death_test
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
