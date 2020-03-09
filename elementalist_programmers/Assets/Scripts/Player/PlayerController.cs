@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Variables")]
     public float moveSpeed = 7f;
     public float stunned_wait_timer;
+    [HideInInspector] public float dSpeed;
 
 
     //[SerializeField]
@@ -32,7 +33,9 @@ public class PlayerController : MonoBehaviour
     public bool held_jump = false;
     public bool jump = false;
     public float jumpForce = 7f;
+   [HideInInspector] public float djump;
     public float fallMultiplier = 2.5f;
+    [HideInInspector] public float dFall;
     public float lowJumpMultiplier = 2f;
     public bool grounded;
 
@@ -114,6 +117,9 @@ public class PlayerController : MonoBehaviour
     // Animator
     protected Animator animator;
 
+    //Traped in sand
+    public bool trapped = false;
+
 
     private void OnEnable()
     {
@@ -153,6 +159,9 @@ public class PlayerController : MonoBehaviour
     {
         direction = Vector2.right;
         wall_jump_direction.Normalize();
+        dSpeed = moveSpeed;
+        djump = jumpForce;
+        dFall = fallMultiplier;
     }
 
 
@@ -357,7 +366,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!death_status)
         {
-            if (!is_secondary_moving && secondary_reset && !on_wall && !stunned
+            if (!is_secondary_moving && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_secondary_movement_time = 0;

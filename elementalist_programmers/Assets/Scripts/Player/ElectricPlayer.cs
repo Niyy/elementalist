@@ -11,7 +11,7 @@ public class ElectricPlayer : PlayerController
     public float maxSpeed = 15;
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
-    float dSpeed;
+   
     bool is_special_dashing = false;
     bool special_reset = true;
     float current_special_movement_time;
@@ -24,7 +24,7 @@ public class ElectricPlayer : PlayerController
     bool enemy_hit = false;
     public override void Awake()
     {
-        dSpeed = moveSpeed;
+   
         base.Awake();
     }
     public override void FixedUpdate()
@@ -70,7 +70,7 @@ public class ElectricPlayer : PlayerController
     {
         if (!death_status)
         {
-            if (!is_secondary_moving && !is_special_dashing && special_reset && !on_wall && !stunned
+            if (!is_secondary_moving && !is_special_dashing && special_reset && !on_wall && !stunned &&!trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_special_movement_time = 0;
@@ -82,8 +82,8 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
-                if(transform.childCount != 0)
-                transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
+              //  if(transform.childCount != 0)
+            //    transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
             }
         }
     }
@@ -113,8 +113,8 @@ public class ElectricPlayer : PlayerController
                 attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;
-                if (transform.childCount != 0)
-                    transform.GetChild(0).GetComponent<Renderer>().material = player_mat;
+                //if (transform.childCount != 0)
+                   // transform.GetChild(0).GetComponent<Renderer>().material = player_mat;
             }
         }
     }
