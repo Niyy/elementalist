@@ -1,16 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public enum Playmode { singleplayer, multiplayer }
 
 public class PlayerManager : MonoBehaviour
 {
 
     public static PlayerManager Instance;
-    //array of players
+    //list of players
     public List<GameObject> playerList;
     public GameObject[] selectors;
     public GameObject[] characters;
+    public bool character_select = false;
 
+    public Playmode mode;
+
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+
+        //playerList.Add();
+    }
 
     private void Awake()
     {
@@ -23,19 +35,31 @@ public class PlayerManager : MonoBehaviour
             Instance = this;
         }
     }
-    void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
 
-        //playerList.Add();
-    }
     public void SetPlayers(GameObject player)
     {
         playerList.Add(player);
-        GameObject selector = Instantiate(selectors[playerList.Count - 1]);
-        selector.transform.parent = playerList[playerList.Count  - 1].transform;
+        if (character_select)
+        {
+            GameObject selector = Instantiate(selectors[playerList.Count - 1]);
+            selector.transform.parent = playerList[playerList.Count - 1].transform;
+        }
+        else
+        {
+            playerList[playerList.Count - 1].GetComponent<DontDestroyOnLoad>().enabled = true;
+        }
+        ModeCheck();
     }
 
+    public void ModeCheck()
+    {
+        if (playerList.Count > 1)
+        {
+            mode = Playmode.multiplayer;
+        }
+        else
+            mode = Playmode.singleplayer;
+    }
 
     public List<GameObject> GetPlayerList()
     {
@@ -54,11 +78,30 @@ public class PlayerManager : MonoBehaviour
             {
                 player.transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
                 player.GetComponent<DontDestroyOnLoad>().enabled = true;
-                player.transform.GetChild(0).gameObject.SetActive(false);
                 player.transform.GetChild(1).gameObject.SetActive(false);
+                Destroy(player.transform.GetChild(0).gameObject);
             }
         }
-
+        ModeCheck();
     }
 
+    public void LivingPlayersCheck()
+    {
+        bool players_remain = false;
+        foreach(GameObject player in playerList)
+        {
+            if (!player.transform.GetChild(0).GetComponent<PlayerController>().death_status)
+            {
+                players_remain = true;
+            }
+        }
+        if (!players_remain)
+        {
+            foreach (GameObject player in playerList)
+            {
+                player.transform.GetChild(0).GetComponent<PlayerController>().PlayerReset();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+    }
 }

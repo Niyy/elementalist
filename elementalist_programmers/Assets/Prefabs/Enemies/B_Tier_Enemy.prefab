@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 3222647817625383741}
   - component: {fileID: 3222647817625383740}
   - component: {fileID: 3222647817625383736}
+  - component: {fileID: -683623402118018057}
   m_Layer: 9
-  m_Name: B_Tier
+  m_Name: B_Tier_Enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,11 +53,13 @@ MonoBehaviour:
   findTarget: 0
   target: {fileID: 0}
   myRoom: {fileID: 0}
-  direction: 1
-  patrol_wait_timer: 2
+  ice_material: {fileID: 0}
   offset: 0.75
   search_arch: 30
   sight_distance: 10
+  direction: 1
+  patrol_wait_timer: 2
+  recoil_speed: 0
 --- !u!33 &3222647817625383738
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -132,3 +135,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!65 &-683623402118018057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222647817625383743}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

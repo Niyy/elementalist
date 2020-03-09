@@ -18,7 +18,7 @@ public class Interactable : MonoBehaviour
     private GameObject level_manager;
 
 
-    private void Awake() 
+    private void Awake()
     {
         level_manager = GameObject.Find("LevelManager");
     }
@@ -26,13 +26,18 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag.Equals("Player"))
+        if (col.gameObject.tag.Equals("Player"))
         {
-            switch(interactable_choice)
+            switch (interactable_choice)
             {
-                case InteractableChoice.Collectable: ActivateCollectable();
+                case InteractableChoice.Collectable:
+                    ActivateCollectable();
                     break;
-                case InteractableChoice.Trap: ActivateTrap();
+                case InteractableChoice.Trap:
+                    ActivateTrap();
+                    break;
+                case InteractableChoice.Pressure_Plate: 
+                    ActivatePressurePlate();
                     break;
             }
         }
@@ -51,7 +56,13 @@ public class Interactable : MonoBehaviour
         if (room_manager.switchs.Contains(this.gameObject))
         {
             room_manager.switchs.Remove(this.gameObject);
-        }    
+        }
+        Destroy(this.gameObject);
+    }
+
+    private void ActivatePressurePlate()
+    {
+        room_manager.switchs.Remove(this.gameObject);
         Destroy(this.gameObject);
     }
 }

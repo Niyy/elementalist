@@ -9,6 +9,7 @@ TagManager:
   - oldCam
   - door
   - enemy
+  - Freeze
   layers:
   - Default
   - TransparentFX

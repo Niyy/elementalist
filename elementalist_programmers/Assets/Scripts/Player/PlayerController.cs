@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 
@@ -19,7 +20,6 @@ public class PlayerController : MonoBehaviour
 
 
     //[SerializeField]
-    public PlayerInput playerInput;
     //PlayerControls controls;
     protected Vector2 move;
     protected Rigidbody rigbod;
@@ -114,10 +114,17 @@ public class PlayerController : MonoBehaviour
 
     // Animator
     protected Animator animator;
-    
 
-    // Start is called before the first frame update
-    protected virtual void Awake()
+
+    private void OnEnable()
+    {
+        ui_retical = GameObject.Find("/Canvas/UI_Retical");
+        player_camera = Camera.main;
+        retical = new GameObject("Reticle_" + this.gameObject.name);
+        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
+    }
+
+    public virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
 
@@ -128,17 +135,6 @@ public class PlayerController : MonoBehaviour
         //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
         //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
-        //if (unsaved)
-        //{
-        //    GameObject playerManager = GameObject.Find("PlayerManager");
-        //    unsaved = false;
-        //    playerManager.GetComponent<PlayerManager>().GetPlayers(this.gameObject);
-        //}
-
-        ui_retical = GameObject.Find("/Canvas/UI_Retical");
-        player_camera = Camera.main;
-        retical = new GameObject("Reticle_" + this.gameObject.name);
-        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
 
         stunned = false;
         death_status = false;
@@ -233,7 +229,10 @@ public class PlayerController : MonoBehaviour
                     wall_jump = false;
                 }
             }
-            Airborn();
+            if (!grounded)
+            {
+                Airborn();
+            }
             if (wall_sliding)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, rigbod.velocity.y));
@@ -300,7 +299,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void OnJump(InputValue value)
+    public virtual void OnJump(InputValue value)
     {
         if(!death_status)
         {
@@ -329,7 +328,7 @@ public class PlayerController : MonoBehaviour
         held_jump = value.isPressed;
     }
 
-    protected void Airborn()
+    public virtual void Airborn()
     {
         if (rigbod.velocity.y < 0 && !wall_sliding)
         {
@@ -359,7 +358,6 @@ public class PlayerController : MonoBehaviour
 
         ui_retical.transform.position = player_camera.WorldToScreenPoint(retical.transform.position);
     }
-
 
 
     protected void OnDash()
@@ -481,6 +479,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlayerReset()
+    {
+        death_status = false;
+        
+        this.GetComponent<MeshRenderer>().enabled = true;
+        this.GetComponent<Collider>().isTrigger = false;
+        rigbod.isKinematic = false;
+        Neutralize();
+        stunned = false;
+        death_status = false;
+        attacking = false;
+
+        stunned_counter = stunned_wait_timer;
+        gameObject.SetActive(false);
+    }
+
 
     protected void OnTriggerEnter(Collider col)
     {
@@ -499,17 +513,27 @@ public class PlayerController : MonoBehaviour
 
     public virtual void PlayerDeath(float death_time = 0.0f)
     {
-        death_status = true;
-        ui_retical.SetActive(false);
-        child.SetActive(false);
-        this.GetComponent<Collider>().isTrigger = true;
-        rigbod.isKinematic = true;
+        if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerReset();
+        }
+        else
+        {
+            death_status = true;
+            ui_retical.SetActive(false);
+            child.SetActive(false);
+            this.GetComponent<Collider>().isTrigger = true;
+            rigbod.isKinematic = true;
+            PlayerManager.Instance.LivingPlayersCheck();
+        } 
     }
 
 
     public void Recoil(float recoil_speed, int enemy_direction)
     {
         stunned_forces = new Vector3(enemy_direction * recoil_speed, rigbod.velocity.y, 0.0f);
+        print("stun: " + stunned_forces);
         stunned = true;
         stunned_counter = 0;
     }

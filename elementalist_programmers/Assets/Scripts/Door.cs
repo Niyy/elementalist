@@ -36,14 +36,15 @@ public class Door : MonoBehaviour
         if (other.tag == "Player")
         {
 
-            LevelManager._instance.roomsCenter[roomIndex].SetActive(true);
+            
             int currRoom = LevelManager._instance.getCurrentRoom();
             LevelManager._instance.roomsCenter[currRoom].SetActive(false);
+            LevelManager._instance.roomsCenter[roomIndex].SetActive(true);
             LevelManager._instance.camTarget.transform.position = LevelManager._instance.roomsPosInLevel[roomIndex];
 
             foreach (GameObject player in FindObjectOfType<PlayerManager>().playerList)
             {
-                player.transform.position = spawnPoint.transform.position;
+                player.transform.GetChild(0).transform.position = spawnPoint.transform.position;
                 print("I moved a player");
             }
            

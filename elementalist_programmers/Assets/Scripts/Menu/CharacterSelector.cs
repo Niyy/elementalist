@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelector : MonoBehaviour
 {
-    private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,1f), new Vector3(-1.5f, 4f, 1f), new Vector3(1.5f, 4f, 1f), new Vector3(4.5f, 4f, 1f) }; 
+    //private Vector3[] selections = new Vector3[] { new Vector3(-4.5f,4f,1f), new Vector3(-1.5f, 4f, 1f), new Vector3(1.5f, 4f, 1f), new Vector3(4.5f, 4f, 1f) };
+    private List<Vector3> selections;
     Vector2 move;
     Vector3 position;
     int choice;
@@ -13,6 +14,10 @@ public class CharacterSelector : MonoBehaviour
     bool starting = true;
     bool selecting = true;
     GameObject CharSel;
+    CharacterSelectionMenu CharSelMenu;
+    float last_move_time = 0f;
+    public float add_height = 0f;
+    public float selection_drop = 1f;
 
 
     private void Awake()
@@ -23,27 +28,34 @@ public class CharacterSelector : MonoBehaviour
 
     private void Start()
     {
-        transform.position = selections[0];
+        selections = new List<Vector3> { };
         CharSel = GameObject.Find("CharacterSelect");
+        CharSelMenu = CharSel.GetComponent<CharacterSelectionMenu>();
+        foreach (GameObject character in CharSelMenu.prefabs)
+        {
+            selections.Add(character.transform.position + (Vector3.up * character.GetComponent<Renderer>().bounds.size.y) + (Vector3.up * add_height));
+        }
+        transform.position = selections[0];
     }
 
     private void Update()
     {
-        
         starting = false;
     }
 
     private void OnMove(InputValue value)
     {
-        if (selected || starting)
+        float time = Time.unscaledTime;
+        if (selected || starting || time < last_move_time + 0.2)
         {
             return;
         }
+        last_move_time = time;
         move = value.Get<Vector2>();
         if (move.x > 0f)
         {
             choice++;
-            if(choice > selections.Length - 1)
+            if(choice > selections.Count - 1)
             {
                 choice = 0;
             }
@@ -53,7 +65,7 @@ public class CharacterSelector : MonoBehaviour
             choice--;
             if(choice < 0)
             {
-                choice = (selections.Length - 1);
+                choice = (selections.Count - 1);
             }
         }
         transform.position = selections[choice];
@@ -62,12 +74,21 @@ public class CharacterSelector : MonoBehaviour
 
     private void OnSelect()
     {
-        if (selected || starting)
+        if (starting)
         {
             return;
         }
-        selected = CharSel.GetComponent<CharacterSelectionMenu>().CharacterAvailable(choice, this.transform.parent.gameObject);
-        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+        if (selected)
+        {
+            OnBack();
+            return;
+        }
+        selected = CharSelMenu.CharacterAvailable(choice, this.transform.parent.gameObject);
+        if (selected)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - selection_drop, transform.position.z);
+        }
+        
     }
 
     private void OnBack()
@@ -79,7 +100,7 @@ public class CharacterSelector : MonoBehaviour
         else
         {
             selected = false;
-            CharSel.GetComponent<CharacterSelectionMenu>().RemoveSelection(choice);
+            CharSelMenu.RemoveSelection(choice);
             transform.position = selections[choice];
         }
     }
@@ -94,7 +115,7 @@ public class CharacterSelector : MonoBehaviour
         {
             selecting = false;
             CharSel.GetComponent<DetectUsers>().DisableListening();
-            CharSel.GetComponent<CharacterSelectionMenu>().BeginGame();
+            CharSelMenu.BeginGame();
         }
     }
 }
