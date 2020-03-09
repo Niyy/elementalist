@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
     // Death Variables
     protected float death_timer;
     protected GameObject reviver;
+    protected GameObject child;
     protected float current_timer;
     public bool death_status;
     [Header("Testing variables")]
@@ -146,6 +147,7 @@ public class PlayerController : MonoBehaviour
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
+        child = this.transform.GetChild(0).gameObject;
 
         Debug.Log("Awake set-up done. " + animator);
     }
@@ -486,8 +488,6 @@ public class PlayerController : MonoBehaviour
         {
             reviver = col.gameObject;
         }
-
-        Debug.Log("Someone there.");
     }
 
 
@@ -497,11 +497,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void PlayerDeath(float death_time = 0.0f)
+    public virtual void PlayerDeath(float death_time = 0.0f)
     {
         death_status = true;
         ui_retical.SetActive(false);
-        this.GetComponent<MeshRenderer>().enabled = false;
+        child.SetActive(false);
         this.GetComponent<Collider>().isTrigger = true;
         rigbod.isKinematic = true;
     }

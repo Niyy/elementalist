@@ -4,27 +4,36 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private float max_radius = 2.0f;
-    private float radius;
+    public float radius = 2.0f;
+
+
     private float current_angle;
+    private float max_amount;
     private GameObject player_position;
 
 
     protected void Awake()
     {
-        current_angle = 0;
     }
 
 
     protected void Start()
     {
-        radius = Random.Range(0, max_radius);
+        this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
+                                            radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
+                                            0.0f) + player_position.transform.position;
+        current_angle += 1.0f;
+    }
+
+
+    protected void Update()
+    {
+        IdleMovement();
     }
 
     
     protected void FixedUpdate()
     {
-        IdleMovement();
     }
 
 
@@ -32,7 +41,8 @@ public class Projectile : MonoBehaviour
     {
         this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
                                             radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
-                                            0.0f) + player_position.transform.position;
+                                            0.0f) + player_position.transform.position 
+                                            + new Vector3(0.0f, player_position.transform.localScale.y * 0.5f, 0.0f);
         current_angle += 1.0f;
 
         if(current_angle > 360)
@@ -48,14 +58,20 @@ public class Projectile : MonoBehaviour
     }
 
 
-    protected void Destroy()
-    {
-
-    }
-
-
     public void SetPlayerPosition(GameObject new_pos)
     {
         this.player_position = new_pos;
+    }
+
+
+    public void SetStartAngle(float start_radius)
+    {
+        current_angle = start_radius;
+    }
+
+
+    public float GetAngle()
+    {
+        return current_angle;
     }
 }
