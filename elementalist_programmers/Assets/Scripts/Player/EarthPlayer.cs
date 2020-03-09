@@ -13,7 +13,7 @@ public class EarthPlayer : PlayerController
     private List<GameObject> rock_list;
     private float current_respawn_rate;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -22,19 +22,19 @@ public class EarthPlayer : PlayerController
         current_respawn_rate = 0.0f;
     }
 
-    private void Start()
+    protected override void Start()
     {
         base.Start();
     }
 
 
-    private void Update()
+    protected override void Update()
     {
         base.Update();
     }
 
     
-    private void FixedUpdate()
+    public override void FixedUpdate()
     {
         base.FixedUpdate();
 
@@ -49,6 +49,7 @@ public class EarthPlayer : PlayerController
             if(current_respawn_rate >= rock_respawn_rate)
             {
                 GameObject new_rock = Instantiate(rock_prefab, this.transform);
+                new_rock.GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
                 new_rock.transform.position = new Vector3(new_rock.transform.position.x, 
                                                             new_rock.transform.position.y, -5.0f);
                 rock_list.Add(new_rock);

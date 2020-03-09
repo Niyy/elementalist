@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
     
 
     // Start is called before the first frame update
-    protected void Awake()
+    protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
 
@@ -156,14 +156,14 @@ public class PlayerController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         direction = Vector2.right;
         wall_jump_direction.Normalize();
     }
 
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(!death_status)
         {
