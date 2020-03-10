@@ -6,12 +6,16 @@ using UnityEngine.InputSystem;
 public class WaterPlayer : PlayerController
 {
     // Update is called once per frame
+    [Header("Hover Variables")]
     bool hover = true;
-    public float hover_multiplayer = .2f;
+    public float max_hover_speed = 7f;
+    public float max_hover_multiplayer = 4f;
+    float hover_multiplayer;
     bool hovering = false;
-    public float hover_time = 4f;
+    public float max_hover_time = 4f;
     public float hover_elapsed_time;
 
+    [Header("Special Variables")]
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
     bool is_special_dashing = false;
@@ -29,12 +33,19 @@ public class WaterPlayer : PlayerController
             special_reset = true;
             hover = false;
             hover_elapsed_time = 0f;
+            hover_multiplayer = 0f;
         }
         base.FixedUpdate();
         if (!death_status)
         {
             EngageSpecialMovement();
         }
+    }
+
+    public override void OnMove(InputValue value)
+    {
+        base.OnMove(value);
+        Debug.Log("move:" + move);
     }
 
     public void OnSpecial(InputValue value)
@@ -66,14 +77,26 @@ public class WaterPlayer : PlayerController
     public override void Airborn()
     {
 
-        if (hover && held_jump && hover_elapsed_time < hover_time)
+        if (hover && held_jump && hover_elapsed_time < max_hover_time)
         {
             if (!hovering)
             {
                 hovering = true;
-                rigbod.velocity = new Vector3(rigbod.velocity.x, 0f);
+                //if (rigbod.velocity.y > 0)
+                //{
+                //    rigbod.velocity = Vector3.zero;
+                //}
             }
-            rigbod.AddForce(-Physics.gravity+Vector3.up* hover_multiplayer);
+            if(rigbod.velocity.y < 0)
+            {
+                rigbod.AddForce(-Physics.gravity + Vector3.up * 8f * -rigbod.velocity.y + Vector3.up);
+            }
+            else if (rigbod.velocity.y < max_hover_speed)
+            {
+                rigbod.AddForce(-Physics.gravity+Vector3.up * hover_multiplayer);
+            }
+            if (hover_multiplayer < max_hover_multiplayer)
+                hover_multiplayer += 0.1f;
             hover_elapsed_time += 0.02f;
         }
         else

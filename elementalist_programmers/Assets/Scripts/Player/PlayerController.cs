@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
     }
-    protected void OnMove(InputValue value)
+    public virtual void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
     }
