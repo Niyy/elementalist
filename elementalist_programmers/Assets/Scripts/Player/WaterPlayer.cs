@@ -14,6 +14,8 @@ public class WaterPlayer : PlayerController
     bool hovering = false;
     public float max_hover_time = 4f;
     public float hover_elapsed_time;
+    public GameObject water_bar;
+    private float water_bar_size;
 
     [Header("Special Variables")]
     public float special_speed = 25f;
@@ -26,6 +28,12 @@ public class WaterPlayer : PlayerController
 
     bool enemy_hit = false;
 
+    public override void Awake()
+    {
+        water_bar_size = water_bar.transform.localScale.y;
+        base.Awake();
+    }
+
     public override void FixedUpdate()
     {
         if (grounded)
@@ -34,6 +42,7 @@ public class WaterPlayer : PlayerController
             hover = false;
             hover_elapsed_time = 0f;
             hover_multiplayer = 0f;
+            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, water_bar_size);
         }
         base.FixedUpdate();
         if (!death_status)
@@ -48,7 +57,7 @@ public class WaterPlayer : PlayerController
         Debug.Log("move:" + move);
     }
 
-    public void OnSpecial(InputValue value)
+    public override void OnDash(InputValue value)
     {
         if (!death_status)
         {
@@ -98,6 +107,8 @@ public class WaterPlayer : PlayerController
             if (hover_multiplayer < max_hover_multiplayer)
                 hover_multiplayer += 0.1f;
             hover_elapsed_time += 0.02f;
+            float time_ratio =  1f - hover_elapsed_time / max_hover_time;
+            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, time_ratio * water_bar_size);
         }
         else
         {

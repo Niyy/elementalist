@@ -353,7 +353,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void OnDash()
+    public virtual void OnDash(InputValue value)
     {
         if(!death_status)
         {
