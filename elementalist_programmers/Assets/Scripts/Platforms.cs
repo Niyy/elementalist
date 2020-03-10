@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class Platforms : MonoBehaviour
 {
+    [Header("Chouse Platform")]
+    public Platform current_Plat;
+
+
+    [Header("Sand Trap - Can only have a single trigger")]
     public float sandSpeed;
     public float sandJump;
     public float sandFall;
 
-    public Platform current_Plat;
+    [Header("Crumbling - Needs 2 collider trigger first")]
+    public float waitToCrumble = 0f;
+    public float timeToRespawn = 0f;
+    public bool crumbled = false;
+
+    [Header("Phasing - Can only have one physical collider")]
+    public float timeActive;
+    public float timeAway;
+ 
 
     public enum Platform
     {
@@ -16,6 +29,12 @@ public class Platforms : MonoBehaviour
         Crumbling,
         Phasing
     };
+
+    private void Start()
+    {
+        if (current_Plat == Platform.Phasing)
+            StartCoroutine(phasing());
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,6 +48,7 @@ public class Platforms : MonoBehaviour
                     print("traped");
                     break;
                 case Platform.Crumbling:
+                    StartCoroutine(crumble());
                     break;
                 default:
                     break;
@@ -89,6 +109,33 @@ public class Platforms : MonoBehaviour
         me.moveSpeed = me.dSpeed;
         me.jumpForce = me.djump;
         me.fallMultiplier = me.dFall;
+    }
+    IEnumerator crumble()
+    {
+        if(crumbled == false)
+        {
+            crumbled = true;
+            this.GetComponent<MeshRenderer>().enabled = false;
+            yield return new WaitForSeconds(.1f);
+            this.GetComponent<MeshRenderer>().enabled = true;
+            yield return new WaitForSeconds(waitToCrumble);
+            this.GetComponent<BoxCollider>().enabled = false;
+            this.GetComponent<MeshRenderer>().enabled = false;
+            yield return new WaitForSeconds(timeToRespawn);
+            this.GetComponent<BoxCollider>().enabled = true;
+            this.GetComponent<MeshRenderer>().enabled = true;
+            crumbled = false;
+        }
+    }
+    IEnumerator phasing()
+    {
+        yield return new WaitForSeconds(timeActive);
+        this.GetComponent<BoxCollider>().enabled = false;
+        this.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(timeAway);
+        this.GetComponent<BoxCollider>().enabled = true;
+        this.GetComponent<MeshRenderer>().enabled = true;
+        StartCoroutine(phasing());
     }
 
 }
