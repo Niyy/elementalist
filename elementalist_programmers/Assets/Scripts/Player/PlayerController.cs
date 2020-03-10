@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
     // Death Variables
     protected float death_timer;
     protected GameObject reviver;
+    protected GameObject child;
     protected float current_timer;
     public bool death_status;
     [Header("Testing variables")]
@@ -148,14 +149,18 @@ public class PlayerController : MonoBehaviour
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
+        child = this.transform.GetChild(0).gameObject;
+
+        Debug.Log("Awake set-up done. " + animator);
     }
+
     protected void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
     }
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         direction = Vector2.right;
         wall_jump_direction.Normalize();
@@ -165,7 +170,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(!death_status)
         {
@@ -256,17 +261,20 @@ public class PlayerController : MonoBehaviour
     protected void AnimationHandler()
     {
         int angle = 0;
+        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
-        if(GetComponent<PlayerCollision>().on_wall && !GetComponent<PlayerCollision>().on_ground)
+        if(player_collision.on_wall && !player_collision.on_ground)
         {
             if(facing == 1)
             {
                 angle = 0;
             }
-            else 
+            else
             {
                 angle = 180;
             }
+
+            Debug.Log("facing");
         }
         else if(facing == 1)
         {
@@ -274,25 +282,24 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall 
-            && !GetComponent<PlayerCollision>().on_ground)
+        if(!animator.GetBool("holding_on_wall") && player_collision.on_wall 
+            && !player_collision.on_ground)
         {
-            animator.SetBool("running", false);
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && !GetComponent<PlayerCollision>().on_wall 
-                || GetComponent<PlayerCollision>().on_ground)
+        else if(animator.GetBool("holding_on_wall") && (!player_collision.on_wall 
+                || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
 
         if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-            && GetComponent<PlayerCollision>().on_ground)
+            && player_collision.on_ground)
         {
             animator.SetBool("running", true);
         }
         else if(animator.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-                || !GetComponent<PlayerCollision>().on_ground))
+                || !player_collision.on_ground || player_collision.on_wall))
         {
             animator.SetBool("running", false);
         }
@@ -504,8 +511,6 @@ public class PlayerController : MonoBehaviour
         {
             reviver = col.gameObject;
         }
-
-        Debug.Log("Someone there.");
     }
 
 
@@ -515,7 +520,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void PlayerDeath(float death_time = 0.0f)
+    public virtual void PlayerDeath(float death_time = 0.0f)
     {
         if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
         {
@@ -526,7 +531,7 @@ public class PlayerController : MonoBehaviour
         {
             death_status = true;
             ui_retical.SetActive(false);
-            this.GetComponent<MeshRenderer>().enabled = false;
+            child.SetActive(false);
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
             PlayerManager.Instance.LivingPlayersCheck();
