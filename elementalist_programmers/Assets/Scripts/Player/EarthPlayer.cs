@@ -13,7 +13,7 @@ public class EarthPlayer : PlayerController
     private List<GameObject> rock_list;
     private float current_respawn_rate;
 
-    protected override void Awake()
+    public override void Awake()
     {
         base.Awake();
 
