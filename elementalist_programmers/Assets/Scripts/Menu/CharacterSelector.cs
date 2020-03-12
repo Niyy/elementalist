@@ -13,7 +13,7 @@ public class CharacterSelector : MonoBehaviour
     bool selected = false;
     bool starting = true;
     bool selecting = true;
-    GameObject CharSel;
+    public GameObject CharSel;
     CharacterSelectionMenu CharSelMenu;
     float last_move_time = 0f;
     public float add_height = 0f;
@@ -23,17 +23,18 @@ public class CharacterSelector : MonoBehaviour
     private void Awake()
     {
         choice = 0;
+        CharSel = GameObject.Find("/SceneManagement/CharacterSelect");
     }
 
 
     private void Start()
     {
         selections = new List<Vector3> { };
-        CharSel = GameObject.Find("CharacterSelect");
+
         CharSelMenu = CharSel.GetComponent<CharacterSelectionMenu>();
         foreach (GameObject character in CharSelMenu.prefabs)
         {
-            selections.Add(character.transform.position + (Vector3.up * character.GetComponent<Renderer>().bounds.size.y) + (Vector3.up * add_height));
+            selections.Add(character.transform.position + (Vector3.up * add_height));
         }
         transform.position = selections[0];
     }

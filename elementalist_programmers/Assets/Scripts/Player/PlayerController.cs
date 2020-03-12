@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Camera for player
-    protected Camera player_camera;
+    [HideInInspector]public Camera player_camera;
 
 
     // Canvas
@@ -124,10 +124,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        ui_retical = GameObject.Find("/Canvas/UI_Retical");
         player_camera = Camera.main;
-        retical = new GameObject("Reticle_" + this.gameObject.name);
-        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
+        print("onenable");
     }
 
     public virtual void Awake()
@@ -150,7 +148,11 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         child = this.transform.GetChild(0).gameObject;
-
+        ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical");
+        player_camera = Camera.main;
+        retical = new GameObject("Reticle_" + this.gameObject.name);
+        retical.transform.parent = transform;
+        canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
         Debug.Log("Awake set-up done. " + animator);
     }
 
@@ -365,7 +367,7 @@ public class PlayerController : MonoBehaviour
             retical.transform.position = left_stick_position;
         }
 
-        ui_retical.transform.position = player_camera.WorldToScreenPoint(retical.transform.position);
+        ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
     }
 
 
@@ -492,7 +494,7 @@ public class PlayerController : MonoBehaviour
     {
         death_status = false;
         
-        this.GetComponent<MeshRenderer>().enabled = true;
+        //this.GetComponent<MeshRenderer>().enabled = true;
         this.GetComponent<Collider>().isTrigger = false;
         rigbod.isKinematic = false;
         Neutralize();

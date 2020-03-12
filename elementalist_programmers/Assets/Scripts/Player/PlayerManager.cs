@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         //playerList.Add();
     }
@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
             {
                 player.transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
                 player.GetComponent<DontDestroyOnLoad>().enabled = true;
-                player.transform.GetChild(1).gameObject.SetActive(false);
+                //player.transform.GetChild(1).gameObject.SetActive(false);
                 Destroy(player.transform.GetChild(0).gameObject);
             }
         }
