@@ -29,16 +29,17 @@ public class PlayerCollision : MonoBehaviour
         RaycastHit  hit_ground,
                     hit_left,
                     hit_right;
+        int layerMask = ~(1 << 10);
         Ray y_ray = new Ray(transform.position, Vector3.down);
         Ray left_y_ray = new Ray((transform.position - new Vector3(transform.lossyScale.x / 2, 0f)), Vector3.down);
         Ray right_y_ray = new Ray((transform.position + new Vector3(transform.lossyScale.x / 2, 0f)), Vector3.down);
         Ray left_ray = new Ray(transform.position, Vector3.left);
         Ray right_ray = new Ray(transform.position, Vector3.right);
-        mid_ground_col = Physics.Raycast(y_ray, out hit_ground, ray_height);
-        left_ground_col = Physics.Raycast(left_y_ray, out hit_ground, ray_height);
-        right_ground_col = Physics.Raycast(right_y_ray, out hit_ground, ray_height);
-        left_col = Physics.Raycast(left_ray, out hit_left, ray_width);
-        right_col = Physics.Raycast(right_ray, out hit_right, ray_width);
+        mid_ground_col = Physics.Raycast(y_ray, out hit_ground, ray_height, layerMask);
+        left_ground_col = Physics.Raycast(left_y_ray, out hit_ground, ray_height, layerMask);
+        right_ground_col = Physics.Raycast(right_y_ray, out hit_ground, ray_height, layerMask);
+        left_col = Physics.Raycast(left_ray, out hit_left, ray_width, layerMask);
+        right_col = Physics.Raycast(right_ray, out hit_right, ray_width, layerMask);
 
         if (mid_ground_col || left_ground_col || right_ground_col)
         {

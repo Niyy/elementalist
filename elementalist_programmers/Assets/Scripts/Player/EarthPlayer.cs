@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EarthPlayer : PlayerController
 {
@@ -8,10 +9,12 @@ public class EarthPlayer : PlayerController
     public GameObject rock_prefab;
     public int max_rocks = 4;
     public float rock_respawn_rate = 3.0f;
+    public float rock_speed = 1;
 
 
     private List<GameObject> rock_list;
     private float current_respawn_rate;
+    private bool currently_attacking;
 
     public override void Awake()
     {
@@ -20,6 +23,7 @@ public class EarthPlayer : PlayerController
         rock_list = new List<GameObject>();
 
         current_respawn_rate = 0.0f;
+        currently_attacking = false;
     }
 
     protected override void Start()
@@ -50,6 +54,7 @@ public class EarthPlayer : PlayerController
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        currently_attacking = false;
     }
 
 
@@ -86,9 +91,23 @@ public class EarthPlayer : PlayerController
     }
 
     
-    private void Attack()
+    public void OnSpecial(InputValue value)
     {
+        if (!death_status)
+        {
+            if(rock_list.Count > 0 && !currently_attacking)
+            {
+                Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * rock_speed;
+                GameObject rock = rock_list[0];
+                rock_list.RemoveAt(0);
+                rock.transform.parent = null;
 
+                rock.GetComponent<Rigidbody>().velocity = left_stick_position;
+                currently_attacking = true;
+            }
+        }
+
+        Debug.Log("Trying to attack.");
     }
 
 

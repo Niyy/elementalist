@@ -39,15 +39,18 @@ public class Projectile : MonoBehaviour
 
     protected void IdleMovement()
     {
-        this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
-                                            radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
-                                            0.0f) + player_position.transform.position 
-                                            + new Vector3(0.0f, player_position.transform.localScale.y * 0.5f, 0.0f);
-        current_angle += 1.0f;
-
-        if(current_angle > 360)
+        if(this.transform.parent != null)
         {
-            current_angle = 0;
+            this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
+                                                radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
+                                                0.0f) + player_position.transform.position 
+                                                + new Vector3(0.0f, player_position.transform.localScale.y * 0.5f, 0.0f);
+            current_angle += 1.0f;
+
+            if(current_angle > 360)
+            {
+                current_angle = 0;
+            }
         }
     }
 
