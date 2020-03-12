@@ -10,6 +10,7 @@ public class EarthPlayer : PlayerController
     public int max_rocks = 4;
     public float rock_respawn_rate = 3.0f;
     public float rock_speed = 1;
+    public bool straight_shot = false;
 
 
     private List<GameObject> rock_list;
@@ -99,15 +100,27 @@ public class EarthPlayer : PlayerController
             {
                 Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * rock_speed;
                 GameObject rock = rock_list[0];
-                rock_list.RemoveAt(0);
-                rock.transform.parent = null;
+                float highest = rock.transform.position.y;
 
-                rock.GetComponent<Rigidbody>().velocity = left_stick_position;
-                currently_attacking = true;
+                foreach(GameObject rock_check in rock_list)
+                {
+                    if(rock_check.transform.position.y >= highest)
+                    {
+                        rock = rock_check;
+                    }
+                }
+
+                if(left_stick_position.x != 0.0f || left_stick_position.y != 0.0f)
+                {
+                    rock_list.Remove(rock);
+                    rock.transform.parent = null;
+
+                    rock.GetComponent<Rigidbody>().velocity = left_stick_position;
+                    rock.GetComponent<Projectile>().Release();
+                    currently_attacking = true;
+                }
             }
         }
-
-        Debug.Log("Trying to attack.");
     }
 
 

@@ -1379,7 +1379,7 @@ PrefabInstance:
     - target: {fileID: 8956780002258053596, guid: 297b657347e691a4081bdcd8168a7c7b,
         type: 3}
       propertyPath: rock_speed
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 297b657347e691a4081bdcd8168a7c7b, type: 3}

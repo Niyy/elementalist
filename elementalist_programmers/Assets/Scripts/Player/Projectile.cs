@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
                                             radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
                                             0.0f) + player_position.transform.position;
         current_angle += 1.0f;
+        this.GetComponent<Collider>().enabled = false;
     }
 
 
@@ -55,15 +56,24 @@ public class Projectile : MonoBehaviour
     }
 
 
-    protected void Release()
+    private void OnTriggerEnter(Collider collider)
     {
-
+        if(!collider.tag.Equals("Player"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 
     public void SetPlayerPosition(GameObject new_pos)
     {
         this.player_position = new_pos;
+    }
+
+
+    public void Release()
+    {
+        this.GetComponent<Collider>().enabled = true;
     }
 
 
