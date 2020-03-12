@@ -60,6 +60,8 @@ public class Projectile : MonoBehaviour
     {
         if(!collider.tag.Equals("Player"))
         {
+            //Debug.Break();
+            Debug.Log("Dead: " + Time.time);
             Destroy(this.gameObject);
         }
     }
@@ -74,6 +76,7 @@ public class Projectile : MonoBehaviour
     public void Release()
     {
         this.GetComponent<Collider>().enabled = true;
+        Debug.Log("Thrown: " + Time.time);
     }
 
 
@@ -86,5 +89,11 @@ public class Projectile : MonoBehaviour
     public float GetAngle()
     {
         return current_angle;
+    }
+
+
+    public float GetRadius()
+    {
+        return radius;
     }
 }
