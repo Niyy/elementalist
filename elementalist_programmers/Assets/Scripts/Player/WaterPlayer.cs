@@ -17,7 +17,7 @@ public class WaterPlayer : PlayerController
     public GameObject water_bar;
     private float water_bar_size;
 
-    [Header("Special Variables")]
+    [Header("Dash Variables")]
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
     bool is_special_dashing = false;
@@ -25,6 +25,15 @@ public class WaterPlayer : PlayerController
     float current_special_movement_time;
     Vector2 special_movement_target;
     Vector2 special_movement_velocity;
+
+    [Header("Special Variables")]
+    public float wave_force = 20f;
+    public float wave_up_force = 2f;
+    public float wave_radius = 3f;
+    public float wave_cooldown;
+    private bool using_wave = false;
+    private Vector3 wave_pos;
+    public Collider[] colliders;
 
     bool enemy_hit = false;
 
@@ -48,6 +57,10 @@ public class WaterPlayer : PlayerController
         if (!death_status)
         {
             EngageSpecialMovement();
+            if (using_wave)
+            {
+                WavePush();
+            }
         }
     }
 
@@ -153,5 +166,26 @@ public class WaterPlayer : PlayerController
                 transform.Find("Aura").gameObject.SetActive(false);
             }
         }
+    }
+
+
+    public void OnSpecial()
+    {
+        using_wave = true;
+    }
+
+    public void WavePush()
+    {
+        wave_pos = transform.position;
+        colliders = Physics.OverlapSphere(wave_pos, wave_radius);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if(rb != null && !hit.CompareTag("Player"))
+            {
+                rb.AddExplosionForce(wave_force, wave_pos, wave_radius, wave_up_force, ForceMode.Impulse);
+            }
+        }
+        using_wave = false;
     }
 }
