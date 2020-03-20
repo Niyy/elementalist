@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class WaterPlayer : PlayerController
 {
-    // Update is called once per frame
+    
     [Header("Hover Variables")]
     bool hover = true;
     public float max_hover_speed = 7f;
@@ -28,11 +28,12 @@ public class WaterPlayer : PlayerController
 
     [Header("Special Variables")]
     public float wave_force = 20f;
-    public float wave_up_force = 2f;
+    public float wave_up_force = 1f;
     public float wave_radius = 3f;
-    public float wave_cooldown;
+    //public float wave_cooldown = 3f;
     private bool using_wave = false;
     private Vector3 wave_pos;
+    [HideInInspector]
     public Collider[] colliders;
 
     bool enemy_hit = false;
@@ -188,6 +189,10 @@ public class WaterPlayer : PlayerController
     {
         wave_pos = transform.position;
         colliders = Physics.OverlapSphere(wave_pos, wave_radius);
+        if(max_hover_time == 0f)
+        {
+            max_hover_time = 0.0001f;
+        }
         float time_ratio = 1f - hover_elapsed_time / max_hover_time;
         if (time_ratio == 1f)
         {
