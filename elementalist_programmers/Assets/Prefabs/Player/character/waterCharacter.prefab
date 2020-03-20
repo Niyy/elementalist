@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2860172928236456592
+--- !u!1 &2835532937742680438
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2860172928236456601}
-  - component: {fileID: 2860172928236456597}
-  - component: {fileID: 2860172928236456598}
-  - component: {fileID: 6707771015252325599}
-  - component: {fileID: 80349118}
-  - component: {fileID: 80349119}
+  - component: {fileID: 2835532937742680447}
+  - component: {fileID: 2835532937742680435}
+  - component: {fileID: 2835532937742680432}
+  - component: {fileID: 6772987245670252345}
+  - component: {fileID: 65502516911115353}
   m_Layer: 8
-  m_Name: Player
+  m_Name: waterCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2860172928236456601
+--- !u!4 &2835532937742680447
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1803514, y: -2.49, z: 0}
+  m_GameObject: {fileID: 2835532937742680438}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.146, y: 0, z: 0}
   m_LocalScale: {x: 1.00631, y: 0.6165495, z: 1}
   m_Children:
-  - {fileID: 5006512734992123969}
+  - {fileID: 5013072632208638887}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2860172928236456597
+--- !u!54 &2835532937742680435
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
+  m_GameObject: {fileID: 2835532937742680438}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -50,15 +49,15 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 0
---- !u!114 &2860172928236456598
+  m_Constraints: 126
+  m_CollisionDetection: 2
+--- !u!114 &2835532937742680432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
+  m_GameObject: {fileID: 2835532937742680438}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8c1564a71c86dd4fa1a90f6c99c821b, type: 3}
@@ -69,63 +68,26 @@ MonoBehaviour:
   ray_height: 1
   ray_width: 0.501
   col_face: 1
---- !u!65 &6707771015252325599
+--- !u!65 &6772987245670252345
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
+  m_GameObject: {fileID: 2835532937742680438}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.6954846, y: 1.9634546, z: 1}
   m_Center: {x: 0.004478093, y: 0.01827265, z: 0}
---- !u!114 &80349118
+--- !u!114 &65502516911115353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d2059e6333eaf0b429ba2d4307928c3e,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.InputSystem.PlayerInput+DeviceLostEvent, Unity.InputSystem,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.InputSystem.PlayerInput+DeviceRegainedEvent, Unity.InputSystem,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.InputSystem.PlayerInput+ControlsChangedEvent, Unity.InputSystem,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &80349119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860172928236456592}
+  m_GameObject: {fileID: 2835532937742680438}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46fbcc06f79e7e14bafcff54fe51bd9a, type: 3}
@@ -134,10 +96,13 @@ MonoBehaviour:
   respawn_point: {fileID: 0}
   moveSpeed: 7
   stunned_wait_timer: 0
+  dSpeed: 0
   held_jump: 0
   jump: 0
   jumpForce: 7
+  djump: 0
   fallMultiplier: 2.5
+  dFall: 0
   lowJumpMultiplier: 2
   grounded: 0
   wall_jump: 0
@@ -153,19 +118,21 @@ MonoBehaviour:
   secondary_movement_time: 0.2
   secondary_movement: 0
   facing: 0
+  player_camera: {fileID: 0}
   death_status: 0
   death_test: 0
+  trapped: 0
   hover_multiplayer: 0.2
   hover_time: 4
   hover_elapsed_time: 0
   special_speed: 25
   special_dash_time: 0.3
---- !u!1001 &221602651
+--- !u!1001 &65502516797696189
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2860172928236456601}
+    m_TransformParent: {fileID: 2835532937742680447}
     m_Modifications:
     - target: {fileID: -927199367670048503, guid: 067b26b4950ce31a5b9eea2c979262c7,
         type: 3}
@@ -259,9 +226,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 067b26b4950ce31a5b9eea2c979262c7, type: 3}
---- !u!4 &5006512734992123969 stripped
+--- !u!4 &5013072632208638887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 067b26b4950ce31a5b9eea2c979262c7,
     type: 3}
-  m_PrefabInstance: {fileID: 221602651}
+  m_PrefabInstance: {fileID: 65502516797696189}
   m_PrefabAsset: {fileID: 0}

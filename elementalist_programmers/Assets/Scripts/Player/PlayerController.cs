@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Variables")]
     public float moveSpeed = 7f;
     public float stunned_wait_timer;
+    [HideInInspector] public float dSpeed;
 
 
     //[SerializeField]
@@ -32,7 +33,9 @@ public class PlayerController : MonoBehaviour
     public bool held_jump = false;
     public bool jump = false;
     public float jumpForce = 7f;
+   [HideInInspector] public float djump;
     public float fallMultiplier = 2.5f;
+    [HideInInspector] public float dFall;
     public float lowJumpMultiplier = 2f;
     public bool grounded;
 
@@ -94,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Camera for player
-    protected Camera player_camera;
+    [HideInInspector]public Camera player_camera;
 
 
     // Canvas
@@ -104,6 +107,7 @@ public class PlayerController : MonoBehaviour
     // Death Variables
     protected float death_timer;
     protected GameObject reviver;
+    protected GameObject child;
     protected float current_timer;
     public bool death_status;
     [Header("Testing variables")]
@@ -114,13 +118,14 @@ public class PlayerController : MonoBehaviour
     // Animator
     protected Animator animator;
 
+    //Traped in sand
+    public bool trapped = false;
+
 
     private void OnEnable()
     {
-        ui_retical = GameObject.Find("/Canvas/UI_Retical");
         player_camera = Camera.main;
-        retical = new GameObject("Reticle_" + this.gameObject.name);
-        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
+        print("onenable");
     }
 
     public virtual void Awake()
@@ -142,21 +147,32 @@ public class PlayerController : MonoBehaviour
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
+        child = this.transform.GetChild(0).gameObject;
+        ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical");
+        player_camera = Camera.main;
+        retical = new GameObject("Reticle_" + this.gameObject.name);
+        retical.transform.parent = transform;
+        canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
+        Debug.Log("Awake set-up done. " + animator);
     }
+
     public virtual void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
     }
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         direction = Vector2.right;
         wall_jump_direction.Normalize();
+        dSpeed = moveSpeed;
+        djump = jumpForce;
+        dFall = fallMultiplier;
     }
 
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(!death_status)
         {
@@ -247,17 +263,20 @@ public class PlayerController : MonoBehaviour
     protected void AnimationHandler()
     {
         int angle = 0;
+        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
-        if(GetComponent<PlayerCollision>().on_wall && !GetComponent<PlayerCollision>().on_ground)
+        if(player_collision.on_wall && !player_collision.on_ground)
         {
             if(facing == 1)
             {
                 angle = 0;
             }
-            else 
+            else
             {
                 angle = 180;
             }
+
+            Debug.Log("facing");
         }
         else if(facing == 1)
         {
@@ -265,25 +284,24 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(!animator.GetBool("holding_on_wall") && GetComponent<PlayerCollision>().on_wall 
-            && !GetComponent<PlayerCollision>().on_ground)
+        if(!animator.GetBool("holding_on_wall") && player_collision.on_wall 
+            && !player_collision.on_ground)
         {
-            animator.SetBool("running", false);
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && !GetComponent<PlayerCollision>().on_wall 
-                || GetComponent<PlayerCollision>().on_ground)
+        else if(animator.GetBool("holding_on_wall") && (!player_collision.on_wall 
+                || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
 
         if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-            && GetComponent<PlayerCollision>().on_ground)
+            && player_collision.on_ground)
         {
             animator.SetBool("running", true);
         }
         else if(animator.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-                || !GetComponent<PlayerCollision>().on_ground))
+                || !player_collision.on_ground || player_collision.on_wall))
         {
             animator.SetBool("running", false);
         }
@@ -349,7 +367,7 @@ public class PlayerController : MonoBehaviour
             retical.transform.position = left_stick_position;
         }
 
-        ui_retical.transform.position = player_camera.WorldToScreenPoint(retical.transform.position);
+        ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
     }
 
 
@@ -357,7 +375,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!death_status)
         {
-            if (!is_secondary_moving && secondary_reset && !on_wall && !stunned
+            if (!is_secondary_moving && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_secondary_movement_time = 0;
@@ -476,7 +494,7 @@ public class PlayerController : MonoBehaviour
     {
         death_status = false;
         
-        this.GetComponent<MeshRenderer>().enabled = true;
+        //this.GetComponent<MeshRenderer>().enabled = true;
         this.GetComponent<Collider>().isTrigger = false;
         rigbod.isKinematic = false;
         Neutralize();
@@ -495,8 +513,6 @@ public class PlayerController : MonoBehaviour
         {
             reviver = col.gameObject;
         }
-
-        Debug.Log("Someone there.");
     }
 
 
@@ -506,7 +522,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void PlayerDeath(float death_time = 0.0f)
+    public virtual void PlayerDeath(float death_time = 0.0f)
     {
         if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
         {
@@ -517,7 +533,7 @@ public class PlayerController : MonoBehaviour
         {
             death_status = true;
             ui_retical.SetActive(false);
-            this.GetComponent<MeshRenderer>().enabled = false;
+            child.SetActive(false);
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
             PlayerManager.Instance.LivingPlayersCheck();

@@ -10,16 +10,19 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager Instance;
     //list of players
+    [HideInInspector]
     public List<GameObject> playerList;
     public GameObject[] selectors;
+    [HideInInspector]
     public GameObject[] characters;
-    public bool character_select = false;
-
+    [HideInInspector]
+    public bool character_select = true;
+    [HideInInspector]
     public Playmode mode;
 
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         //playerList.Add();
     }
@@ -78,7 +81,7 @@ public class PlayerManager : MonoBehaviour
             {
                 player.transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
                 player.GetComponent<DontDestroyOnLoad>().enabled = true;
-                player.transform.GetChild(1).gameObject.SetActive(false);
+                //player.transform.GetChild(1).gameObject.SetActive(false);
                 Destroy(player.transform.GetChild(0).gameObject);
             }
         }

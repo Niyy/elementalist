@@ -53,8 +53,8 @@ public class CharacterSelectionMenu : MonoBehaviour
                 //Debug.Log(characters[i].playerInput.user);
                 //player.GetComponent<PlayerInput>().user.Equals(characters[i].playerInput.user);
                 //playerManager.GetComponent<PlayerManager>().GetPlayers(player);
-            }
-                
+            }   
         }
+        PlayerManager.Instance.RemovePlayers();
     }
 }

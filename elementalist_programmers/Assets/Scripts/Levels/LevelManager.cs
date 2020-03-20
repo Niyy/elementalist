@@ -51,13 +51,13 @@ public class LevelManager : MonoBehaviour
         }
         roomsCenter[0].SetActive(true);
 
-        win.text = " ";
+      //  win.text = " ";
     }
 
     private void Update()
     {
         openBossDoor();
-        setText();
+      //  setText();
     }
 
     public int getCurrentRoom()
