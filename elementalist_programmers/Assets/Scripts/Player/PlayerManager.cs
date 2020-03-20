@@ -10,11 +10,14 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager Instance;
     //list of players
+    [HideInInspector]
     public List<GameObject> playerList;
     public GameObject[] selectors;
+    [HideInInspector]
     public GameObject[] characters;
-    public bool character_select = false;
-
+    [HideInInspector]
+    public bool character_select = true;
+    [HideInInspector]
     public Playmode mode;
 
     void Start()
