@@ -49,9 +49,19 @@ public class WaterPlayer : PlayerController
         {
             special_reset = true;
             hover = false;
-            hover_elapsed_time = 0f;
+            
             hover_multiplayer = 0f;
-            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, water_bar_size);
+            //water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, water_bar_size);
+            if (hover_elapsed_time > 0f)
+            {
+                hover_elapsed_time -= 0.04f;
+            }
+            if(hover_elapsed_time < 0f)
+            {
+                hover_elapsed_time = 0f;
+            }
+            float time_ratio = 1f - hover_elapsed_time / max_hover_time;
+            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, time_ratio * water_bar_size);
         }
         base.FixedUpdate();
         if (!death_status)
@@ -178,14 +188,22 @@ public class WaterPlayer : PlayerController
     {
         wave_pos = transform.position;
         colliders = Physics.OverlapSphere(wave_pos, wave_radius);
-        foreach (Collider hit in colliders)
+        float time_ratio = 1f - hover_elapsed_time / max_hover_time;
+        if (time_ratio == 1f)
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if(rb != null && !hit.CompareTag("Player"))
+            foreach (Collider hit in colliders)
             {
-                rb.AddExplosionForce(wave_force, wave_pos, wave_radius, wave_up_force, ForceMode.Impulse);
+                Rigidbody rb = hit.GetComponent<Rigidbody>();
+                if (rb != null && !hit.CompareTag("Player"))
+                {
+                    rb.AddExplosionForce(wave_force, wave_pos, wave_radius, wave_up_force, ForceMode.Impulse);
+                }
             }
+            
+            hover_elapsed_time = max_hover_time;
+            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, 0f);
         }
         using_wave = false;
+
     }
 }
