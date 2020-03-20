@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         print("onenable");
     }
 
-    public virtual void Awake()
+    protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
 
@@ -148,11 +148,13 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         child = this.transform.GetChild(0).gameObject;
-        ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical");
+        // ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical"); // USE THIS IN PRODUCTION
+        ui_retical = GameObject.Find("/Canvas/UI_Retical"); // COMMENT OUT
         player_camera = Camera.main;
         retical = new GameObject("Reticle_" + this.gameObject.name);
         retical.transform.parent = transform;
-        canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
+        //canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();  // USE THIS IN PRODUCTION
+        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>(); // COMMENT OUT
         Debug.Log("Awake set-up done. " + animator);
     }
 
@@ -275,8 +277,6 @@ public class PlayerController : MonoBehaviour
             {
                 angle = 180;
             }
-
-            Debug.Log("facing");
         }
         else if(facing == 1)
         {
@@ -356,7 +356,8 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
 
-        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius)
+
+        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius, ~(1<<10))
             && !hit.collider.gameObject.tag.Equals("Player"))
         {
             retical.transform.position = hit.point;

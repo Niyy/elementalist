@@ -22,7 +22,7 @@ public class ElectricPlayer : PlayerController
     public Material special_mat;
 
     bool enemy_hit = false;
-    public override void Awake()
+    protected override void Awake()
     {
    
         base.Awake();
