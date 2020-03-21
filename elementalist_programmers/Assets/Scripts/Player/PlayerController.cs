@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Awake set-up done. " + animator);
     }
 
-    protected void OnMove(InputValue value)
+    public virtual void OnMove(InputValue value)
     {
         move = value.Get<Vector2>();
     }
@@ -372,7 +372,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void OnDash()
+    public virtual void OnDash(InputValue value)
     {
         if(!death_status)
         {
@@ -484,7 +484,8 @@ public class PlayerController : MonoBehaviour
         if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
         {
             death_status = false;
-            this.GetComponent<MeshRenderer>().enabled = true;
+            //this.GetComponent<MeshRenderer>().enabled = true;
+            child.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
             reviver = null;
@@ -494,8 +495,9 @@ public class PlayerController : MonoBehaviour
     public void PlayerReset()
     {
         death_status = false;
-        
+
         //this.GetComponent<MeshRenderer>().enabled = true;
+        child.SetActive(true);
         this.GetComponent<Collider>().isTrigger = false;
         rigbod.isKinematic = false;
         Neutralize();

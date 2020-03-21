@@ -10,7 +10,9 @@ public class DetectUsers : MonoBehaviour
 {
     PlayerInputManager playerInputManager;
     public GameObject playerPrefab;
+    [HideInInspector]
     public GameObject[] play_test_characters;
+    [HideInInspector]
     public bool play_testing = false;
     string controlScheme = "PlayerControls";
     InputDevice Keyboard = null;

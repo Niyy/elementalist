@@ -38,7 +38,8 @@ public class EnemyC : Enemy
 
     void moveChar(Vector2 direction)
     {
-        rb.MovePosition((Vector2)transform.position + (direction * speed * Time.deltaTime));
+        //rb.MovePosition((Vector2)transform.position + (direction * speed * Time.deltaTime));
+        rb.velocity = Vector3.Lerp(rb.velocity, direction * speed, Time.deltaTime);
     }
 
 

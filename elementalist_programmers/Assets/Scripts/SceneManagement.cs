@@ -17,4 +17,9 @@ public class SceneManagement : MonoBehaviour
             Instance = this;
         }
     }
+
+    public void SceneExit()
+    {
+        GetComponent<DontDestroyOnLoad>().enabled = false;
+    }
 }

@@ -68,7 +68,7 @@ public class EnemyB : Enemy
         if(current_patrol_timer < patrol_wait_timer)
         {
             current_patrol_timer += Time.deltaTime;
-            this.rigidbody.velocity = new Vector2(0.0f, this.rigidbody.velocity.y);
+            this.rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector2(0.0f, this.rigidbody.velocity.y), Time.deltaTime);
         }
         else
         {
@@ -79,7 +79,7 @@ public class EnemyB : Enemy
             }
             else
             {
-                this.rigidbody.velocity = new Vector2(speed * direction, this.rigidbody.velocity.y);
+                this.rigidbody.velocity = Vector3.Lerp(new Vector2(speed * direction, this.rigidbody.velocity.y), rigidbody.velocity, Time.deltaTime);
             }
         }
 
