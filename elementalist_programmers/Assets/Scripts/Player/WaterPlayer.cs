@@ -38,7 +38,7 @@ public class WaterPlayer : PlayerController
 
     bool enemy_hit = false;
 
-    public override void Awake()
+    protected override void Awake()
     {
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
