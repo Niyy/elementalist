@@ -781,6 +781,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &1518401496 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 158059659376670304, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018307462869910185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1820486498
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,5 +937,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4018307461920096074, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: water_bar
+      value: 
+      objectReference: {fileID: 1518401496}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}

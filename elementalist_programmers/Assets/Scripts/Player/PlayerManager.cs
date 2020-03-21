@@ -71,6 +71,7 @@ public class PlayerManager : MonoBehaviour
 
     public void RemovePlayers()
     {
+        print("Removing players");
         foreach ( GameObject player in playerList )
         {
             if (player.transform.childCount < 2)
@@ -104,7 +105,16 @@ public class PlayerManager : MonoBehaviour
             {
                 player.transform.GetChild(0).GetComponent<PlayerController>().PlayerReset();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                print("playerReset, new scene");
             }
+        }
+    }
+
+    public void SceneExit()
+    {
+        foreach(GameObject player in playerList)
+        {
+            player.GetComponent<DontDestroyOnLoad>().enabled = false;
         }
     }
 }

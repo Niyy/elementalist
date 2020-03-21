@@ -483,7 +483,8 @@ public class PlayerController : MonoBehaviour
         if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
         {
             death_status = false;
-            this.GetComponent<MeshRenderer>().enabled = true;
+            //this.GetComponent<MeshRenderer>().enabled = true;
+            child.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
             reviver = null;
@@ -493,8 +494,9 @@ public class PlayerController : MonoBehaviour
     public void PlayerReset()
     {
         death_status = false;
-        
+
         //this.GetComponent<MeshRenderer>().enabled = true;
+        child.SetActive(true);
         this.GetComponent<Collider>().isTrigger = false;
         rigbod.isKinematic = false;
         Neutralize();
