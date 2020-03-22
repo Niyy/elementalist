@@ -275,8 +275,6 @@ public class PlayerController : MonoBehaviour
             {
                 angle = 180;
             }
-
-            Debug.Log("facing");
         }
         else if(facing == 1)
         {
@@ -356,7 +354,8 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
 
-        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius)
+
+        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius, ~(1<<10))
             && !hit.collider.gameObject.tag.Equals("Player"))
         {
             retical.transform.position = hit.point;
