@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EarthPlayer : PlayerController
 {
@@ -13,6 +14,13 @@ public class EarthPlayer : PlayerController
     private List<GameObject> rock_list;
     private float current_respawn_rate;
 
+    Collider[] player_collider;
+    PlayerCollision playerCollision;
+    bool surface_blocked = false;
+    Renderer player_renderer;
+    GameObject dirt;
+
+
     public override void Awake()
     {
         base.Awake();
@@ -20,6 +28,10 @@ public class EarthPlayer : PlayerController
         rock_list = new List<GameObject>();
 
         current_respawn_rate = 0.0f;
+        
+        player_collider = GetComponents<Collider>();
+        playerCollision = GetComponent<PlayerCollision>();
+        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
     }
 
     protected override void Start()
@@ -89,6 +101,61 @@ public class EarthPlayer : PlayerController
     private void Attack()
     {
 
+    }
+
+    public override void OnDash(InputValue value)
+    {
+        OnDig(value);
+    }
+
+    public void OnDig(InputValue value)
+    {
+        if (value.isPressed && grounded)
+        {
+            is_secondary_moving = true;
+            player_collider[0].enabled = false;
+            player_collider[1].enabled = true;
+            surface_blocked = false;
+            player_renderer.enabled = false;
+        }
+        else if(is_secondary_moving)
+        {
+            Unbury();
+        }
+    }
+
+    private void Unbury()
+    {
+        if (!playerCollision.HeadCollision())
+        {
+            is_secondary_moving = false;
+            player_collider[1].enabled = false;
+            player_collider[0].enabled = true;
+            player_renderer.enabled = true;
+        }
+        else
+        {
+            print("surface_blocked");
+            surface_blocked = true;
+        }
+        
+    }
+
+    public override void EngageSecondaryMovement()
+    {
+        if (is_secondary_moving && !surface_blocked)
+        {
+            direction = new Vector3(move.x, move.y, 0f);
+            if (direction.x != 0)
+            {
+                facing = Mathf.Sign(direction.x);
+            }
+            rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+        }
+        else if(is_secondary_moving && surface_blocked)
+        {
+            Unbury();
+        }
     }
 
 

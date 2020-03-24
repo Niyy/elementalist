@@ -15,12 +15,14 @@ public class PlayerCollision : MonoBehaviour
     bool mid_ground_col = false;
     bool left_ground_col = false;
     bool right_ground_col = false;
+
+    Collider player_collider;
     
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        player_collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -30,8 +32,8 @@ public class PlayerCollision : MonoBehaviour
                     hit_left,
                     hit_right;
         Ray y_ray = new Ray(transform.position, Vector3.down);
-        Ray left_y_ray = new Ray((transform.position - new Vector3(transform.lossyScale.x / 2, 0f)), Vector3.down);
-        Ray right_y_ray = new Ray((transform.position + new Vector3(transform.lossyScale.x / 2, 0f)), Vector3.down);
+        Ray left_y_ray = new Ray((transform.position - new Vector3(player_collider.transform.lossyScale.x / 2, 0f)), Vector3.down);
+        Ray right_y_ray = new Ray((transform.position + new Vector3(player_collider.transform.lossyScale.x / 2, 0f)), Vector3.down);
         Ray left_ray = new Ray(transform.position, Vector3.left);
         Ray right_ray = new Ray(transform.position, Vector3.right);
         mid_ground_col = Physics.Raycast(y_ray, out hit_ground, ray_height);
@@ -74,5 +76,24 @@ public class PlayerCollision : MonoBehaviour
         }
 
         on_wall = (right_col || left_col);
+    }
+
+    public bool HeadCollision()
+    {
+        RaycastHit hit_ceiling;
+        Ray y_ray = new Ray(transform.position, Vector3.down);
+        Ray left_y_ray = new Ray((transform.position - new Vector3(player_collider.transform.lossyScale.x / 2, 0f)), Vector3.up);
+        Ray right_y_ray = new Ray((transform.position + new Vector3(player_collider.transform.lossyScale.x / 2, 0f)), Vector3.up);
+        bool mid_head_col = Physics.Raycast(y_ray, out hit_ceiling, player_collider.transform.lossyScale.y);
+        bool left_head_col = Physics.Raycast(left_y_ray, out hit_ceiling, player_collider.transform.lossyScale.y);
+        bool right_head_col = Physics.Raycast(right_y_ray, out hit_ceiling, player_collider.transform.lossyScale.y);
+        if (mid_head_col || left_head_col || right_head_col)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
 
     public virtual void OnJump(InputValue value)
     {
-        if(!death_status)
+        if(!death_status && !is_secondary_moving)
         {
             if (grounded)
             {
@@ -398,7 +398,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void EngageSecondaryMovement()
+    public virtual void EngageSecondaryMovement()
     {
         Vector2 next_position = this.transform.position + new Vector3(facing * 0.75f, 0.0f, 0.0f);
 

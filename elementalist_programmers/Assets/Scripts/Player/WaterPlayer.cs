@@ -78,7 +78,6 @@ public class WaterPlayer : PlayerController
     public override void OnMove(InputValue value)
     {
         base.OnMove(value);
-        Debug.Log("move:" + move);
     }
 
     public override void OnDash(InputValue value)
