@@ -439,6 +439,7 @@ MonoBehaviour:
   player_camera: {fileID: 0}
   death_status: 0
   death_test: 0
+  debugging: 1
   trapped: 0
   attack_angle: 67
 --- !u!1 &519420028

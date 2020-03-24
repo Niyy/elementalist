@@ -110,8 +110,11 @@ public class PlayerController : MonoBehaviour
     protected GameObject child;
     protected float current_timer;
     public bool death_status;
+
+
     [Header("Testing variables")]
     public bool death_test = false;
+    public bool debugging;
     //bool unsaved = true;
 
 
@@ -155,7 +158,6 @@ public class PlayerController : MonoBehaviour
         retical.transform.parent = transform;
         //canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();  // USE THIS IN PRODUCTION
         canvas = GameObject.Find("/Canvas").GetComponent<Canvas>(); // COMMENT OUT
-        Debug.Log("Awake set-up done. " + animator);
     }
 
     public virtual void OnMove(InputValue value)
@@ -426,8 +428,6 @@ public class PlayerController : MonoBehaviour
                 rigbod.velocity = Vector2.zero;
             }
         }
-
-        Debug.DrawRay(next_position, Vector2.down, Color.green);
     }
 
 
@@ -474,7 +474,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetRespawnPoint(GameObject newSpawnPoint)
     {
-        Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
         respawn_point = newSpawnPoint;
     }
 

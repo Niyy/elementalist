@@ -41,17 +41,27 @@ public class AirPlayer : PlayerController
     {
         float theta = Mathf.Atan2(retical.transform.position.y - this.transform.position.y, 
                                     retical.transform.position.x - this.transform.position.x);
+        float angle_one = theta + attack_angle;
+        float angle_two = theta - attack_angle;
 
-        float x = attack_range * Mathf.Cos(theta + attack_angle);
-        float y = attack_range * Mathf.Sin(theta + attack_angle);
-        Vector3 draw_angle = this.transform.position + new Vector3(x, y, 0.0f);
-        Debug.DrawLine(this.transform.position, draw_angle);
+        if(debugging)
+        {
+            float x = attack_range * Mathf.Cos(angle_one);
+            float y = attack_range * Mathf.Sin(angle_one);
+            Vector3 draw_angle = this.transform.position + new Vector3(x, y, 0.0f);
+            Debug.DrawLine(this.transform.position, draw_angle);
 
-        x = attack_range * Mathf.Cos(theta - attack_angle);
-        y = attack_range * Mathf.Sin(theta - attack_angle);
-        draw_angle = this.transform.position + new Vector3(x, y, 0.0f);
-        Debug.DrawLine(this.transform.position, draw_angle);
+            x = attack_range * Mathf.Cos(angle_two);
+            y = attack_range * Mathf.Sin(angle_two);
+            draw_angle = this.transform.position + new Vector3(x, y, 0.0f);
+            Debug.DrawLine(this.transform.position, draw_angle);
 
-        Debug.DrawLine(this.transform.position, retical.transform.position, Color.green);
+            Debug.DrawLine(this.transform.position, retical.transform.position, Color.green);
+        }
+
+        // List<GameObjects> shots =
+        // {
+        //     Instantiate()
+        // }
     }
 }
