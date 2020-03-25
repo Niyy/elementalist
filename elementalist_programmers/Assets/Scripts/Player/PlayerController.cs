@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected bool is_secondary_moving = false;
+    public bool is_secondary_moving;
     protected bool secondary_reset = true;
     protected float current_secondary_movement_time;
     protected Vector2 secondary_movement_target;
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
     public virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
-
+        is_secondary_moving = false;
         //old input method
         //controls = new PlayerControls();
         //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
@@ -217,8 +217,9 @@ public class PlayerController : MonoBehaviour
 
     protected void Move()
     {
-        if (!is_secondary_moving && !stunned)
+        if (!is_secondary_moving || !stunned)
         {
+            print("inmove");
             direction = new Vector3(move.x, move.y, 0f);
             if (direction.x != 0)
             {
@@ -421,6 +422,7 @@ public class PlayerController : MonoBehaviour
             {
                 Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
+                print("secondary movement over");
                 secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
             }

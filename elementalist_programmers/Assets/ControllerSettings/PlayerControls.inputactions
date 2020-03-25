@@ -921,6 +921,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MouseSelect",
+                    "type": "PassThrough",
+                    "id": "fcd094e7-2549-4d75-a32e-9558e155051a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1108,6 +1116,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e0cfeeb-56c6-45ad-a69f-d2084f23f9cf",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

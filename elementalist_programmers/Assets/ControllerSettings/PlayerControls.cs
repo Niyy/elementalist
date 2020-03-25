@@ -934,6 +934,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseSelect"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""fcd094e7-2549-4d75-a32e-9558e155051a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1123,6 +1131,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e0cfeeb-56c6-45ad-a69f-d2084f23f9cf"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1150,6 +1169,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_MainMenu_Move = m_MainMenu.FindAction("Move", throwIfNotFound: true);
         m_MainMenu_Select = m_MainMenu.FindAction("Select", throwIfNotFound: true);
         m_MainMenu_MousePosition = m_MainMenu.FindAction("MousePosition", throwIfNotFound: true);
+        m_MainMenu_MouseSelect = m_MainMenu.FindAction("MouseSelect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1348,6 +1368,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_MainMenu_Move;
     private readonly InputAction m_MainMenu_Select;
     private readonly InputAction m_MainMenu_MousePosition;
+    private readonly InputAction m_MainMenu_MouseSelect;
     public struct MainMenuActions
     {
         private @PlayerControls m_Wrapper;
@@ -1355,6 +1376,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_MainMenu_Move;
         public InputAction @Select => m_Wrapper.m_MainMenu_Select;
         public InputAction @MousePosition => m_Wrapper.m_MainMenu_MousePosition;
+        public InputAction @MouseSelect => m_Wrapper.m_MainMenu_MouseSelect;
         public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1373,6 +1395,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMousePosition;
+                @MouseSelect.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMouseSelect;
+                @MouseSelect.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMouseSelect;
+                @MouseSelect.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMouseSelect;
             }
             m_Wrapper.m_MainMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -1386,6 +1411,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @MouseSelect.started += instance.OnMouseSelect;
+                @MouseSelect.performed += instance.OnMouseSelect;
+                @MouseSelect.canceled += instance.OnMouseSelect;
             }
         }
     }
@@ -1413,5 +1441,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnMouseSelect(InputAction.CallbackContext context);
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5675063325845232477}
   - component: {fileID: 3775786889624528148}
   - component: {fileID: 701399491122880842}
+  - component: {fileID: 6088511467360655101}
   m_Layer: 8
   m_Name: earthCharacter
   m_TagString: Player
@@ -125,6 +126,19 @@ MonoBehaviour:
   rock_prefab: {fileID: 0}
   max_rocks: 4
   rock_respawn_rate: 3
+--- !u!65 &6088511467360655101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5675063325845232475}
+  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6954846, y: 0.2932987, z: 1}
+  m_Center: {x: 0.004478093, y: -0.8168099, z: -1.256788e-10}
 --- !u!1001 &7597713417114645136
 PrefabInstance:
   m_ObjectHideFlags: 0

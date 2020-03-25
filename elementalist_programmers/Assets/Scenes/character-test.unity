@@ -368,25 +368,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &567237447 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1185156191954394575, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
-    type: 3}
-  m_PrefabInstance: {fileID: 918386338}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &567237453
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567237447}
-  m_Material: {fileID: 13400000, guid: 88bf602f0a9000f448daaa7eca1fb1c4, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6954846, y: 0.2932987, z: 1}
-  m_Center: {x: 0.004478093, y: -0.8168099, z: -1.256788e-10}
 --- !u!4 &672383329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7732785616249452433, guid: 147352c31b303af418a44008ceb24720,
@@ -539,6 +520,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4018307461920096074, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: water_bar
+      value: 
+      objectReference: {fileID: 1396827201}
     - target: {fileID: 1185156191954394566, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -571,11 +557,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1130525370639858675, guid: 9577dbbe2d081ddeaa2722cd58003a2c,
         type: 3}
-    - target: {fileID: 4018307461920096074, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
-        type: 3}
-      propertyPath: water_bar
-      value: 
-      objectReference: {fileID: 1396827201}
     - target: {fileID: 964522966246617921, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
         type: 3}
       propertyPath: m_Enabled
