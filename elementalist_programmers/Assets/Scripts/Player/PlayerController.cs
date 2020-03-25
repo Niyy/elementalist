@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 
@@ -125,6 +126,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         player_camera = Camera.main;
+        SetActiveReticle(true);
         print("onenable");
     }
 
@@ -148,12 +150,13 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         child = this.transform.GetChild(0).gameObject;
-        ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical");
         player_camera = Camera.main;
         retical = new GameObject("Reticle_" + this.gameObject.name);
         retical.transform.parent = transform;
         canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
-        Debug.Log("Awake set-up done. " + animator);
+        ui_retical = Instantiate(ui_retical_prefab);
+        ui_retical.name = "UI_Reticle_" + this.gameObject.name;
+        ui_retical.transform.SetParent(canvas.transform, false);
     }
 
     public virtual void OnMove(InputValue value)
@@ -367,6 +370,7 @@ public class PlayerController : MonoBehaviour
         }
 
         ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
+        
     }
 
 
@@ -472,7 +476,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetRespawnPoint(GameObject newSpawnPoint)
     {
-        Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
         respawn_point = newSpawnPoint;
     }
 
@@ -564,6 +567,18 @@ public class PlayerController : MonoBehaviour
     public bool IsInVulnerable()
     {
         return is_secondary_moving;
+    }
+
+
+    public void SetActiveReticle(bool set)
+    {
+        ui_retical.GetComponent<Image>().enabled = set;
+    }
+
+
+    private void OnDisable()
+    {
+        SetActiveReticle(false);
     }
 
 
