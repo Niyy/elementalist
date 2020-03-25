@@ -389,7 +389,8 @@ public class PlayerController : MonoBehaviour
                     grounded = false;
                 }
 
-                Physics.IgnoreLayerCollision(8, 9, true);
+                gameObject.layer = 11;
+                //Physics.IgnoreLayerCollision(8, 9, true);
                 rigbod.velocity = secondary_movement_velocity;
                 is_secondary_moving = true;
                 wall_jump = false;
@@ -419,7 +420,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Physics.IgnoreLayerCollision(8, 9, false);
+                gameObject.layer = 8;
+                //Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
                 print("secondary movement over");
                 secondary_reset = false;
