@@ -33,7 +33,7 @@ public class PlayerCollision : MonoBehaviour
         RaycastHit  hit_ground,
                     hit_left,
                     hit_right;
-        int layerMask = ~((1 << 10) | (1 << 8));
+        int layerMask = ~((1 << 10) | (1 << 8) | (1 << 11));
         Ray y_ray = new Ray(transform.position, Vector3.down);
         Ray left_y_ray = new Ray((transform.position - new Vector3(player_collider.size.x / 2, 0f)), Vector3.down);
         Ray right_y_ray = new Ray((transform.position + new Vector3(player_collider.size.x / 2, 0f)), Vector3.down);

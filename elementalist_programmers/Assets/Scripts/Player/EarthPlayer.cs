@@ -144,8 +144,6 @@ public class EarthPlayer : PlayerController
                             rock = rock_check;
                         }
                     }
-
-
                     index = rock_list.IndexOf(rock);
                     rock_list.Remove(rock);
                     rock.transform.parent = null;
@@ -170,6 +168,7 @@ public class EarthPlayer : PlayerController
     {
         if (value.isPressed && grounded)
         {
+            gameObject.layer = 11;
             is_secondary_moving = true;
             player_collider[0].enabled = false;
             player_collider[1].enabled = true;
@@ -186,6 +185,7 @@ public class EarthPlayer : PlayerController
     {
         if (!playerCollision.HeadCollision())
         {
+            gameObject.layer = 8;
             print("unbury");
             is_secondary_moving = false;
             player_collider[1].enabled = false;
