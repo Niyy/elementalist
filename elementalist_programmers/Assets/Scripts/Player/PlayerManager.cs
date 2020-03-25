@@ -71,19 +71,23 @@ public class PlayerManager : MonoBehaviour
 
     public void RemovePlayers()
     {
+        //List<GameObject> unselected = new List<GameObject>();
         print("Removing players");
-        foreach ( GameObject player in playerList )
+        for (int i = playerList.Count - 1; i >= 0; i--)
         {
-            if (player.transform.childCount < 2)
+            if (playerList[i].transform.childCount < 2)
             {
-                playerList.Remove(player);
+                Destroy(playerList[i]);
+                playerList.RemoveAt(i);
+                //unselected.Add(player);
+                print("should be removed");
             }
             else
             {
-                player.transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
-                player.GetComponent<DontDestroyOnLoad>().enabled = true;
+                playerList[i].transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
+                playerList[i].GetComponent<DontDestroyOnLoad>().enabled = true;
                 //player.transform.GetChild(1).gameObject.SetActive(false);
-                Destroy(player.transform.GetChild(0).gameObject);
+                Destroy(playerList[i].transform.GetChild(0).gameObject);
             }
         }
         ModeCheck();

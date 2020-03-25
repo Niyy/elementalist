@@ -28,21 +28,23 @@ public class PlayerCollision : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        int layer_mask = 1 << 8;
-        layer_mask = ~layer_mask;
+        //int layer_mask = 1 << 8;
+        //layer_mask = ~layer_mask;
         RaycastHit  hit_ground,
                     hit_left,
                     hit_right;
+        int layerMask = ~((1 << 10) | (1 << 8));
         Ray y_ray = new Ray(transform.position, Vector3.down);
         Ray left_y_ray = new Ray((transform.position - new Vector3(player_collider.size.x / 2, 0f)), Vector3.down);
         Ray right_y_ray = new Ray((transform.position + new Vector3(player_collider.size.x / 2, 0f)), Vector3.down);
         Ray left_ray = new Ray(transform.position, Vector3.left);
         Ray right_ray = new Ray(transform.position, Vector3.right);
-        mid_ground_col = Physics.Raycast(y_ray, out hit_ground, ray_height, layer_mask);
-        left_ground_col = Physics.Raycast(left_y_ray, out hit_ground, ray_height, layer_mask);
-        right_ground_col = Physics.Raycast(right_y_ray, out hit_ground, ray_height, layer_mask);
-        left_col = Physics.Raycast(left_ray, out hit_left, ray_width);
-        right_col = Physics.Raycast(right_ray, out hit_right, ray_width);
+
+        mid_ground_col = Physics.Raycast(y_ray, out hit_ground, ray_height, layerMask);
+        left_ground_col = Physics.Raycast(left_y_ray, out hit_ground, ray_height, layerMask);
+        right_ground_col = Physics.Raycast(right_y_ray, out hit_ground, ray_height, layerMask);
+        left_col = Physics.Raycast(left_ray, out hit_left, ray_width, layerMask);
+        right_col = Physics.Raycast(right_ray, out hit_right, ray_width, layerMask);
 
         if (mid_ground_col || left_ground_col || right_ground_col)
         {
