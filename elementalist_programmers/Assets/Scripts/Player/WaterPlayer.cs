@@ -78,7 +78,6 @@ public class WaterPlayer : PlayerController
     public override void OnMove(InputValue value)
     {
         base.OnMove(value);
-        Debug.Log("move:" + move);
     }
 
     public override void OnDash(InputValue value)
@@ -92,9 +91,11 @@ public class WaterPlayer : PlayerController
                 special_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
                 grounded = false;
 
-                Physics.IgnoreLayerCollision(8, 9, true);
+                gameObject.layer = 11;
+                //Physics.IgnoreLayerCollision(8, 9, true);
                 rigbod.velocity = special_movement_velocity;
                 is_special_dashing = true;
+                is_secondary_moving = true;
                 wall_jump = false;
                 attacking = true;
                 transform.Find("Aura").gameObject.SetActive(true);
@@ -168,7 +169,8 @@ public class WaterPlayer : PlayerController
             }
             else
             {
-                Physics.IgnoreLayerCollision(8, 9, false);
+                gameObject.layer = 8;
+                //Physics.IgnoreLayerCollision(8, 9, false);
                 is_special_dashing = false;
                 if(!stunned)rigbod.velocity = Vector2.zero;
                 attacking = false;

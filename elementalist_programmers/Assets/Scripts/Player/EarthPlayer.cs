@@ -18,6 +18,14 @@ public class EarthPlayer : PlayerController
     private float current_respawn_rate;
     private bool currently_attacking;
 
+    BoxCollider[] player_collider;
+    PlayerCollision playerCollision;
+    bool surface_blocked = false;
+    Renderer player_renderer;
+    GameObject dirt;
+    float collider_height;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,6 +33,11 @@ public class EarthPlayer : PlayerController
         rock_list = new List<GameObject>();
 
         current_respawn_rate = 0.0f;
+        
+        player_collider = GetComponents<BoxCollider>();
+        playerCollision = GetComponent<PlayerCollision>();
+        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
+        collider_height = player_collider[0].size.y * transform.localScale.y;
         currently_attacking = false;
     }
 
@@ -38,6 +51,7 @@ public class EarthPlayer : PlayerController
     {
         base.Update();
 
+        
         if(!death_status)
         {
             RespawnRocks();
@@ -50,12 +64,19 @@ public class EarthPlayer : PlayerController
                 Destroy(rock);
             }
         }
+        Vector3 nxt_position = this.transform.position + new Vector3(facing * 0.2f, 0.0f, 0.0f);
+        Debug.DrawRay(nxt_position, Vector3.down * (collider_height / 2f + 0.1f), Color.blue);
     }
 
     
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        if (!grounded && is_secondary_moving)
+        {
+            Unbury();
+        }
+
         currently_attacking = false;
     }
 
@@ -123,8 +144,6 @@ public class EarthPlayer : PlayerController
                             rock = rock_check;
                         }
                     }
-
-
                     index = rock_list.IndexOf(rock);
                     rock_list.Remove(rock);
                     rock.transform.parent = null;
@@ -137,6 +156,78 @@ public class EarthPlayer : PlayerController
                     currently_attacking = true;
                 }
             }
+        }
+    }
+
+    public override void OnDash(InputValue value)
+    {
+        OnDig(value);
+    }
+
+    public void OnDig(InputValue value)
+    {
+        if (value.isPressed && grounded)
+        {
+            gameObject.layer = 11;
+            is_secondary_moving = true;
+            player_collider[0].enabled = false;
+            player_collider[1].enabled = true;
+            surface_blocked = false;
+            player_renderer.enabled = false;
+        }
+        else if(is_secondary_moving)
+        {
+            Unbury();
+        }
+    }
+
+    private void Unbury()
+    {
+        if (!playerCollision.HeadCollision())
+        {
+            gameObject.layer = 8;
+            print("unbury");
+            is_secondary_moving = false;
+            player_collider[1].enabled = false;
+            player_collider[0].enabled = true;
+            player_renderer.enabled = true;
+        }
+        else
+        {
+            print("surface_blocked");
+            surface_blocked = true;
+        }
+        
+    }
+
+    public override void EngageSecondaryMovement()
+    {
+        if (is_secondary_moving && !surface_blocked)
+        {
+            direction = new Vector3(move.x, move.y, 0f);
+            if (direction.x != 0)
+            {
+                facing = Mathf.Sign(direction.x);
+            }
+            Vector3 next_position = this.transform.position + new Vector3(facing * 0.2f, 0.0f, 0.0f);
+            RaycastHit check_down;
+            int layer_mask = 1 << 8;
+            layer_mask = ~layer_mask;
+            if (Physics.Raycast(next_position, Vector3.down, out check_down, collider_height/2f+.01f,layer_mask))
+            {
+                print("ground");
+                rigbod.velocity = (new Vector3(direction.x * moveSpeed, rigbod.velocity.y));
+            }
+            else
+            {
+                print("no ground");
+                rigbod.velocity = Vector3.zero;
+            }
+            
+        }
+        else if(is_secondary_moving && surface_blocked)
+        {
+            Unbury();
         }
     }
 

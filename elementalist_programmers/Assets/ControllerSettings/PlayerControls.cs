@@ -51,6 +51,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Dig"",
+                    ""type"": ""Button"",
+                    ""id"": ""89fe00a7-7a18-4e83-9367-ffe2345b8db0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)""
+                },
+                {
                     ""name"": ""Aim"",
                     ""type"": ""Value"",
                     ""id"": ""b1f0452f-081b-4d38-b67b-a291e2632cf7"",
@@ -343,7 +351,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""84f3cd18-6013-4bb1-88a2-fecbacf0466c"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
@@ -375,8 +383,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1c7d8d13-f52b-491b-838e-d8b447e10fa5"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""aaab8b45-af11-4bfa-85fa-7522a3a34311"",
+                    ""path"": ""<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/button5"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -386,9 +394,20 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0f168b42-0448-431b-9247-095b9ba718b5"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""id"": ""888e677f-ed95-45a7-9af9-71b3994578dd"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f94702a-8af1-4b20-bbaa-2edb4aab1324"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Special"",
@@ -458,6 +477,83 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""JumpPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b141396f-a2bb-43a3-a30f-698af70bfbe3"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84a27375-cf5e-45c3-9161-f266d1adebdd"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99644c46-877a-42a3-a4a0-8988cc6dbd07"",
+                    ""path"": ""<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/button6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28f28670-a1f5-4f40-8279-267a74603dfb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a60ec65c-46dd-418e-b89f-daf951304784"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f5bb463-b803-42bb-a247-b9746930fde3"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6157d032-2653-4abe-b859-0bdbaf15a91c"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dig"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -827,6 +923,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseSelect"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""fcd094e7-2549-4d75-a32e-9558e155051a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1104,6 +1208,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e0cfeeb-56c6-45ad-a69f-d2084f23f9cf"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1116,6 +1231,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_JumpPress = m_Gameplay.FindAction("JumpPress", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
+        m_Gameplay_Dig = m_Gameplay.FindAction("Dig", throwIfNotFound: true);
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
         m_Gameplay_Special = m_Gameplay.FindAction("Special", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
@@ -1130,6 +1246,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_MainMenu_Move = m_MainMenu.FindAction("Move", throwIfNotFound: true);
         m_MainMenu_Select = m_MainMenu.FindAction("Select", throwIfNotFound: true);
         m_MainMenu_MousePosition = m_MainMenu.FindAction("MousePosition", throwIfNotFound: true);
+        m_MainMenu_MouseSelect = m_MainMenu.FindAction("MouseSelect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1183,6 +1300,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_JumpPress;
     private readonly InputAction m_Gameplay_Dash;
+    private readonly InputAction m_Gameplay_Dig;
     private readonly InputAction m_Gameplay_Aim;
     private readonly InputAction m_Gameplay_Special;
     private readonly InputAction m_Gameplay_Pause;
@@ -1194,6 +1312,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @JumpPress => m_Wrapper.m_Gameplay_JumpPress;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
+        public InputAction @Dig => m_Wrapper.m_Gameplay_Dig;
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
         public InputAction @Special => m_Wrapper.m_Gameplay_Special;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
@@ -1218,6 +1337,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dig.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDig;
+                @Dig.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDig;
+                @Dig.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDig;
                 @Aim.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
@@ -1243,6 +1365,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Dig.started += instance.OnDig;
+                @Dig.performed += instance.OnDig;
+                @Dig.canceled += instance.OnDig;
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
@@ -1320,6 +1445,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_MainMenu_Move;
     private readonly InputAction m_MainMenu_Select;
     private readonly InputAction m_MainMenu_MousePosition;
+    private readonly InputAction m_MainMenu_MouseSelect;
     public struct MainMenuActions
     {
         private @PlayerControls m_Wrapper;
@@ -1327,6 +1453,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_MainMenu_Move;
         public InputAction @Select => m_Wrapper.m_MainMenu_Select;
         public InputAction @MousePosition => m_Wrapper.m_MainMenu_MousePosition;
+        public InputAction @MouseSelect => m_Wrapper.m_MainMenu_MouseSelect;
         public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1345,6 +1472,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMousePosition;
+                @MouseSelect.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMouseSelect;
+                @MouseSelect.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMouseSelect;
+                @MouseSelect.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnMouseSelect;
             }
             m_Wrapper.m_MainMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -1358,6 +1488,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @MouseSelect.started += instance.OnMouseSelect;
+                @MouseSelect.performed += instance.OnMouseSelect;
+                @MouseSelect.canceled += instance.OnMouseSelect;
             }
         }
     }
@@ -1368,6 +1501,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnJumpPress(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnDig(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
@@ -1384,5 +1518,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnMouseSelect(InputAction.CallbackContext context);
     }
 }

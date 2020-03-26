@@ -38,6 +38,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Dig",
+                    "type": "Button",
+                    "id": "89fe00a7-7a18-4e83-9367-ffe2345b8db0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
+                },
+                {
                     "name": "Aim",
                     "type": "Value",
                     "id": "b1f0452f-081b-4d38-b67b-a291e2632cf7",
@@ -330,7 +338,7 @@
                 {
                     "name": "",
                     "id": "84f3cd18-6013-4bb1-88a2-fecbacf0466c",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
@@ -362,8 +370,8 @@
                 },
                 {
                     "name": "",
-                    "id": "1c7d8d13-f52b-491b-838e-d8b447e10fa5",
-                    "path": "<Mouse>/rightButton",
+                    "id": "aaab8b45-af11-4bfa-85fa-7522a3a34311",
+                    "path": "<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/button5",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -373,9 +381,20 @@
                 },
                 {
                     "name": "",
-                    "id": "0f168b42-0448-431b-9247-095b9ba718b5",
-                    "path": "<Keyboard>/r",
+                    "id": "888e677f-ed95-45a7-9af9-71b3994578dd",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f94702a-8af1-4b20-bbaa-2edb4aab1324",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Special",
@@ -445,6 +464,83 @@
                     "processors": "",
                     "groups": "",
                     "action": "JumpPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b141396f-a2bb-43a3-a30f-698af70bfbe3",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84a27375-cf5e-45c3-9161-f266d1adebdd",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99644c46-877a-42a3-a4a0-8988cc6dbd07",
+                    "path": "<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/button6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28f28670-a1f5-4f40-8279-267a74603dfb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a60ec65c-46dd-418e-b89f-daf951304784",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f5bb463-b803-42bb-a247-b9746930fde3",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6157d032-2653-4abe-b859-0bdbaf15a91c",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dig",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -814,6 +910,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MouseSelect",
+                    "type": "PassThrough",
+                    "id": "fcd094e7-2549-4d75-a32e-9558e155051a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1089,6 +1193,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e0cfeeb-56c6-45ad-a69f-d2084f23f9cf",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

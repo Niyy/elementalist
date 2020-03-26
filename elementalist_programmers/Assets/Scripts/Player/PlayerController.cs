@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 
 public class PlayerController : MonoBehaviour
 {
+
     // Respawn Variables
     [Header("Respawn Variables")]
     public GameObject respawn_point;
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
 
     protected float retical_radius = 2.5f;
-    protected GameObject ui_retical;
+    public GameObject ui_retical;
     protected GameObject retical;
 
     // Secondary Movement variables
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected bool is_secondary_moving = false;
+    public bool is_secondary_moving;
     protected bool secondary_reset = true;
     protected float current_secondary_movement_time;
     protected Vector2 secondary_movement_target;
@@ -125,16 +127,10 @@ public class PlayerController : MonoBehaviour
     public bool trapped = false;
 
 
-    private void OnEnable()
-    {
-        player_camera = Camera.main;
-        print("onenable");
-    }
-
-    protected virtual void Awake()
+    public virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
-
+        is_secondary_moving = false;
         //old input method
         //controls = new PlayerControls();
         //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
@@ -151,14 +147,16 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         child = this.transform.GetChild(0).gameObject;
-        // ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical"); // USE THIS IN PRODUCTION
-        ui_retical = GameObject.Find("/Canvas/UI_Retical"); // COMMENT OUT
         player_camera = Camera.main;
         retical = new GameObject("Reticle_" + this.gameObject.name);
         retical.transform.parent = transform;
-        //canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();  // USE THIS IN PRODUCTION
-        canvas = GameObject.Find("/Canvas").GetComponent<Canvas>(); // COMMENT OUT
+        canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
+        ui_retical = Instantiate(ui_retical_prefab);
+        ui_retical.name = "UI_Reticle_" + this.gameObject.name;
+        ui_retical.transform.SetParent(canvas.transform, false);
     }
+
+
 
     public virtual void OnMove(InputValue value)
     {
@@ -221,8 +219,9 @@ public class PlayerController : MonoBehaviour
 
     protected void Move()
     {
-        if (!is_secondary_moving && !stunned)
+        if (!is_secondary_moving || !stunned)
         {
+            print("inmove");
             direction = new Vector3(move.x, move.y, 0f);
             if (direction.x != 0)
             {
@@ -314,7 +313,7 @@ public class PlayerController : MonoBehaviour
 
     public virtual void OnJump(InputValue value)
     {
-        if(!death_status)
+        if(!death_status && !is_secondary_moving)
         {
             if (grounded)
             {
@@ -371,6 +370,7 @@ public class PlayerController : MonoBehaviour
         }
 
         ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
+        
     }
 
 
@@ -392,7 +392,8 @@ public class PlayerController : MonoBehaviour
                     grounded = false;
                 }
 
-                Physics.IgnoreLayerCollision(8, 9, true);
+                gameObject.layer = 11;
+                //Physics.IgnoreLayerCollision(8, 9, true);
                 rigbod.velocity = secondary_movement_velocity;
                 is_secondary_moving = true;
                 wall_jump = false;
@@ -401,7 +402,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void EngageSecondaryMovement()
+    public virtual void EngageSecondaryMovement()
     {
         Vector2 next_position = this.transform.position + new Vector3(facing * 0.75f, 0.0f, 0.0f);
 
@@ -422,8 +423,10 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Physics.IgnoreLayerCollision(8, 9, false);
+                gameObject.layer = 8;
+                //Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
+                print("secondary movement over");
                 secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
             }
@@ -485,6 +488,7 @@ public class PlayerController : MonoBehaviour
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
             child.SetActive(true);
+            ui_retical.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
             reviver = null;
@@ -505,7 +509,6 @@ public class PlayerController : MonoBehaviour
         attacking = false;
 
         stunned_counter = stunned_wait_timer;
-        gameObject.SetActive(false);
     }
 
 
@@ -567,14 +570,11 @@ public class PlayerController : MonoBehaviour
         return is_secondary_moving;
     }
 
-
-    //void OnEnable()
-    //{
-    //    controls.Gameplay.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-     //   controls.Gameplay.Disable();
-    //}
+    private void OnDisable()
+    {
+        if(ui_retical != null)
+        {
+            ui_retical.SetActive(false);
+        }
+    }
 }
