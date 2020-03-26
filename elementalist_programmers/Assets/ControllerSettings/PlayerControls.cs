@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Programming/ControllerSettings/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/ControllerSettings/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -351,7 +351,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""84f3cd18-6013-4bb1-88a2-fecbacf0466c"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
@@ -397,6 +397,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""0f168b42-0448-431b-9247-095b9ba718b5"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f94702a-8af1-4b20-bbaa-2edb4aab1324"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Special"",
