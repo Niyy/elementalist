@@ -302,6 +302,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &199303449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 927048672552609171, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1563727938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &199303455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199303449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02144e15e7a2d2450a4c4fcebf3130ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &226282564
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +577,12 @@ PrefabInstance:
       propertyPath: water_bar
       value: 
       objectReference: {fileID: 1206691547}
+    - target: {fileID: 6271467398635005918, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: rock_prefab
+      value: 
+      objectReference: {fileID: 1130525370639858675, guid: 9577dbbe2d081ddeaa2722cd58003a2c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
 --- !u!1 &1991256946

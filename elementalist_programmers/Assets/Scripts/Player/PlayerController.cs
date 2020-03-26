@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
     // Respawn Variables
     [Header("Respawn Variables")]
     public GameObject respawn_point;
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
 
     protected float retical_radius = 2.5f;
-    protected GameObject ui_retical;
+    public GameObject ui_retical;
     protected GameObject retical;
 
     // Secondary Movement variables
@@ -123,13 +124,6 @@ public class PlayerController : MonoBehaviour
     public bool trapped = false;
 
 
-    private void OnEnable()
-    {
-        player_camera = Camera.main;
-        SetActiveReticle(true);
-        print("onenable");
-    }
-
     public virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
@@ -158,6 +152,8 @@ public class PlayerController : MonoBehaviour
         ui_retical.name = "UI_Reticle_" + this.gameObject.name;
         ui_retical.transform.SetParent(canvas.transform, false);
     }
+
+
 
     public virtual void OnMove(InputValue value)
     {
@@ -487,6 +483,7 @@ public class PlayerController : MonoBehaviour
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
             child.SetActive(true);
+            ui_retical.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
             reviver = null;
@@ -507,7 +504,6 @@ public class PlayerController : MonoBehaviour
         attacking = false;
 
         stunned_counter = stunned_wait_timer;
-        gameObject.SetActive(false);
     }
 
 
@@ -569,26 +565,11 @@ public class PlayerController : MonoBehaviour
         return is_secondary_moving;
     }
 
-
-    public void SetActiveReticle(bool set)
-    {
-        ui_retical.GetComponent<Image>().enabled = set;
-    }
-
-
     private void OnDisable()
     {
-        SetActiveReticle(false);
+        if(ui_retical != null)
+        {
+            ui_retical.SetActive(false);
+        }
     }
-
-
-    //void OnEnable()
-    //{
-    //    controls.Gameplay.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-     //   controls.Gameplay.Disable();
-    //}
 }
