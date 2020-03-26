@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
     public bool trapped = false;
 
 
-    public virtual void Awake()
+    protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
         is_secondary_moving = false;

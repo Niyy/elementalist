@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &65398932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185156192322703401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6810a73bc67b55e488ffd44ae52794c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawn_point: {fileID: 0}
+  moveSpeed: 7
+  stunned_wait_timer: 0
+  dSpeed: 0
+  held_jump: 0
+  jump: 0
+  jumpForce: 7
+  djump: 0
+  fallMultiplier: 2.5
+  dFall: 0
+  lowJumpMultiplier: 2
+  grounded: 0
+  wall_jump: 0
+  new_jump: 0
+  wall_jump_direction: {x: 0.7, y: 1, z: 0}
+  wall_jump_force: 10
+  on_wall: 0
+  wall_push: 0
+  wall_sliding: 0
+  wj_interpolant_gain: 0.1
+  ui_retical_prefab: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
+    type: 3}
+  ui_retical: {fileID: 0}
+  secondary_speed: 20
+  secondary_movement_time: 0.2
+  secondary_movement: 0
+  is_secondary_moving: 0
+  facing: 0
+  player_camera: {fileID: 0}
+  death_status: 0
+  death_test: 0
+  debugging: 1
+  trapped: 0
+  attack_angle: 30
+  shot_speed: 0
+  air_shot_prefab: {fileID: 8058554219898360436, guid: 910123d75f54206ac9a5fe99b3aaf57f,
+    type: 3}
 --- !u!1 &4018307461352638665
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,11 +171,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4018307462528076914}
     m_Modifications:
-    - target: {fileID: 75367397997636458, guid: a2b396099e62d094eb7569da2def4e26,
-        type: 3}
-      propertyPath: m_Name
-      value: defaultCharacter
-      objectReference: {fileID: 0}
     - target: {fileID: 75367397997636451, guid: a2b396099e62d094eb7569da2def4e26,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,12 +226,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4057217234522378078, guid: a2b396099e62d094eb7569da2def4e26,
+    - target: {fileID: 75367397997636458, guid: a2b396099e62d094eb7569da2def4e26,
         type: 3}
-      propertyPath: ui_retical_prefab
-      value: 
-      objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
-        type: 3}
+      propertyPath: m_Name
+      value: airCharacter
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2b396099e62d094eb7569da2def4e26, type: 3}
 --- !u!1 &1185156192322703401 stripped
@@ -533,11 +576,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4018307462528076914}
     m_Modifications:
-    - target: {fileID: 5675063325845232475, guid: 743372bceb5a55e4987184622a349f3b,
-        type: 3}
-      propertyPath: m_Name
-      value: earthCharacter
-      objectReference: {fileID: 0}
     - target: {fileID: 5675063325845232466, guid: 743372bceb5a55e4987184622a349f3b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -593,6 +631,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5675063325845232475, guid: 743372bceb5a55e4987184622a349f3b,
+        type: 3}
+      propertyPath: m_Name
+      value: earthCharacter
+      objectReference: {fileID: 0}
     - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
         type: 3}
       propertyPath: ui_retical_prefab
@@ -605,6 +648,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1130525370639858675, guid: 9577dbbe2d081ddeaa2722cd58003a2c,
         type: 3}
+    - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
+        type: 3}
+      propertyPath: rock_speed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 743372bceb5a55e4987184622a349f3b, type: 3}
 --- !u!1 &1185156191954394575 stripped

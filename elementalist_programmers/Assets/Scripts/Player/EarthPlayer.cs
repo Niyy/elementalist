@@ -25,7 +25,6 @@ public class EarthPlayer : PlayerController
     GameObject dirt;
     float collider_height;
 
-
     protected override void Awake()
     {
         base.Awake();

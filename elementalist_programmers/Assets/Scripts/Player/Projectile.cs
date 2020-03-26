@@ -9,27 +9,37 @@ public class Projectile : MonoBehaviour
 
     private float current_angle;
     private float max_amount;
+    private bool not_velocity_loss;
+    private Vector3 projectile_velocity;
     private GameObject player_position;
+    private new Rigidbody rigidbody;
 
 
     protected void Awake()
     {
+        rigidbody = this.GetComponent<Rigidbody>();
     }
 
 
     protected void Start()
     {
-        this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
-                                            radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
-                                            0.0f) + player_position.transform.position;
-        current_angle += 1.0f;
-        this.GetComponent<Collider>().enabled = false;
+        Debug.Log("current_angle " + current_angle);
+
+        if(current_angle > 0)
+        {
+            this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
+                                                radius * Mathf.Sin(current_angle * Mathf.Deg2Rad),
+                                                0.0f) + player_position.transform.position;
+            current_angle += 1.0f;
+            this.GetComponent<Collider>().enabled = false;
+        }
     }
 
 
     protected void Update()
     {
         IdleMovement();
+        ApplyVelocity();
     }
 
     
@@ -40,6 +50,7 @@ public class Projectile : MonoBehaviour
 
     protected void IdleMovement()
     {
+        Debug.Log(radius);
         if(this.transform.parent != null)
         {
             this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
@@ -52,16 +63,26 @@ public class Projectile : MonoBehaviour
             {
                 current_angle = 0;
             }
+
+            this.GetComponent<Collider>().enabled = false;
+        }
+    }
+
+
+    protected void ApplyVelocity()
+    {
+        if(not_velocity_loss)
+        {
+            rigidbody.velocity = projectile_velocity;
         }
     }
 
 
     private void OnTriggerEnter(Collider collider)
     {
-        if(!collider.tag.Equals("Player"))
+        if(!collider.tag.Equals("Player") && !collider.tag.Equals("Projectile"))
         {
-            //Debug.Break();
-            Debug.Log("Dead: " + Time.time);
+            Debug.Log("Dead: " + collider.name);
             Destroy(this.gameObject);
         }
     }
@@ -83,6 +104,13 @@ public class Projectile : MonoBehaviour
     public void SetStartAngle(float start_radius)
     {
         current_angle = start_radius;
+    }
+
+
+    public void SetNoVelocity(bool set, Vector3 velocity)
+    {
+        not_velocity_loss = set;
+        projectile_velocity = velocity;
     }
 
 
