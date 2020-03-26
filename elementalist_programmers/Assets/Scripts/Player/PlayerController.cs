@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 
 public class PlayerController : MonoBehaviour
 {
+
     // Respawn Variables
     [Header("Respawn Variables")]
     public GameObject respawn_point;
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
 
     protected float retical_radius = 2.5f;
-    protected GameObject ui_retical;
+    public GameObject ui_retical;
     protected GameObject retical;
 
     // Secondary Movement variables
@@ -122,12 +124,6 @@ public class PlayerController : MonoBehaviour
     public bool trapped = false;
 
 
-    private void OnEnable()
-    {
-        player_camera = Camera.main;
-        print("onenable");
-    }
-
     public virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
@@ -148,13 +144,16 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
         child = this.transform.GetChild(0).gameObject;
-        ui_retical = GameObject.Find("/SceneManagement/Canvas/UI_Retical");
         player_camera = Camera.main;
         retical = new GameObject("Reticle_" + this.gameObject.name);
         retical.transform.parent = transform;
         canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
-        Debug.Log("Awake set-up done. " + animator);
+        ui_retical = Instantiate(ui_retical_prefab);
+        ui_retical.name = "UI_Reticle_" + this.gameObject.name;
+        ui_retical.transform.SetParent(canvas.transform, false);
     }
+
+
 
     public virtual void OnMove(InputValue value)
     {
@@ -368,6 +367,7 @@ public class PlayerController : MonoBehaviour
         }
 
         ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
+        
     }
 
 
@@ -476,7 +476,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetRespawnPoint(GameObject newSpawnPoint)
     {
-        Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
         respawn_point = newSpawnPoint;
     }
 
@@ -488,6 +487,7 @@ public class PlayerController : MonoBehaviour
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
             child.SetActive(true);
+            ui_retical.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
             reviver = null;
@@ -508,7 +508,6 @@ public class PlayerController : MonoBehaviour
         attacking = false;
 
         stunned_counter = stunned_wait_timer;
-        gameObject.SetActive(false);
     }
 
 
@@ -570,14 +569,11 @@ public class PlayerController : MonoBehaviour
         return is_secondary_moving;
     }
 
-
-    //void OnEnable()
-    //{
-    //    controls.Gameplay.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-     //   controls.Gameplay.Disable();
-    //}
+    private void OnDisable()
+    {
+        if(ui_retical != null)
+        {
+            ui_retical.SetActive(false);
+        }
+    }
 }

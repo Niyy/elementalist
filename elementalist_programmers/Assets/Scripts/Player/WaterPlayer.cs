@@ -95,6 +95,7 @@ public class WaterPlayer : PlayerController
                 //Physics.IgnoreLayerCollision(8, 9, true);
                 rigbod.velocity = special_movement_velocity;
                 is_special_dashing = true;
+                is_secondary_moving = true;
                 wall_jump = false;
                 attacking = true;
                 transform.Find("Aura").gameObject.SetActive(true);
