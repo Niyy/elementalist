@@ -8,20 +8,33 @@ public class AirPlayer : PlayerController
     [Header("Wynn Variables")]
     [Range(0, 180)]
     public float attack_angle;
+    public float attack_range;
+    public float attack_time;
     public float shot_speed;
+    public float spawn_distance;
+    public float cool_down;
     public GameObject air_shot_prefab;
 
 
-    private float attack_range;
-    Vector3 draw_angle_top;
-    Vector3 draw_angle_bottom;
-    Vector3 draw_angle_mid;
+    private float cooling_time;
+    private Vector3 draw_angle_top;
+    private Vector3 draw_angle_bottom;
+    private Vector3 draw_angle_mid;
 
 
     protected override void Awake()
     {
         base.Awake();
-        attack_range = retical_radius;
+        cooling_time = cool_down;
+
+        if(spawn_distance == 0)
+        {
+            spawn_distance = 1;
+        }
+        if(attack_range == 0)
+        {
+            attack_range = retical_radius;
+        }
     }
 
 
@@ -45,7 +58,14 @@ public class AirPlayer : PlayerController
 
     public void OnSpecial(InputValue value)
     {
-        AirAttack();
+        if(cooling_time >= cool_down)
+        {
+            AirAttack();
+            cooling_time = 0;
+        }
+
+        cooling_time += Time.deltaTime;
+        
     }
 
 
@@ -63,24 +83,22 @@ public class AirPlayer : PlayerController
         float x_mid = attack_range * Mathf.Cos(theta);
         float y_mid = attack_range * Mathf.Sin(theta);
     
-        draw_angle_top = this.transform.position + new Vector3(x_top, y_top, 0.0f);
-        draw_angle_bottom = this.transform.position + new Vector3(x_bottom, y_bottom, 0.0f);
-        draw_angle_mid = this.transform.position + new Vector3(x_mid, y_mid, 0.0f);
+        draw_angle_top = this.transform.position + new Vector3(x_top, y_top, 0.0f) / spawn_distance;
+        draw_angle_bottom = this.transform.position + new Vector3(x_bottom, y_bottom, 0.0f) / spawn_distance;
+        draw_angle_mid = this.transform.position + new Vector3(x_mid, y_mid, 0.0f) / spawn_distance;
 
         List<GameObject> shots = new List<GameObject>();
-        shots.Add(Instantiate(air_shot_prefab, draw_angle_top / 2, Quaternion.Euler(0.0f, 0.0f, angle_one * Mathf.Rad2Deg)));
-        shots.Add(Instantiate(air_shot_prefab, draw_angle_bottom / 2, Quaternion.Euler(0.0f, 0.0f, angle_two * Mathf.Rad2Deg)));
-        shots.Add(Instantiate(air_shot_prefab, draw_angle_mid / 2, Quaternion.Euler(0.0f, 0.0f, theta * Mathf.Rad2Deg)));
+        shots.Add(Instantiate(air_shot_prefab, draw_angle_top, Quaternion.Euler(0.0f, 0.0f, angle_one * Mathf.Rad2Deg)));
+        shots.Add(Instantiate(air_shot_prefab, draw_angle_bottom, Quaternion.Euler(0.0f, 0.0f, angle_two * Mathf.Rad2Deg)));
+        shots.Add(Instantiate(air_shot_prefab, draw_angle_mid, Quaternion.Euler(0.0f, 0.0f, theta * Mathf.Rad2Deg)));
 
-        // shots[0].GetComponent<Projectile>().SetStartAngle(angle_one);
-        // shots[1].GetComponent<Projectile>().SetStartAngle(angle_two);
-
-        shots[0].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_top, y_top, 0.0f));
-        shots[1].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_bottom, y_bottom, 0.0f));
-        shots[2].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_mid, y_mid, 0.0f));
+        shots[0].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_top, y_top, 0.0f), attack_time);
+        shots[1].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_bottom, y_bottom, 0.0f), attack_time);
+        shots[2].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_mid, y_mid, 0.0f), attack_time);
 
         shots[0].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
         shots[1].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
+        
     }
 
 

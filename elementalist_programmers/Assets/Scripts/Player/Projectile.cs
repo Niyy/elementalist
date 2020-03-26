@@ -10,9 +10,12 @@ public class Projectile : MonoBehaviour
     private float current_angle;
     private float max_amount;
     private bool not_velocity_loss;
+    private float kill_time;
+    private float current_time;
     private Vector3 projectile_velocity;
     private GameObject player_position;
     private new Rigidbody rigidbody;
+    private Vector3 initial_position;
 
 
     protected void Awake()
@@ -23,8 +26,6 @@ public class Projectile : MonoBehaviour
 
     protected void Start()
     {
-        Debug.Log("current_angle " + current_angle);
-
         if(current_angle > 0)
         {
             this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),
@@ -74,6 +75,13 @@ public class Projectile : MonoBehaviour
         if(not_velocity_loss)
         {
             rigidbody.velocity = projectile_velocity;
+
+            if(current_time >= kill_time)
+            {
+                Destroy(this.gameObject);
+            }
+
+            current_time += Time.deltaTime;
         }
     }
 
@@ -91,6 +99,7 @@ public class Projectile : MonoBehaviour
     public void SetPlayerPosition(GameObject new_pos)
     {
         this.player_position = new_pos;
+        initial_position = new_pos.transform.position;
     }
 
 
@@ -107,10 +116,11 @@ public class Projectile : MonoBehaviour
     }
 
 
-    public void SetNoVelocity(bool set, Vector3 velocity)
+    public void SetNoVelocity(bool set, Vector3 velocity, float kill_time_i)
     {
         not_velocity_loss = set;
         projectile_velocity = velocity;
+        kill_time = kill_time_i;
     }
 
 

@@ -46,7 +46,11 @@ MonoBehaviour:
   debugging: 1
   trapped: 0
   attack_angle: 30
+  attack_range: 0
+  attack_time: 1
   shot_speed: 0
+  spawn_distance: 5
+  cool_down: 0.07
   air_shot_prefab: {fileID: 8058554219898360436, guid: 910123d75f54206ac9a5fe99b3aaf57f,
     type: 3}
 --- !u!1 &4018307461352638665
@@ -171,6 +175,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4018307462528076914}
     m_Modifications:
+    - target: {fileID: 75367397997636458, guid: a2b396099e62d094eb7569da2def4e26,
+        type: 3}
+      propertyPath: m_Name
+      value: airCharacter
+      objectReference: {fileID: 0}
     - target: {fileID: 75367397997636451, guid: a2b396099e62d094eb7569da2def4e26,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -226,12 +235,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 75367397997636458, guid: a2b396099e62d094eb7569da2def4e26,
-        type: 3}
-      propertyPath: m_Name
-      value: airCharacter
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4057217234522378078, guid: a2b396099e62d094eb7569da2def4e26, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a2b396099e62d094eb7569da2def4e26, type: 3}
 --- !u!1 &1185156192322703401 stripped
 GameObject:
@@ -576,6 +581,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4018307462528076914}
     m_Modifications:
+    - target: {fileID: 5675063325845232475, guid: 743372bceb5a55e4987184622a349f3b,
+        type: 3}
+      propertyPath: m_Name
+      value: earthCharacter
+      objectReference: {fileID: 0}
     - target: {fileID: 5675063325845232466, guid: 743372bceb5a55e4987184622a349f3b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -630,11 +640,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5675063325845232475, guid: 743372bceb5a55e4987184622a349f3b,
-        type: 3}
-      propertyPath: m_Name
-      value: earthCharacter
       objectReference: {fileID: 0}
     - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
         type: 3}
