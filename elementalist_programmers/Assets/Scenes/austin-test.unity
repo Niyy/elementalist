@@ -551,20 +551,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 65398932, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
-      propertyPath: spawn_distance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 65398932, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
-      propertyPath: cool_down
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 65398932, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
-      propertyPath: attack_time
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2969955647228490781, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
 --- !u!1 &2059314655
 GameObject:
