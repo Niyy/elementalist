@@ -68,7 +68,7 @@ public class EnemyB : Enemy
         if(current_patrol_timer < patrol_wait_timer)
         {
             current_patrol_timer += Time.deltaTime;
-            this.rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector2(0.0f, this.rigidbody.velocity.y), Time.deltaTime);
+            this.rigidbody.velocity = Vector3.zero;
         }
         else
         {
@@ -81,6 +81,8 @@ public class EnemyB : Enemy
             {
                 this.rigidbody.velocity = Vector3.Lerp(new Vector2(speed * direction, this.rigidbody.velocity.y), rigidbody.velocity, Time.deltaTime);
             }
+
+            Debug.Log(check_down.collider.tag);
         }
 
         Debug.DrawRay(next_position, Vector2.down * 2.0f, Color.yellow);
@@ -145,6 +147,11 @@ public class EnemyB : Enemy
                 {
                     player.GetComponent<PlayerController>().Recoil(recoil_speed, direction);
                 }
+            }
+            else
+            {
+                direction = -direction;
+                current_patrol_timer = 0;
             }
         }
     }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Freeze
   - Projectile
+  - enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
