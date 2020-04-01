@@ -16,6 +16,7 @@ public class WaterPlayer : PlayerController
     public float hover_elapsed_time;
     public GameObject water_bar;
     private float water_bar_size;
+    public float recovery_speed = 0.04f;
 
     [Header("Dash Variables")]
     public float special_speed = 25f;
@@ -31,6 +32,7 @@ public class WaterPlayer : PlayerController
     public float wave_up_force = 1f;
     public float wave_radius = 3f;
     //public float wave_cooldown = 3f;
+    public float wave_tank_usage = 0.6f;
     private bool using_wave = false;
     private Vector3 wave_pos;
     [HideInInspector]
@@ -55,7 +57,7 @@ public class WaterPlayer : PlayerController
             //water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, water_bar_size);
             if (hover_elapsed_time > 0f)
             {
-                hover_elapsed_time -= 0.04f;
+                hover_elapsed_time -= recovery_speed;
             }
             if(hover_elapsed_time < 0f)
             {
@@ -196,19 +198,20 @@ public class WaterPlayer : PlayerController
             max_hover_time = 0.0001f;
         }
         float time_ratio = 1f - hover_elapsed_time / max_hover_time;
-        if (time_ratio == 1f)
+        if (time_ratio >= wave_tank_usage)
         {
             foreach (Collider hit in colliders)
             {
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
                 if (rb != null && !hit.CompareTag("Player"))
                 {
+                    rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
                     rb.AddExplosionForce(wave_force, wave_pos, wave_radius, wave_up_force, ForceMode.Impulse);
                 }
             }
             
-            hover_elapsed_time = max_hover_time;
-            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, 0f);
+            hover_elapsed_time += max_hover_time * wave_tank_usage;
+            water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, time_ratio * water_bar_size);
         }
         using_wave = false;
 

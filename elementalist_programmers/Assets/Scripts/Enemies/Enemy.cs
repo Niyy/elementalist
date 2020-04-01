@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     public RoomManager myRoom;
     //if enemy is currently frozen
     protected bool frozen = false;
+    public float melt_time = 30f;
     public Material ice_material;
 
 
@@ -41,12 +42,24 @@ public class Enemy : MonoBehaviour
         frozen = true;
         GameObject icecube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         icecube.transform.position = transform.position;
-        icecube.transform.parent = transform;
+        icecube.transform.parent = transform.parent;
+        transform.parent = icecube.transform;
         icecube.transform.localScale = GetComponent<Renderer>().bounds.size;
         GetComponent<Rigidbody>().isKinematic = true;
         icecube.GetComponent<Renderer>().material = ice_material;
         alive = false;
+        Rigidbody ice_rb = icecube.AddComponent<Rigidbody>();
+        ice_rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
         //icecube.GetComponent<Renderer>().material.color = new Color(130f/255f, 245f/255f, 207f/255f, 60f/255f);
+        StartCoroutine(Melt());
+    }
+
+    private IEnumerator Melt()
+    {
+        print("Melt in " + melt_time);
+        yield return new WaitForSeconds(melt_time);
+        Destroy(transform.parent.gameObject);
+        print("melt");
     }
 
     public void WhoAmIKilling()

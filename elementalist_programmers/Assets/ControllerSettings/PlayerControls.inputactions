@@ -370,31 +370,20 @@
                 },
                 {
                     "name": "",
-                    "id": "aaab8b45-af11-4bfa-85fa-7522a3a34311",
-                    "path": "<HID::mayflash limited MAYFLASH GameCube Controller Adapter>/button5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "888e677f-ed95-45a7-9af9-71b3994578dd",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3f94702a-8af1-4b20-bbaa-2edb4aab1324",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f66070ae-4369-4c00-85ba-6fe97e828f0a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Special",
