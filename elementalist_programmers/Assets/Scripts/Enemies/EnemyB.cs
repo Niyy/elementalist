@@ -26,6 +26,7 @@ public class EnemyB : Enemy
 
     [Header("Attack Variables")]
     public float recoil_speed;
+    public bool defending = false;
 
 
     // Start is called before the first frame update
@@ -69,9 +70,11 @@ public class EnemyB : Enemy
         {
             current_patrol_timer += Time.deltaTime;
             this.rigidbody.velocity = Vector3.zero;
+            defending = true;
         }
         else
         {
+            defending = false;
             if (!Physics.Raycast(next_position, Vector2.down * 2.0f, out check_down, 1.0f))
             {
                 direction = -direction;
