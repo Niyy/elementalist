@@ -33,13 +33,16 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jumping Variables")]
     public bool held_jump = false;
-    public bool jump = false;
     public float jumpForce = 7f;
    [HideInInspector] public float djump;
     public float fallMultiplier = 2.5f;
     [HideInInspector] public float dFall;
     public float lowJumpMultiplier = 2f;
     public bool grounded;
+    public int jump_max = 1;
+
+
+    private int jump_count;
 
 
     [Header("Wall Jumping Variables")]
@@ -198,11 +201,12 @@ public class PlayerController : MonoBehaviour
         wall_push = (move.x * facing > 0) && (GetComponent<PlayerCollision>().col_face == facing);
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
         wall_sliding = (GetComponent<PlayerCollision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || wall_push));
-        if ((grounded || wall_sliding) && !new_jump)
+        if ((grounded || wall_sliding))
         {
             wall_jump = false;
             wall_jump_interpolant = 0f;
-            jump = false;
+            jump_count = 0;
+            Debug.Log("jump_count reset");
         }
         else
         {
@@ -318,10 +322,9 @@ public class PlayerController : MonoBehaviour
             if (grounded)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                jump = true;
-                print(jump);
+                print("Jumping from ground: " + jump_count);
+                jump_count++;
                 grounded = false;
-                new_jump = true;
             }
             else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
             {
@@ -330,7 +333,15 @@ public class PlayerController : MonoBehaviour
 
                 facing *= -1f;
                 wall_jump = true;
-                new_jump = true;
+                print("Jumping from wall: " + jump_count);
+                jump_count=0;
+            }
+            else if (jump_count < jump_max - 1)
+            {
+                rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+                print("Jumping from air: " + jump_count);
+                jump_count++;
+                grounded = false;
             }
         }
     }
