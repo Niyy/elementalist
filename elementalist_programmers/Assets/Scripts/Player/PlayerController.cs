@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
 
     private int jump_count;
+    public float current_jump_cool_down;
+    private float jump_cool_down = 0.2f;
 
 
     [Header("Wall Jumping Variables")]
@@ -145,6 +147,7 @@ public class PlayerController : MonoBehaviour
         stunned = false;
         death_status = false;
         attacking = false;
+        current_jump_cool_down = jump_cool_down;
 
         stunned_counter = stunned_wait_timer;
 
@@ -157,6 +160,8 @@ public class PlayerController : MonoBehaviour
         ui_retical = Instantiate(ui_retical_prefab);
         ui_retical.name = "UI_Reticle_" + this.gameObject.name;
         ui_retical.transform.SetParent(canvas.transform, false);
+
+        animator.SetBool("landed", true);
     }
 
 
@@ -183,7 +188,6 @@ public class PlayerController : MonoBehaviour
         {
             ReticleMovement();
             TestFunctions();
-            AnimationHandler();
         }
     }
 
@@ -204,9 +208,10 @@ public class PlayerController : MonoBehaviour
         if ((grounded || wall_sliding))
         {
             wall_jump = false;
+            new_jump = false;
             wall_jump_interpolant = 0f;
             jump_count = 0;
-            Debug.Log("jump_count reset");
+            current_jump_cool_down = 0;
         }
         else
         {
@@ -217,6 +222,7 @@ public class PlayerController : MonoBehaviour
         {
             Move();
             EngageSecondaryMovement();
+            AnimationHandler();
         }
         Revive();
     }
@@ -289,19 +295,19 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(!animator.GetBool("holding_on_wall") && player_collision.on_wall 
+        if(!animator.GetBool("holding_on_wall") && wall_push 
             && !player_collision.on_ground)
         {
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && (!player_collision.on_wall 
+        else if(animator.GetBool("holding_on_wall") && (!wall_push
                 || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
 
         if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-            && player_collision.on_ground)
+            && (player_collision.on_ground || animator.GetBool("landed")))
         {
             animator.SetBool("running", true);
         }
@@ -309,6 +315,22 @@ public class PlayerController : MonoBehaviour
                 || !player_collision.on_ground || player_collision.on_wall))
         {
             animator.SetBool("running", false);
+        }
+
+        if(grounded && animator.GetBool("in_air"))
+        {
+            animator.SetBool("in_air", false);
+            animator.SetBool("landed", true);
+        }
+        else if(!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
+        {
+            animator.SetBool("in_air", true);
+            animator.SetBool("jumping", false);
+        }
+        else if(current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
+        {
+            animator.SetBool("jumping", true);
+            animator.SetBool("landed", false);
         }
 
         animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
@@ -319,12 +341,12 @@ public class PlayerController : MonoBehaviour
     {
         if(!death_status && !is_secondary_moving)
         {
-            if (grounded)
+            if (grounded && current_jump_cool_down >= jump_cool_down)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                print("Jumping from ground: " + jump_count);
                 jump_count++;
                 grounded = false;
+                new_jump = true;
             }
             else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
             {
@@ -333,15 +355,18 @@ public class PlayerController : MonoBehaviour
 
                 facing *= -1f;
                 wall_jump = true;
-                print("Jumping from wall: " + jump_count);
                 jump_count=0;
             }
             else if (jump_count < jump_max - 1)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                print("Jumping from air: " + jump_count);
                 jump_count++;
                 grounded = false;
+                new_jump = true;
+            }
+            else
+            {
+                current_jump_cool_down += Time.deltaTime;
             }
         }
     }
