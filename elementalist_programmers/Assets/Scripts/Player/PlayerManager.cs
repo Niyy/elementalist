@@ -85,7 +85,8 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 playerList[i].transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
-                playerList[i].GetComponent<DontDestroyOnLoad>().enabled = true;
+                //playerList[i].GetComponent<DontDestroyOnLoad>().enabled = true;
+                playerList[i].transform.parent = SceneManagement.Instance.transform;
                 //player.transform.GetChild(1).gameObject.SetActive(false);
                 Destroy(playerList[i].transform.GetChild(0).gameObject);
             }

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour
 {
     public float radius = 10;
     public GameObject[] Worlds;
+    private List<LevelProperties> levelProperties;
     public PlayerControls controls;
     public Vector2 move;
-    public int choice;
+    private int choice = 0;
     float last_move_time;
     float angle;
     public float rotation;
@@ -20,10 +22,11 @@ public class LevelSelect : MonoBehaviour
 
     void Awake()
     {
+        levelProperties = new List<LevelProperties>();
         controls = new PlayerControls();
         controls.Menu.Select.performed += ctx => SelectWorld();
         controls.Menu.Move.performed += ctx => { move = ctx.ReadValue<Vector2>(); MoveSelection(); };
-        controls.Gameplay.Jump.canceled += ctx => move = Vector2.zero;
+        controls.Menu.Move.canceled += ctx => move = Vector2.zero;
         if (Worlds.Length!=0)
         angle = 360 / Worlds.Length;
         for (int world = 0; world < Worlds.Length; world++)
@@ -33,6 +36,7 @@ public class LevelSelect : MonoBehaviour
             print(q);
             GameObject wrld=Instantiate(Worlds[world],transform.position + q * Vector3.back * radius, Quaternion.identity);
             wrld.transform.parent = transform;
+            levelProperties.Add(wrld.GetComponent<LevelProperties>());
         }
 
     }
@@ -89,7 +93,10 @@ public class LevelSelect : MonoBehaviour
 
     void SelectWorld()
     {
-        
+        if (levelProperties[choice].unlocked)
+        {
+            SceneManager.LoadScene(levelProperties[choice].scene.name);
+        }
     }
 
     private void OnEnable()

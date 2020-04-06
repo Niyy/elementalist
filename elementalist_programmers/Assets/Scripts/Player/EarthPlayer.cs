@@ -210,7 +210,7 @@ public class EarthPlayer : PlayerController
             }
             Vector3 next_position = this.transform.position + new Vector3(facing * 0.2f, 0.0f, 0.0f);
             RaycastHit check_down;
-            int layer_mask = 1 << 8;
+            int layer_mask = ~((1 << 10) | (1 << 8) | (1 << 11));
             layer_mask = ~layer_mask;
             if (Physics.Raycast(next_position, Vector3.down, out check_down, collider_height/2f+.01f,layer_mask))
             {

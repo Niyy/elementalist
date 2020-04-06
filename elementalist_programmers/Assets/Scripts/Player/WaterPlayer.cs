@@ -10,7 +10,7 @@ public class WaterPlayer : PlayerController
     bool hover = true;
     public float max_hover_speed = 7f;
     public float max_hover_multiplayer = 4f;
-    float hover_multiplayer;
+    public float hover_multiplayer;
     bool hovering = false;
     public float max_hover_time = 4f;
     public float hover_elapsed_time;
