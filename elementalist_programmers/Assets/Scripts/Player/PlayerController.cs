@@ -223,7 +223,7 @@ public class PlayerController : MonoBehaviour
 
     protected void Move()
     {
-        if (!is_secondary_moving || !stunned)
+        if (!is_secondary_moving && !stunned)
         {
             print("inmove");
             direction = new Vector3(move.x, move.y, 0f);
@@ -437,7 +437,6 @@ public class PlayerController : MonoBehaviour
                 gameObject.layer = 8;
                 //Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
-                print("secondary movement over");
                 secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
             }

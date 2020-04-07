@@ -32,11 +32,6 @@ public class EarthPlayer : PlayerController
         rock_list = new List<GameObject>();
 
         current_respawn_rate = 0.0f;
-        
-        player_collider = GetComponents<BoxCollider>();
-        playerCollision = GetComponent<PlayerCollision>();
-        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
-        collider_height = player_collider[0].size.y * transform.localScale.y;
         currently_attacking = false;
     }
 
@@ -50,7 +45,6 @@ public class EarthPlayer : PlayerController
     {
         base.Update();
 
-        
         if(!death_status)
         {
             RespawnRocks();
@@ -63,19 +57,12 @@ public class EarthPlayer : PlayerController
                 Destroy(rock);
             }
         }
-        Vector3 nxt_position = this.transform.position + new Vector3(facing * 0.2f, 0.0f, 0.0f);
-        Debug.DrawRay(nxt_position, Vector3.down * (collider_height / 2f + 0.1f), Color.blue);
     }
 
     
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (!grounded && is_secondary_moving)
-        {
-            Unbury();
-        }
-
         currently_attacking = false;
     }
 
@@ -143,6 +130,8 @@ public class EarthPlayer : PlayerController
                             rock = rock_check;
                         }
                     }
+
+
                     index = rock_list.IndexOf(rock);
                     rock_list.Remove(rock);
                     rock.transform.parent = null;

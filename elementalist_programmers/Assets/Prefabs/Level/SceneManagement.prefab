@@ -235,8 +235,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4057217234522378078, guid: a2b396099e62d094eb7569da2def4e26, type: 3}
+    - target: {fileID: 4057217234522378078, guid: a2b396099e62d094eb7569da2def4e26,
+        type: 3}
+      propertyPath: stunned_wait_timer
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2b396099e62d094eb7569da2def4e26, type: 3}
 --- !u!1 &1185156192322703401 stripped
 GameObject:
@@ -319,15 +323,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 65502516911115353, guid: e49670c5abfdba6438fb74c56124c8ed,
         type: 3}
-      propertyPath: ui_retical_prefab
-      value: 
-      objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
-        type: 3}
-    - target: {fileID: 65502516911115353, guid: e49670c5abfdba6438fb74c56124c8ed,
-        type: 3}
-      propertyPath: water_bar
-      value: 
-      objectReference: {fileID: 158059659376670304}
+      propertyPath: stunned_wait_timer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e49670c5abfdba6438fb74c56124c8ed, type: 3}
 --- !u!1 &1185156192234599013 stripped
@@ -415,6 +413,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 596980667769842366, guid: 37818a25d62a527448618984b94f2bbf,
+        type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 4239515437647923338, guid: e3155a560bbb96540a0eabb9257f582f,
+        type: 3}
     - target: {fileID: 596980667769842367, guid: 37818a25d62a527448618984b94f2bbf,
         type: 3}
       propertyPath: prefabs.Array.data[0]
@@ -435,12 +439,6 @@ PrefabInstance:
       propertyPath: prefabs.Array.data[3]
       value: 
       objectReference: {fileID: 1185156192322703401}
-    - target: {fileID: 596980667769842366, guid: 37818a25d62a527448618984b94f2bbf,
-        type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 4239515437647923338, guid: e3155a560bbb96540a0eabb9257f582f,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37818a25d62a527448618984b94f2bbf, type: 3}
 --- !u!4 &4578757404915012255 stripped
@@ -643,20 +641,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
         type: 3}
-      propertyPath: ui_retical_prefab
-      value: 
-      objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
-        type: 3}
-    - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
-        type: 3}
-      propertyPath: rock_prefab
-      value: 
-      objectReference: {fileID: 1130525370639858675, guid: 9577dbbe2d081ddeaa2722cd58003a2c,
-        type: 3}
-    - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
-        type: 3}
-      propertyPath: rock_speed
-      value: 10
+      propertyPath: stunned_wait_timer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 743372bceb5a55e4987184622a349f3b, type: 3}
@@ -741,10 +727,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1360825103302425302, guid: 48cbec92e773af5499cd6ae9ca46ac5f,
         type: 3}
-      propertyPath: ui_retical_prefab
-      value: 
-      objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
-        type: 3}
+      propertyPath: stunned_wait_timer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48cbec92e773af5499cd6ae9ca46ac5f, type: 3}
 --- !u!1 &927048672552609171 stripped
