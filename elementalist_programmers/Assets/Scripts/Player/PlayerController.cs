@@ -153,7 +153,6 @@ public class PlayerController : MonoBehaviour
         retical = new GameObject("Reticle_" + this.gameObject.name);
         retical.transform.parent = transform;
         canvas = GameObject.Find("/SceneManagement/Canvas").GetComponent<Canvas>();
-        Debug.Log("Awake set-up done. " + animator);
     }
 
     public virtual void OnMove(InputValue value)
@@ -217,7 +216,7 @@ public class PlayerController : MonoBehaviour
 
     protected void Move()
     {
-        if (!is_secondary_moving || !stunned)
+        if (!is_secondary_moving && !stunned)
         {
             print("inmove");
             direction = new Vector3(move.x, move.y, 0f);
@@ -421,7 +420,6 @@ public class PlayerController : MonoBehaviour
             {
                 Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
-                print("secondary movement over");
                 secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
             }
@@ -474,7 +472,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetRespawnPoint(GameObject newSpawnPoint)
     {
-        Debug.Log("Setting new spawn position. " + newSpawnPoint.name);
         respawn_point = newSpawnPoint;
     }
 
