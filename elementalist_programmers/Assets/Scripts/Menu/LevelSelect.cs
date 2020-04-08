@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSelect : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class LevelSelect : MonoBehaviour
     bool rotating;
     public float timeDuration=1;
     float time_start;
+    public Text world_name_ui;
 
     void Awake()
     {
@@ -38,7 +40,7 @@ public class LevelSelect : MonoBehaviour
             wrld.transform.parent = transform;
             levelProperties.Add(wrld.GetComponent<LevelProperties>());
         }
-
+        world_name_ui.text = levelProperties[choice].world_name;
     }
 
 
@@ -53,6 +55,7 @@ public class LevelSelect : MonoBehaviour
                 rotating = false;
             }
             transform.rotation = Quaternion.Slerp(rotation_start, Quaternion.Euler(0, rotation, 0), u);
+            world_name_ui.text = levelProperties[choice].world_name;
         }
     }
 

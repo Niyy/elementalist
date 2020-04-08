@@ -117,8 +117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d411f887b240f464bbf112f8da0ffc87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  world_name: default
   unlocked: 0
   scene: {fileID: 0}
-  light_distance: 1
-  light_height: 1
-  light_intensity: 1
+  unlock_light_distance: 0
+  unlock_light_height: 5
+  unlock_light_intensity: 100
+  front_light_distance: 13
+  front_light_height: -1.5
+  front_light_intensity: 300
+  unlock_color: {r: 1, g: 0.9828316, b: 0.6179246, a: 0}
+  front_color: {r: 0.996369, g: 1, b: 0.740566, a: 0}
