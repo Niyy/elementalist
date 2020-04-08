@@ -33,11 +33,21 @@ public class EarthPlayer : PlayerController
 
         current_respawn_rate = 0.0f;
         currently_attacking = false;
+        player_collider = GetComponents<BoxCollider>();
+        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
+        playerCollision = GetComponent<PlayerCollision>();
+        currently_attacking = false;
+        collider_height = player_collider[0].size.y * transform.localScale.y;
     }
 
     protected override void Start()
     {
         base.Start();
+        if(!grounded && is_secondary_moving)
+        {
+            Unbury();
+        }
+        currently_attacking = false;
     }
 
 
