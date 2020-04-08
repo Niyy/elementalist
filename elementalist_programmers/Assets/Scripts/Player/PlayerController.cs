@@ -40,11 +40,11 @@ public class PlayerController : MonoBehaviour
     public float lowJumpMultiplier = 2f;
     public bool grounded;
     public int jump_max = 1;
+    private float jump_cool_down;
 
 
     private int jump_count;
-    public float current_jump_cool_down;
-    private float jump_cool_down = 0.2f;
+    private float current_jump_cool_down;
 
 
     [Header("Wall Jumping Variables")]
@@ -132,6 +132,20 @@ public class PlayerController : MonoBehaviour
     public bool trapped = false;
 
 
+    // Key Buffer
+    [Header("Player Forgivness Variables")]
+    public float max_keypress_time;
+
+
+    public enum InputType 
+    {
+        Jump,
+        No_Press
+    }
+    public InputType last_keypress;
+    public float current_keypress_time;
+
+
     protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
@@ -149,6 +163,8 @@ public class PlayerController : MonoBehaviour
         attacking = false;
         current_jump_cool_down = jump_cool_down;
 
+        last_keypress = InputType.No_Press;
+
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
@@ -162,6 +178,8 @@ public class PlayerController : MonoBehaviour
         ui_retical.transform.SetParent(canvas.transform, false);
 
         animator.SetBool("landed", true);
+
+        FindAnimationTimes();
     }
 
 
@@ -208,14 +226,14 @@ public class PlayerController : MonoBehaviour
         if ((grounded || wall_sliding))
         {
             wall_jump = false;
-            new_jump = false;
             wall_jump_interpolant = 0f;
             jump_count = 0;
-            current_jump_cool_down = 0;
         }
-        else
+
+        
+        if(grounded)
         {
-            new_jump = false;
+            current_jump_cool_down += Time.deltaTime;
         }
 
         if(!death_status)
@@ -223,6 +241,7 @@ public class PlayerController : MonoBehaviour
             Move();
             EngageSecondaryMovement();
             AnimationHandler();
+            CheckForLastKeyPress();
         }
         Revive();
     }
@@ -231,7 +250,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!is_secondary_moving || !stunned)
         {
-            print("inmove");
             direction = new Vector3(move.x, move.y, 0f);
             if (direction.x != 0)
             {
@@ -256,6 +274,8 @@ public class PlayerController : MonoBehaviour
             if (!grounded)
             {
                 Airborn();
+                current_jump_cool_down = 0;
+                new_jump = false;
             }
             if (wall_sliding)
             {
@@ -294,6 +314,21 @@ public class PlayerController : MonoBehaviour
             angle = 180;
         }
 
+        if(grounded && animator.GetBool("in_air"))
+        {
+            animator.SetBool("in_air", false);
+            animator.SetBool("jumping", false);
+            animator.SetBool("landed", true);
+        }
+        else if(!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
+        {
+            animator.SetBool("in_air", true);
+        }
+        else if(current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
+        {
+            animator.SetBool("jumping", true);
+            animator.SetBool("landed", false);
+        }
 
         if(!animator.GetBool("holding_on_wall") && wall_push 
             && !player_collision.on_ground)
@@ -307,30 +342,14 @@ public class PlayerController : MonoBehaviour
         }
 
         if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-            && (player_collision.on_ground || animator.GetBool("landed")))
+            && (animator.GetBool("landed")))
         {
             animator.SetBool("running", true);
         }
         else if(animator.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-                || !player_collision.on_ground || player_collision.on_wall))
+                || player_collision.on_wall))
         {
             animator.SetBool("running", false);
-        }
-
-        if(grounded && animator.GetBool("in_air"))
-        {
-            animator.SetBool("in_air", false);
-            animator.SetBool("landed", true);
-        }
-        else if(!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
-        {
-            animator.SetBool("in_air", true);
-            animator.SetBool("jumping", false);
-        }
-        else if(current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
-        {
-            animator.SetBool("jumping", true);
-            animator.SetBool("landed", false);
         }
 
         animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
@@ -357,19 +376,56 @@ public class PlayerController : MonoBehaviour
                 wall_jump = true;
                 jump_count=0;
             }
-            else if (jump_count < jump_max - 1)
+            else if (jump_count < jump_max - 1 && (current_jump_cool_down >= jump_cool_down || !grounded))
+            {
+                rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+                jump_count++; 
+                grounded = false;
+                new_jump = true;
+            }
+            else if (current_jump_cool_down < jump_cool_down)
+            {
+                last_keypress = InputType.Jump;
+                current_keypress_time = 0;
+                Debug.Log("Gave the player input: " + last_keypress);
+            }
+        }
+    }
+
+
+    protected void EngageJump()
+    {
+        if(!death_status && !is_secondary_moving)
+        {
+            if (grounded && current_jump_cool_down >= jump_cool_down)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
                 jump_count++;
                 grounded = false;
                 new_jump = true;
+                last_keypress = InputType.No_Press;
             }
-            else
+            else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
             {
-                current_jump_cool_down += Time.deltaTime;
+                wall_sliding = false;
+                rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
+
+                facing *= -1f;
+                wall_jump = true;
+                jump_count=0;
+                last_keypress = InputType.No_Press;
+            }
+            else if (jump_count < jump_max - 1 && (current_jump_cool_down >= jump_cool_down || !grounded))
+            {
+                rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
+                jump_count++; 
+                grounded = false;
+                new_jump = true;
+                last_keypress = InputType.No_Press;
             }
         }
     }
+
 
     protected void OnJumpPress(InputValue value)
     {
@@ -554,6 +610,46 @@ public class PlayerController : MonoBehaviour
         {
             reviver = col.gameObject;
         }
+    }
+
+
+    protected void FindAnimationTimes()
+    {
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+
+        foreach(AnimationClip clip in clips)
+            switch(clip.name)
+            {
+                case "Jump_Landing":
+                    jump_cool_down = clip.length;
+                    EngageJump();
+                    Debug.Log("Clip length: " + jump_cool_down);
+                    break;
+                default:
+                    jump_cool_down = 0.2f;
+                    break;
+            }
+    }
+
+
+    protected void CheckForLastKeyPress()
+    {
+        if(current_keypress_time <= max_keypress_time && last_keypress != InputType.No_Press)
+        {
+            switch(last_keypress)
+            {
+                case InputType.Jump:
+                    EngageJump();
+                    Debug.Log("Tried to give player lee way.");
+                    break;
+            }
+        }
+        else
+        {
+            last_keypress = InputType.No_Press;
+        }
+
+        current_keypress_time += Time.deltaTime;
     }
 
 

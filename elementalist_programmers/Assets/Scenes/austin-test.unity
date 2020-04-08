@@ -673,6 +673,16 @@ PrefabInstance:
       propertyPath: jump_max
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7480202407397087866, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: current_jump_cool_down
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480202407397087866, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: max_keypress_time
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
 --- !u!1001 &1945746870

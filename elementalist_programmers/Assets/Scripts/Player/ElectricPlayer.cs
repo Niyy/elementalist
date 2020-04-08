@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class ElectricPlayer : PlayerController
 {
-    // Update is called once per frame
     bool st_running = false;
 
+    [Header("Electric Variables")]
     public float maxSpeed = 15;
     public float special_speed = 25f;
     public float special_dash_time = 0.3f;
