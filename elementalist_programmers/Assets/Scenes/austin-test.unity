@@ -470,7 +470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 3.94, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -673,6 +673,10 @@ PrefabInstance:
       propertyPath: jump_max
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 65398932, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
+      propertyPath: max_keypress_time
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7480202407397087866, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
         type: 3}
       propertyPath: current_jump_cool_down
@@ -681,7 +685,39 @@ PrefabInstance:
     - target: {fileID: 7480202407397087866, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
         type: 3}
       propertyPath: max_keypress_time
-      value: 0.1
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271467398635005918, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: max_keypress_time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018307461920096074, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: max_keypress_time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018307461920096074, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: secondary_movement
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032058394323328462, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: dd166659d822ebe0492e51ace2d74e54, type: 2}
+    - target: {fileID: 2032058394323328462, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed by
+        Humanoid clips.\n\tTransform 'mainCharacter1_Hips'\n\tTransform 'mainCharacter1_LeftArm'\n\tTransform
+        'mainCharacter1_Spine1'\n\tTransform 'mainCharacter1_LeftToeBase'\n\tTransform
+        'mainCharacter1_LeftHandMiddle2'\n\tTransform 'mainCharacter1_Spine2'\n\tTransform
+        'mainCharacter1_Hips'\n\tTransform 'mainCharacter1_RightFoot'\n\tTransform
+        'mainCharacter1_LeftHandMiddle1'\n\tTransform 'mainCharacter1_RightHandMiddle3'\n\tand
+        more ...\n\tFrom animation clip 'Slide'"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}

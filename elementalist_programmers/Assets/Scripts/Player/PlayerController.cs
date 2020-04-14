@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     [Header("Secondary Movement Variables")]
     public float secondary_speed = 20;
     public float secondary_movement_time = 0.2f;
-    public SecondaryMovementTypes secondary_movement = SecondaryMovementTypes.Dash;
+    public SecondaryMovementTypes secondary_movement;
     public enum SecondaryMovementTypes
     {
         Dash,
@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
 
     // Animator
     protected Animator animator;
+    protected float take_off_time;
 
     //Traped in sand
     public bool trapped = false;
@@ -137,26 +138,20 @@ public class PlayerController : MonoBehaviour
     public float max_keypress_time;
 
 
-    public enum InputType 
+    private enum InputType 
     {
         Jump,
         No_Press
     }
-    public InputType last_keypress;
-    public float current_keypress_time;
+    private InputType last_keypress;
+    private float current_keypress_time;
 
 
     protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
         is_secondary_moving = false;
-        //old input method
-        //controls = new PlayerControls();
-        //controls.Gameplay.Dash.performed += ctx => ImplementSecondaryMovement();
-        //controls.Gameplay.Jump.performed += ctx => { held_jump = true;};
-        //controls.Gameplay.Jump.canceled += ctx => held_jump = false;
-        //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        Debug.Log("Secondary movement type: " + secondary_movement);
 
         stunned = false;
         death_status = false;
@@ -206,6 +201,7 @@ public class PlayerController : MonoBehaviour
         {
             ReticleMovement();
             TestFunctions();
+            AnimationHandler();
         }
     }
 
@@ -240,7 +236,6 @@ public class PlayerController : MonoBehaviour
         {
             Move();
             EngageSecondaryMovement();
-            AnimationHandler();
             CheckForLastKeyPress();
         }
         Revive();
@@ -298,6 +293,7 @@ public class PlayerController : MonoBehaviour
         int angle = 0;
         PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
+    
         if(player_collision.on_wall && !player_collision.on_ground)
         {
             if(facing == 1)
@@ -312,6 +308,15 @@ public class PlayerController : MonoBehaviour
         else if(facing == 1)
         {
             angle = 180;
+        }
+
+        if(is_secondary_moving)
+        {
+            animator.SetBool("dash", true);
+        }
+        else if(!is_secondary_moving && animator.GetBool("dash"))
+        {
+            animator.SetBool("dash", false);
         }
 
         if(grounded && animator.GetBool("in_air"))
@@ -329,14 +334,18 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("jumping", true);
             animator.SetBool("landed", false);
         }
+        else if(animator.GetBool("landed") && !grounded)
+        {
+            animator.SetBool("in_air", true);
+            animator.SetBool("landed", false);
+        }
 
-        if(!animator.GetBool("holding_on_wall") && wall_push 
+        if(!animator.GetBool("holding_on_wall") && on_wall
             && !player_collision.on_ground)
         {
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && (!wall_push
-                || player_collision.on_ground))
+        else if(animator.GetBool("holding_on_wall") && (!on_wall || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
@@ -474,14 +483,19 @@ public class PlayerController : MonoBehaviour
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_secondary_movement_time = 0;
-                if (secondary_movement == SecondaryMovementTypes.Roll)
+                if (secondary_movement == SecondaryMovementTypes.Roll && grounded)
                 {
                     secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
+                    Debug.Log("Rolling!");
+                }
+                else if(secondary_movement == SecondaryMovementTypes.Dash)
+                {
+                    secondary_movement_velocity = move.normalized * secondary_speed;
+                    grounded = false;
                 }
                 else
                 {
-                    secondary_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
-                    grounded = false;
+                    return;
                 }
 
                 gameObject.layer = 11;
@@ -502,13 +516,14 @@ public class PlayerController : MonoBehaviour
         {
             RaycastHit check_down;
 
-            if (secondary_movement == SecondaryMovementTypes.Roll
+            if (secondary_movement == SecondaryMovementTypes.Roll && grounded
             && !Physics.Raycast(next_position, Vector2.down * 2.0f, out check_down, 1.0f))
             {
                 current_secondary_movement_time = secondary_movement_time;
+                Debug.Log("Rolling.");
             }
-
-            if (current_secondary_movement_time < secondary_movement_time)
+            else if (secondary_movement == SecondaryMovementTypes.Dash 
+                    && current_secondary_movement_time < secondary_movement_time)
             {
                 current_secondary_movement_time += Time.deltaTime;
                 rigbod.velocity = secondary_movement_velocity;
@@ -518,7 +533,6 @@ public class PlayerController : MonoBehaviour
                 gameObject.layer = 8;
                 //Physics.IgnoreLayerCollision(8, 9, false);
                 is_secondary_moving = false;
-                print("secondary movement over");
                 secondary_reset = false;
                 rigbod.velocity = Vector2.zero;
             }
@@ -622,8 +636,6 @@ public class PlayerController : MonoBehaviour
             {
                 case "Jump_Landing":
                     jump_cool_down = clip.length;
-                    EngageJump();
-                    Debug.Log("Clip length: " + jump_cool_down);
                     break;
                 default:
                     jump_cool_down = 0.2f;
@@ -640,7 +652,6 @@ public class PlayerController : MonoBehaviour
             {
                 case InputType.Jump:
                     EngageJump();
-                    Debug.Log("Tried to give player lee way.");
                     break;
             }
         }

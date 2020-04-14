@@ -63,7 +63,6 @@ public class ElectricPlayer : PlayerController
         st_running = true;
         yield return new WaitForSeconds(0.2f);
         moveSpeed = dSpeed;
-        print("leaving coroutine");
     }
 
     public void OnSpecial(InputValue value)
