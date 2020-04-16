@@ -85,6 +85,8 @@ public class PlayerController : MonoBehaviour
     public bool is_secondary_moving;
     protected bool secondary_reset = true;
     protected float current_secondary_movement_time;
+    protected float dash_cool_down;
+    protected float current_dash_cool_down;
     protected Vector2 secondary_movement_target;
     protected Vector2 secondary_movement_velocity;
 
@@ -479,7 +481,8 @@ public class PlayerController : MonoBehaviour
     {
         if(!death_status)
         {
-            if (!is_secondary_moving && secondary_reset && !on_wall && !stunned && !trapped
+            if (!is_secondary_moving && current_dash_cool_down >= dash_cool_down 
+                && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_secondary_movement_time = 0;
@@ -503,6 +506,7 @@ public class PlayerController : MonoBehaviour
                 rigbod.velocity = secondary_movement_velocity;
                 is_secondary_moving = true;
                 wall_jump = false;
+                current_dash_cool_down = 0;
             }
         }
     }
@@ -537,6 +541,12 @@ public class PlayerController : MonoBehaviour
                 rigbod.velocity = Vector2.zero;
             }
         }
+        else
+        {
+            current_dash_cool_down += Time.deltaTime;
+        }
+
+        //Debug.Log("current_dash_cool_down: " + current_dash_cool_down);
     }
 
 
@@ -632,15 +642,25 @@ public class PlayerController : MonoBehaviour
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
 
         foreach(AnimationClip clip in clips)
+        {
             switch(clip.name)
             {
                 case "Jump_Landing":
+                Debug.Log("Jump_Landing clip.Length: " + clip.length);
                     jump_cool_down = clip.length;
                     break;
+                case "Slide":
+                    Debug.Log("Roll clip.Length: " + clip.length);
+                    dash_cool_down = clip.length;
+                    break;
+                case "Dash":
+                    Debug.Log("Dash clip.Length: " + clip.length);
+                    dash_cool_down = clip.length;
+                    break;
                 default:
-                    jump_cool_down = 0.2f;
                     break;
             }
+        }
     }
 
 
