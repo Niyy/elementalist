@@ -43,11 +43,6 @@ public class EarthPlayer : PlayerController
     protected override void Start()
     {
         base.Start();
-        if(!grounded && is_secondary_moving)
-        {
-            Unbury();
-        }
-        currently_attacking = false;
     }
 
 
@@ -73,6 +68,12 @@ public class EarthPlayer : PlayerController
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        currently_attacking = false;
+        
+        if(!grounded && is_secondary_moving)
+        {
+            Unbury();
+        }
         currently_attacking = false;
     }
 
