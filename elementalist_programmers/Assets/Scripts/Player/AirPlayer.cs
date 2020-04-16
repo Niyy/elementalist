@@ -21,13 +21,15 @@ public class AirPlayer : PlayerController
     private Vector3 draw_angle_bottom;
     private Vector3 draw_angle_mid;
 
+    Renderer player_renderer;
 
     protected override void Awake()
     {
         base.Awake();
         cooling_time = cool_down;
+        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
 
-        if(spawn_distance == 0)
+        if (spawn_distance == 0)
         {
             spawn_distance = 1;
         }
@@ -101,6 +103,25 @@ public class AirPlayer : PlayerController
         
     }
 
+    public override void OnDash(InputValue value)
+    {
+        base.OnDash(value);
+        if (!death_status && is_secondary_moving && player_renderer.enabled)
+        {
+            player_renderer.enabled = false;
+            ui_retical.SetActive(false);
+        }
+    }
+
+    public override void EngageSecondaryMovement()
+    {
+        if (is_secondary_moving && !(current_secondary_movement_time < secondary_movement_time))
+        {
+            player_renderer.enabled = true;
+            ui_retical.SetActive(true);
+        }
+        base.EngageSecondaryMovement();
+    }
 
     private void Debugger()
     {
