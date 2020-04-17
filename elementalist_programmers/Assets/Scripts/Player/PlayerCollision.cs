@@ -88,7 +88,7 @@ public class PlayerCollision : MonoBehaviour
     {
         
         RaycastHit hit_ceiling;
-        int layerMask = ~((1 << 10) | (1 << 8) | (1 << 11));
+        int layer_mask = ~((1 << 10) | (1 << 8) | (1 << 11));
         Ray y_ray = new Ray(transform.position, Vector3.up);
         Ray left_y_ray = new Ray((transform.position - new Vector3(player_collider.size.x / 2, collider_height/2)), Vector3.up);
         Ray right_y_ray = new Ray((transform.position - new Vector3((-player_collider.size.x) / 2, collider_height/2 - 0.1f)), Vector3.up);
