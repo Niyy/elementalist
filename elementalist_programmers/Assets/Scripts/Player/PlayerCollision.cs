@@ -88,12 +88,13 @@ public class PlayerCollision : MonoBehaviour
     {
         
         RaycastHit hit_ceiling;
+        int layerMask = ~((1 << 10) | (1 << 8) | (1 << 11));
         Ray y_ray = new Ray(transform.position, Vector3.up);
         Ray left_y_ray = new Ray((transform.position - new Vector3(player_collider.size.x / 2, collider_height/2)), Vector3.up);
         Ray right_y_ray = new Ray((transform.position - new Vector3((-player_collider.size.x) / 2, collider_height/2 - 0.1f)), Vector3.up);
-        bool mid_head_col = Physics.Raycast(y_ray, out hit_ceiling, collider_height / 2 -0.1f);
-        bool left_head_col = Physics.Raycast(left_y_ray, out hit_ceiling, collider_height-0.1f);
-        bool right_head_col = Physics.Raycast(right_y_ray, out hit_ceiling, collider_height -0.2f);
+        bool mid_head_col = Physics.Raycast(y_ray, out hit_ceiling, collider_height / 2 -0.1f, layer_mask);
+        bool left_head_col = Physics.Raycast(left_y_ray, out hit_ceiling, collider_height-0.1f, layer_mask);
+        bool right_head_col = Physics.Raycast(right_y_ray, out hit_ceiling, collider_height -0.2f, layer_mask);
         if (mid_head_col) Debug.Log("Middle");
         if (right_head_col) Debug.Log("Right");
         if (left_head_col) Debug.Log("Left");
