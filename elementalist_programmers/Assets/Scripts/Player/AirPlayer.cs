@@ -100,8 +100,6 @@ public class AirPlayer : PlayerController
 
         shots[0].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
         shots[1].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
-        shots[2].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
-        
     }
 
     public override void OnDash(InputValue value)

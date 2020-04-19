@@ -26,7 +26,6 @@ public class DetectUsers : MonoBehaviour
 
     void ListenForUnpairedDevices(InputControl control, InputEventPtr arg)
     {
-        Debug.Log("Found unpaired device " + control);
         if ((control.device is Gamepad || control.device is Keyboard))
         {
             InputDevice pair_with_device = control.device;
