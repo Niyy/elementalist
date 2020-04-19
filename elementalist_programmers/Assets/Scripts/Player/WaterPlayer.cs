@@ -177,7 +177,7 @@ public class WaterPlayer : PlayerController
                 //Physics.IgnoreLayerCollision(8, 9, false);
                 is_special_dashing = false;
                 is_secondary_moving = false;
-                if(!stunned)rigbod.velocity = Vector2.zero;
+                //if(!stunned)rigbod.velocity = Vector2.zero;
                 attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;

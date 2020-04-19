@@ -82,11 +82,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public bool is_secondary_moving;
+    protected bool is_secondary_moving;
     protected bool secondary_reset = true;
     protected float current_secondary_movement_time;
     protected float dash_cool_down;
     protected float current_dash_cool_down;
+    protected float neutral_position;
     protected Vector2 secondary_movement_target;
     protected Vector2 secondary_movement_velocity;
 
@@ -251,6 +252,12 @@ public class PlayerController : MonoBehaviour
             if (direction.x != 0)
             {
                 facing = Mathf.Sign(direction.x);
+                neutral_position = 0;
+            }
+            else if(neutral_position < 5)
+            {
+                neutral_position++;
+                Debug.Log("Neutral: " + neutral_position);
             }
             if (!wall_jump)
             {
@@ -352,13 +359,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("holding_on_wall", false);
         }
 
-        if(!animator.GetBool("running") && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
+        if(!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && (animator.GetBool("landed")))
         {
             animator.SetBool("running", true);
         }
-        else if(animator.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
-                || player_collision.on_wall))
+        else if(animator.GetBool("running") && ((rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) 
+                && neutral_position > 4) || player_collision.on_wall))
         {
             animator.SetBool("running", false);
         }
@@ -650,11 +657,9 @@ public class PlayerController : MonoBehaviour
                     jump_cool_down = clip.length;
                     break;
                 case "Slide":
-                    Debug.Log("Roll clip.Length: " + clip.length);
                     dash_cool_down = clip.length;
                     break;
                 case "Dash":
-                    Debug.Log("Dash clip.Length: " + clip.length);
                     dash_cool_down = clip.length;
                     break;
                 default:

@@ -98,7 +98,6 @@ public class AirPlayer : PlayerController
 
         shots[0].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
         shots[1].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
-        
     }
 
 
