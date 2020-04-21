@@ -154,7 +154,6 @@ public class PlayerController : MonoBehaviour
     {
         rigbod = GetComponent<Rigidbody>();
         is_secondary_moving = false;
-        Debug.Log("Secondary movement type: " + secondary_movement);
 
         stunned = false;
         death_status = false;
@@ -257,7 +256,6 @@ public class PlayerController : MonoBehaviour
             else if(neutral_position < 5)
             {
                 neutral_position++;
-                Debug.Log("Neutral: " + neutral_position);
             }
             if (!wall_jump)
             {
@@ -653,7 +651,6 @@ public class PlayerController : MonoBehaviour
             switch(clip.name)
             {
                 case "Jump_Landing":
-                Debug.Log("Jump_Landing clip.Length: " + clip.length);
                     jump_cool_down = clip.length;
                     break;
                 case "Slide":
