@@ -604,6 +604,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
         type: 3}
+    - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
+        type: 3}
+      propertyPath: rock_prefab
+      value: 
+      objectReference: {fileID: 8058554219898360436, guid: 910123d75f54206ac9a5fe99b3aaf57f,
+        type: 3}
+    - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
+        type: 3}
+      propertyPath: rock_speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 701399491122880842, guid: 743372bceb5a55e4987184622a349f3b,
+        type: 3}
+      propertyPath: straight_shot
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 743372bceb5a55e4987184622a349f3b, type: 3}
 --- !u!1 &1185156191954394575 stripped

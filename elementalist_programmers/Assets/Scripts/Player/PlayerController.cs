@@ -129,10 +129,17 @@ public class PlayerController : MonoBehaviour
     //Traped in sand
     public bool trapped = false;
 
+    //audio
+    private PlayerAudio playerAudio;
+
+    //colision
+    protected PlayerCollision player_collision;
+
 
     protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<PlayerAudio>();
         is_secondary_moving = false;
         //old input method
         //controls = new PlayerControls();
@@ -157,6 +164,7 @@ public class PlayerController : MonoBehaviour
         ui_retical = Instantiate(ui_retical_prefab);
         ui_retical.name = "UI_Reticle_" + this.gameObject.name;
         ui_retical.transform.SetParent(canvas.transform, false);
+        player_collision = GetComponent<PlayerCollision>();
     }
 
 
@@ -190,17 +198,21 @@ public class PlayerController : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        on_wall = GetComponent<PlayerCollision>().on_wall;
-        grounded = GetComponent<PlayerCollision>().on_ground;
+        on_wall = player_collision.on_wall;
+        if(!grounded && player_collision.on_ground && rigbod.velocity.y < 0)
+        {
+            playerAudio.playAudio(SoundType.land);
+        }
+        grounded = player_collision.on_ground;
 
         if (grounded)
         {
             secondary_reset = true;
         }
 
-        wall_push = (move.x * facing > 0) && (GetComponent<PlayerCollision>().col_face == facing);
+        wall_push = (move.x * facing > 0) && (player_collision.col_face == facing);
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
-        wall_sliding = (GetComponent<PlayerCollision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || wall_push));
+        wall_sliding = (player_collision.on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || wall_push));
         if ((grounded || wall_sliding))
         {
             wall_jump = false;
@@ -270,7 +282,6 @@ public class PlayerController : MonoBehaviour
     protected void AnimationHandler()
     {
         int angle = 0;
-        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
         if(player_collision.on_wall && !player_collision.on_ground)
         {
@@ -325,8 +336,9 @@ public class PlayerController : MonoBehaviour
                 print("Jumping from ground: " + jump_count);
                 jump_count++;
                 grounded = false;
+                playerAudio.playAudio(SoundType.jump);
             }
-            else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
+            else if (wall_sliding || (player_collision.on_wall && wall_push))
             {
                 wall_sliding = false;
                 rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
@@ -335,6 +347,7 @@ public class PlayerController : MonoBehaviour
                 wall_jump = true;
                 print("Jumping from wall: " + jump_count);
                 jump_count=0;
+                playerAudio.playAudio(SoundType.walljump);
             }
             else if (jump_count < jump_max - 1)
             {
@@ -342,6 +355,7 @@ public class PlayerController : MonoBehaviour
                 print("Jumping from air: " + jump_count);
                 jump_count++;
                 grounded = false;
+                playerAudio.playAudio(SoundType.jump);
             }
         }
     }
@@ -408,6 +422,7 @@ public class PlayerController : MonoBehaviour
                 rigbod.velocity = secondary_movement_velocity;
                 is_secondary_moving = true;
                 wall_jump = false;
+                playerAudio.playAudio(SoundType.dash);
             }
         }
     }
