@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9fdf2025544f4ac4098894072c7386c7
+guid: 38869c61ea795c168bf132d8d4d7cf0d
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -19,33 +19,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'mainCharacter1_LeftUpLeg'
-      : position error = 20730.371094 mm\n\t'mainCharacter1_LeftLeg' : position error
-      = 36205.804688 mm\n\t'mainCharacter1_LeftFoot' : position error = 37683.246094
-      mm\n\t'mainCharacter1_LeftToeBase' : position error = 13322.090820 mm\n\t'mainCharacter1_RightUpLeg'
-      : position error = 15680.699219 mm\n\t'mainCharacter1_RightLeg' : position error
-      = 36205.777344 mm\n\t'mainCharacter1_RightFoot' : position error = 37683.218750
-      mm\n\t'mainCharacter1_RightToeBase' : position error = 13322.092773 mm\n\t'mainCharacter1_Spine'
-      : position error = 10830.136719 mm\n\t'mainCharacter1_Spine1' : position error
-      = 14908.374023 mm\n\t'mainCharacter1_Spine2' : position error = 14892.928711
-      mm\n\t'mainCharacter1_LeftShoulder' : position error = 9464.706055 mm\n\t'mainCharacter1_LeftArm'
-      : position error = 9913.374023 mm\n\t'mainCharacter1_LeftForeArm' : position
-      error = 25280.923828 mm\n\t'mainCharacter1_LeftHand' : position error = 24717.701172
-      mm\n\t'mainCharacter1_LeftHandThumb1' : position error = 4600.754883 mm\n\t'mainCharacter1_LeftHandThumb2'
-      : position error = 2467.190430 mm\n\t'mainCharacter1_LeftHandThumb3' : position
-      error = 2354.583740 mm\n\t'mainCharacter1_LeftHandMiddle1' : position error
-      = 8175.621094 mm\n\t'mainCharacter1_LeftHandMiddle2' : position error = 4502.671875
-      mm\n\t'mainCharacter1_LeftHandMiddle3' : position error = 3536.363770 mm\n\t'mainCharacter1_RightShoulder'
-      : position error = 9464.708984 mm\n\t'mainCharacter1_RightArm' : position error
-      = 9913.373047 mm\n\t'mainCharacter1_RightForeArm' : position error = 25280.927734
-      mm\n\t'mainCharacter1_RightHand' : position error = 24717.712891 mm\n\t'mainCharacter1_RightHandThumb1'
-      : position error = 4600.750000 mm\n\t'mainCharacter1_RightHandThumb2' : position
-      error = 2467.189941 mm\n\t'mainCharacter1_RightHandThumb3' : position error
-      = 2354.582520 mm\n\t'mainCharacter1_RightHandMiddle1' : position error = 8175.614258
-      mm\n\t'mainCharacter1_RightHandMiddle2' : position error = 4502.673828 mm\n\t'mainCharacter1_RightHandMiddle3'
-      : position error = 3536.362061 mm\n\t'mainCharacter1_Neck' : position error
-      = 14877.862305 mm\n\t'mainCharacter1_Head' : position error = 26366.328125 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -61,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump
+      name: Slide
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 2
-      lastFrame: 23
+      firstFrame: 1
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -77,9 +51,9 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

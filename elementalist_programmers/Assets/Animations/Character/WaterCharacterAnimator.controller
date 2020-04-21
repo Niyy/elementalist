@@ -51,7 +51,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: b712bc8e17c1d1acca0d5f54a0243080,
+  m_Motion: {fileID: 1827226128182048838, guid: 38869c61ea795c168bf132d8d4d7cf0d,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -595,7 +595,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CharacterAnimator
+  m_Name: WaterCharacterAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: running
@@ -885,6 +885,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: running
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: dash
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7642752385286994084}

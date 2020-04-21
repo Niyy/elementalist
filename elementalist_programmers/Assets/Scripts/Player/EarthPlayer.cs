@@ -40,12 +40,6 @@ public class EarthPlayer : PlayerController
         collider_height = player_collider[0].size.y * transform.localScale.y;
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        
-    }
-
 
     protected override void Update()
     {
@@ -70,7 +64,7 @@ public class EarthPlayer : PlayerController
     {
         base.FixedUpdate();
         currently_attacking = false;
-        if (!grounded && is_secondary_moving)
+        if(!grounded && is_secondary_moving)
         {
             Unbury();
         }

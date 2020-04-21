@@ -7,7 +7,7 @@ public class LevelProperties : MonoBehaviour
 {
     public string world_name = "default";
     public bool unlocked = false;
-    public Object scene;
+    public int scene;
     public float unlock_light_distance = 0;
     public float unlock_light_height = 5;
     public float unlock_light_intensity = 100;

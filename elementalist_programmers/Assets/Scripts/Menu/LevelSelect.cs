@@ -98,7 +98,7 @@ public class LevelSelect : MonoBehaviour
     {
         if (levelProperties[choice].unlocked)
         {
-            SceneManager.LoadScene(levelProperties[choice].scene.name);
+            SceneManager.LoadScene(levelProperties[choice].scene);
         }
     }
 

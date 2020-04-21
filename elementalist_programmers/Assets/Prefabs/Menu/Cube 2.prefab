@@ -118,13 +118,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world_name: default
-  unlocked: 0
-  scene: {fileID: 0}
+  unlocked: 1
+  scene: 3
   unlock_light_distance: 0
   unlock_light_height: 5
   unlock_light_intensity: 100
   front_light_distance: 13
   front_light_height: -1.5
   front_light_intensity: 300
+  spot_angle: 35
   unlock_color: {r: 1, g: 0.9828316, b: 0.6179246, a: 0}
   front_color: {r: 0.996369, g: 1, b: 0.740566, a: 0}
