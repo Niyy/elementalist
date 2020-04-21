@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyC_sub : Enemy
+public class EnemyC : Enemy
 {
 
 
@@ -16,7 +16,7 @@ public class EnemyC_sub : Enemy
     {
         rb = this.GetComponent<Rigidbody>();
         detector = transform.GetChild(0).gameObject;
-        WhoAmIKilling();
+        //WhoAmIKilling();
     }
 
     private void Update()

@@ -10,6 +10,8 @@ public class RoomManager : MonoBehaviour
 
     public List<GameObject> switchs;
 
+    public bool bossRoom = false;
+
     private void OnEnable()
     {
         for (int i = 0; i < normal_Doors.Count; i++)
@@ -28,15 +30,18 @@ public class RoomManager : MonoBehaviour
 
     void openNormalDoors()
     {
-        if (enemys.Count == 0 && switchs.Count == 0)
+        if (enemys.Count == 0 && switchs.Count == 0 && !bossRoom)
         {
             for (int i = 0; i < normal_Doors.Count; i++)
             {
-                print("Room Manager I opened doorssssssssssss");
+                //print("Room Manager I opened doorssssssssssss");
                 normal_Doors[i].open = true;
             }
         }
+        if(bossRoom && enemys.Count == 0)
+        {
 
+        }
     }
 
 
