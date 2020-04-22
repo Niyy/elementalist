@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
         {
             icecube.transform.localScale = transform.gameObject.GetComponentInChildren<Renderer>().bounds.size;
         }
-
+        GetComponent<Collider>().isTrigger = true;
         GetComponent<Rigidbody>().isKinematic = true;
         icecube.GetComponent<Renderer>().material = ice_material;
         alive = false;
