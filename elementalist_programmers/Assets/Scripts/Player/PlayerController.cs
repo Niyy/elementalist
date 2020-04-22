@@ -147,6 +147,10 @@ public class PlayerController : MonoBehaviour
     public float max_keypress_time;
 
 
+    [Header("Animation Variables")]
+    public Sprite[] running_dust;
+
+
     private enum InputType 
     {
         Jump,
