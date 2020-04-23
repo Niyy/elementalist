@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     protected Vector2 move;
     protected Rigidbody rigbod;
     protected bool stunned;
+    protected bool changed_direction;
     protected float stunned_counter;
     protected Vector3 stunned_forces;
 
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
 
     protected Vector3 direction;
+    protected float facing_last_input;
 
 
     //Combat variables
@@ -256,6 +258,11 @@ public class PlayerController : MonoBehaviour
             CheckForLastKeyPress();
         }
         Revive();
+
+        if(facing_last_input != facing)
+        {
+            facing_last_input = facing;
+        }
     }
 
     protected void Move()
@@ -267,6 +274,7 @@ public class PlayerController : MonoBehaviour
             {
                 facing = Mathf.Sign(direction.x);
                 neutral_position = 0;
+                changed_direction = true;
             }
             else if (neutral_position < 5)
             {
@@ -386,20 +394,36 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    // Using local position to place the animation clip.
+    // I put dust_position just incase you need any other positions for different clips
+    // If you set dust_position to 0,0,0 you will be right on top of the player, so for jumps
+    // changing the x position to 0 when that animation is made may be useful.
+    // I used bools for transition parameters. Ask question if the code seems confusing.
     protected void Animation2DHandler()
     {
-        int angle = 0;
+        Vector3 dust_position = animator_2d.gameObject.transform.localPosition;
+        int angle = 180;
 
 
         if (facing == 1)
         {
-            angle = 180;
+            angle = 0;
+
+            if(Mathf.Sign(dust_position.x) == 1)
+            {
+                dust_position = new Vector3(-dust_position.x, dust_position.y, dust_position.z);
+            }
+        }
+        else if (facing == -1 && Mathf.Sign(dust_position.x) == -1)
+        {
+            dust_position = new Vector3(-dust_position.x, dust_position.y, dust_position.z);
         }
 
 
         if (!grounded)
         {
             animator_2d.SetBool("in_air", true);
+            animator_2d.SetBool("running", false);
         }
         else if (grounded && animator_2d.GetBool("in_air"))
         {
@@ -407,16 +431,25 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (!animator_2d.GetBool("running") && !animator_2d.GetBool("in_air") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f))
+        if ((!animator_2d.GetBool("running") && !animator_2d.GetBool("in_air") && !is_secondary_moving
+            && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)))
         {
             animator_2d.SetBool("running", true);
         }
-        else if (animator_2d.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) || player_collision.on_wall))
+        else if ((animator_2d.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) || player_collision.on_wall))
+                || changed_direction)
         {
             animator_2d.SetBool("running", false);
         }
 
-        //animator_2d.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+    
+        animator_2d.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+        animator_2d.gameObject.transform.localPosition = dust_position;
+
+        if(changed_direction)
+        {
+            changed_direction = false;
+        }
     }
 
 
