@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping Variables")]
     public bool held_jump = false;
     public float jumpForce = 7f;
-   [HideInInspector] public float djump;
+    [HideInInspector] public float djump;
     public float fallMultiplier = 2.5f;
     [HideInInspector] public float dFall;
     public float lowJumpMultiplier = 2f;
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
     [Header("Direction Variables")]
     [Range(-1, 1)]
     public float facing;
-    
+
 
     protected Vector3 direction;
 
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Camera for player
-    [HideInInspector]public Camera player_camera;
+    [HideInInspector] public Camera player_camera;
 
 
     // Canvas
@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
 
     // Animator
     protected Animator animator;
+    protected Animator animator_2d;
     protected float take_off_time;
 
     //Traped in sand
@@ -147,11 +148,7 @@ public class PlayerController : MonoBehaviour
     public float max_keypress_time;
 
 
-    [Header("Animation Variables")]
-    public Sprite[] running_dust;
-
-
-    private enum InputType 
+    private enum InputType
     {
         Jump,
         No_Press
@@ -176,6 +173,7 @@ public class PlayerController : MonoBehaviour
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
+        animator_2d = transform.GetChild(1).GetComponent<Animator>();
         child = this.transform.GetChild(0).gameObject;
         player_camera = Camera.main;
         retical = new GameObject("Reticle_" + this.gameObject.name);
@@ -211,11 +209,12 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(!death_status)
+        if (!death_status)
         {
             ReticleMovement();
             TestFunctions();
             AnimationHandler();
+            Animation2DHandler();
         }
     }
 
@@ -223,7 +222,7 @@ public class PlayerController : MonoBehaviour
     public virtual void FixedUpdate()
     {
         on_wall = player_collision.on_wall;
-        if(!grounded && player_collision.on_ground && rigbod.velocity.y < 0)
+        if (!grounded && player_collision.on_ground && rigbod.velocity.y < 0)
         {
             playerAudio.playAudio(SoundType.land);
         }
@@ -244,13 +243,13 @@ public class PlayerController : MonoBehaviour
             jump_count = 0;
         }
 
-        
-        if(grounded)
+
+        if (grounded)
         {
             current_jump_cool_down += Time.deltaTime;
         }
 
-        if(!death_status)
+        if (!death_status)
         {
             Move();
             EngageSecondaryMovement();
@@ -264,12 +263,12 @@ public class PlayerController : MonoBehaviour
         if (!is_secondary_moving && !stunned)
         {
             direction = new Vector3(move.x, move.y, 0f);
-            if (direction.x != 0)
+            if (Mathf.Sign(direction.x) != facing)
             {
                 facing = Mathf.Sign(direction.x);
                 neutral_position = 0;
             }
-            else if(neutral_position < 5)
+            else if (neutral_position < 5)
             {
                 neutral_position++;
             }
@@ -315,10 +314,10 @@ public class PlayerController : MonoBehaviour
     {
         int angle = 0;
 
-    
-        if(player_collision.on_wall && !player_collision.on_ground)
+
+        if (player_collision.on_wall && !player_collision.on_ground)
         {
-            if(facing == 1)
+            if (facing == 1)
             {
                 angle = 0;
             }
@@ -327,57 +326,57 @@ public class PlayerController : MonoBehaviour
                 angle = 180;
             }
         }
-        else if(facing == 1)
+        else if (facing == 1)
         {
             angle = 180;
         }
 
-        if(is_secondary_moving)
+        if (is_secondary_moving)
         {
             animator.SetBool("dash", true);
         }
-        else if(!is_secondary_moving && animator.GetBool("dash"))
+        else if (!is_secondary_moving && animator.GetBool("dash"))
         {
             animator.SetBool("dash", false);
         }
 
-        if(grounded && animator.GetBool("in_air"))
+        if (grounded && animator.GetBool("in_air"))
         {
             animator.SetBool("in_air", false);
             animator.SetBool("jumping", false);
             animator.SetBool("landed", true);
         }
-        else if(!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
+        else if (!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
         {
             animator.SetBool("in_air", true);
         }
-        else if(current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
+        else if (current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
         {
             animator.SetBool("jumping", true);
             animator.SetBool("landed", false);
         }
-        else if(animator.GetBool("landed") && !grounded)
+        else if (animator.GetBool("landed") && !grounded)
         {
             animator.SetBool("in_air", true);
             animator.SetBool("landed", false);
         }
 
-        if(!animator.GetBool("holding_on_wall") && on_wall
+        if (!animator.GetBool("holding_on_wall") && on_wall
             && !player_collision.on_ground)
         {
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && (!on_wall || player_collision.on_ground))
+        else if (animator.GetBool("holding_on_wall") && (!on_wall || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
 
-        if(!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
+        if (!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && (animator.GetBool("landed")))
         {
             animator.SetBool("running", true);
         }
-        else if(animator.GetBool("running") && ((rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) 
+        else if (animator.GetBool("running") && ((rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
                 && neutral_position > 4) || player_collision.on_wall))
         {
             animator.SetBool("running", false);
@@ -387,9 +386,22 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    protected void Animation2DHandler()
+    {
+        if (!animator_2d.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f))
+        {
+            animator_2d.SetBool("running", true);
+        }
+        else if (animator_2d.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) || player_collision.on_wall))
+        {
+            animator_2d.SetBool("running", false);
+        }
+    }
+
+
     public virtual void OnJump(InputValue value)
     {
-        if(!death_status && !is_secondary_moving)
+        if (!death_status && !is_secondary_moving)
         {
             if (grounded && current_jump_cool_down >= jump_cool_down)
             {
@@ -406,13 +418,13 @@ public class PlayerController : MonoBehaviour
 
                 facing *= -1f;
                 wall_jump = true;
-                jump_count=0;
+                jump_count = 0;
                 playerAudio.playAudio(SoundType.walljump);
             }
             else if (jump_count < jump_max - 1 && (current_jump_cool_down >= jump_cool_down || !grounded))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                jump_count++; 
+                jump_count++;
                 grounded = false;
                 new_jump = true;
             }
@@ -428,7 +440,7 @@ public class PlayerController : MonoBehaviour
 
     protected void EngageJump()
     {
-        if(!death_status && !is_secondary_moving)
+        if (!death_status && !is_secondary_moving)
         {
             if (grounded && current_jump_cool_down >= jump_cool_down)
             {
@@ -446,13 +458,13 @@ public class PlayerController : MonoBehaviour
 
                 facing *= -1f;
                 wall_jump = true;
-                jump_count=0;
+                jump_count = 0;
                 last_keypress = InputType.No_Press;
             }
             else if (jump_count < jump_max - 1 && (current_jump_cool_down >= jump_cool_down || !grounded))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                jump_count++; 
+                jump_count++;
                 grounded = false;
                 new_jump = true;
                 last_keypress = InputType.No_Press;
@@ -484,7 +496,7 @@ public class PlayerController : MonoBehaviour
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
 
 
-        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius, ~(1<<10))
+        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius, ~(1 << 10))
             && !hit.collider.gameObject.tag.Equals("Player"))
         {
             retical.transform.position = hit.point;
@@ -496,15 +508,15 @@ public class PlayerController : MonoBehaviour
         }
 
         ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
-        
+
     }
 
 
     public virtual void OnDash(InputValue value)
     {
-        if(!death_status)
+        if (!death_status)
         {
-            if (!is_secondary_moving && current_dash_cool_down >= dash_cool_down 
+            if (!is_secondary_moving && current_dash_cool_down >= dash_cool_down
                 && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
@@ -514,7 +526,7 @@ public class PlayerController : MonoBehaviour
                     secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
                     Debug.Log("Rolling!");
                 }
-                else if(secondary_movement == SecondaryMovementTypes.Dash)
+                else if (secondary_movement == SecondaryMovementTypes.Dash)
                 {
                     secondary_movement_velocity = move.normalized * secondary_speed;
                     grounded = false;
@@ -550,7 +562,7 @@ public class PlayerController : MonoBehaviour
                 current_secondary_movement_time = secondary_movement_time;
                 Debug.Log("Rolling.");
             }
-            else if (secondary_movement == SecondaryMovementTypes.Dash 
+            else if (secondary_movement == SecondaryMovementTypes.Dash
                     && current_secondary_movement_time < secondary_movement_time)
             {
                 current_secondary_movement_time += Time.deltaTime;
@@ -583,12 +595,12 @@ public class PlayerController : MonoBehaviour
 
     protected void StunnedActions()
     {
-        if(stunned_counter == 0)
+        if (stunned_counter == 0)
         {
             rigbod.velocity = stunned_forces;
         }
 
-        if(stunned_counter < stunned_wait_timer && rigbod.velocity != Vector3.zero)
+        if (stunned_counter < stunned_wait_timer && rigbod.velocity != Vector3.zero)
         {
             stunned_counter += Time.deltaTime;
         }
@@ -607,7 +619,7 @@ public class PlayerController : MonoBehaviour
 
     protected void TestDeath()
     {
-        if(death_test)
+        if (death_test)
         {
             PlayerDeath();
             death_test = false;
@@ -623,7 +635,7 @@ public class PlayerController : MonoBehaviour
 
     protected void Revive()
     {
-        if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
+        if (reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
         {
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
@@ -654,7 +666,7 @@ public class PlayerController : MonoBehaviour
 
     protected void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
+        if (col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
         {
             reviver = col.gameObject;
         }
@@ -665,9 +677,9 @@ public class PlayerController : MonoBehaviour
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
 
-        foreach(AnimationClip clip in clips)
+        foreach (AnimationClip clip in clips)
         {
-            switch(clip.name)
+            switch (clip.name)
             {
                 case "Jump_Landing":
                     jump_cool_down = clip.length;
@@ -687,9 +699,9 @@ public class PlayerController : MonoBehaviour
 
     protected void CheckForLastKeyPress()
     {
-        if(current_keypress_time <= max_keypress_time && last_keypress != InputType.No_Press)
+        if (current_keypress_time <= max_keypress_time && last_keypress != InputType.No_Press)
         {
-            switch(last_keypress)
+            switch (last_keypress)
             {
                 case InputType.Jump:
                     EngageJump();
@@ -726,7 +738,7 @@ public class PlayerController : MonoBehaviour
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
             PlayerManager.Instance.LivingPlayersCheck();
-        } 
+        }
     }
 
 
@@ -756,7 +768,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        if(ui_retical != null)
+        if (ui_retical != null)
         {
             ui_retical.SetActive(false);
         }
