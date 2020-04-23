@@ -496,7 +496,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!death_status && !is_secondary_moving)
         {
-            if (grounded && current_jump_cool_down >= jump_cool_down)
+            if (grounded && (current_jump_cool_down >= jump_cool_down || trapped))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
                 jump_count++;
