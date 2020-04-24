@@ -388,7 +388,26 @@ public class PlayerController : MonoBehaviour
 
     protected void Animation2DHandler()
     {
-        if (!animator_2d.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f))
+        int angle = 0;
+
+
+        if (facing == 1)
+        {
+            angle = 180;
+        }
+
+
+        if (!grounded)
+        {
+            animator_2d.SetBool("in_air", true);
+        }
+        else if (grounded && animator_2d.GetBool("in_air"))
+        {
+            animator_2d.SetBool("in_air", false);
+        }
+
+
+        if (!animator_2d.GetBool("running") && !animator_2d.GetBool("in_air") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f))
         {
             animator_2d.SetBool("running", true);
         }
@@ -396,6 +415,8 @@ public class PlayerController : MonoBehaviour
         {
             animator_2d.SetBool("running", false);
         }
+
+        //animator_2d.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
     }
 
 
