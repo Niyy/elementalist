@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3775786889624528148}
   - component: {fileID: 701399491122880842}
   - component: {fileID: 6088511467360655101}
+  - component: {fileID: -3664196610433674558}
+  - component: {fileID: 6843177941602340861}
   m_Layer: 8
   m_Name: earthCharacter
   m_TagString: Player
@@ -99,13 +101,13 @@ MonoBehaviour:
   stunned_wait_timer: 0
   dSpeed: 0
   held_jump: 0
-  jump: 0
   jumpForce: 7
   djump: 0
   fallMultiplier: 2.5
   dFall: 0
   lowJumpMultiplier: 2
   grounded: 0
+  jump_max: 1
   wall_jump: 0
   new_jump: 0
   wall_jump_direction: {x: 0.7, y: 1, z: 0}
@@ -115,6 +117,7 @@ MonoBehaviour:
   wall_sliding: 0
   wj_interpolant_gain: 0.1
   ui_retical_prefab: {fileID: 0}
+  ui_retical: {fileID: 0}
   secondary_speed: 20
   secondary_movement_time: 0.2
   secondary_movement: 0
@@ -122,10 +125,15 @@ MonoBehaviour:
   player_camera: {fileID: 0}
   death_status: 0
   death_test: 0
+  debugging: 0
   trapped: 0
+  max_keypress_time: 0
   rock_prefab: {fileID: 0}
   max_rocks: 4
   rock_respawn_rate: 3
+  rock_speed: 1
+  straight_shot: 0
+  launch_vector: {x: 0, y: 0}
 --- !u!65 &6088511467360655101
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -139,6 +147,120 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6954846, y: 0.2932987, z: 1}
   m_Center: {x: 0.004478093, y: -0.8168099, z: -1.256788e-10}
+--- !u!114 &-3664196610433674558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5675063325845232475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6f0fa7cfcbee0428efeb358e9fe601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  jump: {fileID: 8300000, guid: d3751849b26838944a2c6d1ba24997e1, type: 3}
+  walljump: {fileID: 8300000, guid: d3751849b26838944a2c6d1ba24997e1, type: 3}
+  dash: {fileID: 0}
+  land: {fileID: 8300000, guid: aed71d1bc6ba5eb4d98d1038ff21e222, type: 3}
+  rock_form: {fileID: 8300000, guid: 143d690c443f50843800c9b6253beb41, type: 3}
+--- !u!82 &6843177941602340861
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5675063325845232475}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &7597713417114645136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,21 +276,6 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 067b26b4950ce31a5b9eea2c979262c7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 067b26b4950ce31a5b9eea2c979262c7,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d66ff53ef6bdd6472bca23840276fb82, type: 2}
-    - target: {fileID: -6057140222963153312, guid: 067b26b4950ce31a5b9eea2c979262c7,
-        type: 3}
-      propertyPath: m_CullingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 067b26b4950ce31a5b9eea2c979262c7,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 067b26b4950ce31a5b9eea2c979262c7,
@@ -235,6 +342,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.6219299
+      objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 067b26b4950ce31a5b9eea2c979262c7,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d66ff53ef6bdd6472bca23840276fb82, type: 2}
+    - target: {fileID: -6057140222963153312, guid: 067b26b4950ce31a5b9eea2c979262c7,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 067b26b4950ce31a5b9eea2c979262c7,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 067b26b4950ce31a5b9eea2c979262c7, type: 3}

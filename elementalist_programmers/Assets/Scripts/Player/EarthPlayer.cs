@@ -24,6 +24,7 @@ public class EarthPlayer : PlayerController
     Renderer player_renderer;
     GameObject dirt;
     float collider_height;
+    EarthAudio earthAudio;
 
     protected override void Awake()
     {
@@ -38,6 +39,7 @@ public class EarthPlayer : PlayerController
         
         currently_attacking = false;
         collider_height = player_collider[0].size.y * transform.localScale.y;
+        earthAudio = GetComponent<EarthAudio>();
     }
 
 
@@ -147,6 +149,7 @@ public class EarthPlayer : PlayerController
                     rock.GetComponent<Rigidbody>().velocity = left_stick_position + throw_vector;
                     rock.GetComponent<Projectile>().Release();
                     currently_attacking = true;
+                    earthAudio.playAudio(SoundType.rockform);
                 }
             }
         }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 240864221048077168}
   - component: {fileID: 1360825103302425302}
   - component: {fileID: -8028496473503765839}
-  - component: {fileID: 8282534118848601053}
+  - component: {fileID: 4254459374434974220}
   m_Layer: 8
   m_Name: electricCharacter
   m_TagString: Player
@@ -120,13 +120,13 @@ MonoBehaviour:
   secondary_speed: 40
   secondary_movement_time: 0.1
   secondary_movement: 0
-  is_secondary_moving: 0
   facing: 0
   player_camera: {fileID: 0}
   death_status: 0
   death_test: 0
   debugging: 0
   trapped: 0
+  max_keypress_time: 0
   maxSpeed: 15
   special_speed: 25
   special_dash_time: 0.3
@@ -228,7 +228,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8282534118848601053
+--- !u!114 &4254459374434974220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,14 +237,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8786543311672591679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3699ea4eccfd41459606207215b7b18, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e8e6d0c9822e9243a535b4da310bb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
   jump: {fileID: 8300000, guid: d3751849b26838944a2c6d1ba24997e1, type: 3}
   walljump: {fileID: 8300000, guid: d3751849b26838944a2c6d1ba24997e1, type: 3}
   dash: {fileID: 8300000, guid: 94d2665cd4e49db4fa5913bb36bcd0f4, type: 3}
-  special: {fileID: 0}
   land: {fileID: 8300000, guid: aed71d1bc6ba5eb4d98d1038ff21e222, type: 3}
+  electric_dash: {fileID: 8300000, guid: a4702c59ef55e25498a415086d9dc8a0, type: 3}
 --- !u!1001 &6791835647487782132
 PrefabInstance:
   m_ObjectHideFlags: 0
