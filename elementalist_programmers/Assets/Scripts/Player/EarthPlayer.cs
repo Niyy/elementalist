@@ -170,6 +170,7 @@ public class EarthPlayer : PlayerController
             player_collider[1].enabled = true;
             surface_blocked = false;
             player_renderer.enabled = false;
+            earthAudio.playAudio(SoundType.dig);
         }
         else if(is_secondary_moving)
         {
@@ -181,6 +182,7 @@ public class EarthPlayer : PlayerController
     {
         if (!player_collision.HeadCollision())
         {
+            earthAudio.Unbury();
             gameObject.layer = 8;
             print("unbury");
             is_secondary_moving = false;

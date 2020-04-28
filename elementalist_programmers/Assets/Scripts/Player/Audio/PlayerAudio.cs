@@ -4,18 +4,18 @@ using UnityEngine;
 
 public enum SoundType
 {
-    jump, walljump, dash, special, land, dig, rockform, rockbreak, death, revive
+    jump, walljump, dash, special, land, dig, rockform, rockbreak, underground, death, revive
 }
 
 public class PlayerAudio : MonoBehaviour
 {
     [HideInInspector]
-    public AudioSource audioSource;
+    public AudioSource[] audioSource;
     public AudioClip jump, walljump, dash, land;
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource = gameObject.GetComponents<AudioSource>();
     }
 
     public virtual void playAudio(SoundType sound)
@@ -24,21 +24,25 @@ public class PlayerAudio : MonoBehaviour
         switch (sound)
         {
             case SoundType.jump:
-                audioSource.clip = jump;
+                audioSource[0].clip = jump;
+                audioSource[0].Play();
                 break;
             case SoundType.walljump:
-                audioSource.clip = walljump;
+                audioSource[0].clip = walljump;
+                audioSource[0].Play();
                 break;
             case SoundType.dash:
-                audioSource.clip = dash;
+                audioSource[0].clip = dash;
+                audioSource[0].Play();
                 break;
             case SoundType.land:
-                audioSource.clip = land;
+                audioSource[0].clip = land;
+                audioSource[0].Play();
                 break;
             default:
                 break;
         }
-        audioSource.Play();
+        
     }
 
 
