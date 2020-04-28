@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     protected Vector2 move;
     protected Rigidbody rigbod;
     protected bool stunned;
+    protected bool changed_direction;
     protected float stunned_counter;
     protected Vector3 stunned_forces;
 
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping Variables")]
     public bool held_jump = false;
     public float jumpForce = 7f;
-   [HideInInspector] public float djump;
+    [HideInInspector] public float djump;
     public float fallMultiplier = 2.5f;
     [HideInInspector] public float dFall;
     public float lowJumpMultiplier = 2f;
@@ -97,9 +98,10 @@ public class PlayerController : MonoBehaviour
     [Header("Direction Variables")]
     [Range(-1, 1)]
     public float facing;
-    
+
 
     protected Vector3 direction;
+    protected float facing_last_input;
 
 
     //Combat variables
@@ -107,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Camera for player
-    [HideInInspector]public Camera player_camera;
+    [HideInInspector] public Camera player_camera;
 
 
     // Canvas
@@ -130,10 +132,17 @@ public class PlayerController : MonoBehaviour
 
     // Animator
     protected Animator animator;
+    protected Animator animator_2d;
     protected float take_off_time;
 
     //Traped in sand
     public bool trapped = false;
+
+    //audio
+    private PlayerAudio playerAudio;
+
+    //colision
+    protected PlayerCollision player_collision;
 
 
     // Key Buffer
@@ -141,7 +150,7 @@ public class PlayerController : MonoBehaviour
     public float max_keypress_time;
 
 
-    private enum InputType 
+    private enum InputType
     {
         Jump,
         No_Press
@@ -153,8 +162,8 @@ public class PlayerController : MonoBehaviour
     protected virtual void Awake()
     {
         rigbod = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<PlayerAudio>();
         is_secondary_moving = false;
-        Debug.Log("Secondary movement type: " + secondary_movement);
 
         stunned = false;
         death_status = false;
@@ -166,6 +175,7 @@ public class PlayerController : MonoBehaviour
         stunned_counter = stunned_wait_timer;
 
         animator = GetComponentInChildren<Animator>();
+        animator_2d = transform.GetChild(1).GetComponent<Animator>();
         child = this.transform.GetChild(0).gameObject;
         player_camera = Camera.main;
         retical = new GameObject("Reticle_" + this.gameObject.name);
@@ -174,6 +184,7 @@ public class PlayerController : MonoBehaviour
         ui_retical = Instantiate(ui_retical_prefab);
         ui_retical.name = "UI_Reticle_" + this.gameObject.name;
         ui_retical.transform.SetParent(canvas.transform, false);
+        player_collision = GetComponent<PlayerCollision>();
 
         animator.SetBool("landed", true);
 
@@ -200,28 +211,33 @@ public class PlayerController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(!death_status)
+        if (!death_status)
         {
             ReticleMovement();
             TestFunctions();
             AnimationHandler();
+            Animation2DHandler();
         }
     }
 
 
     public virtual void FixedUpdate()
     {
-        on_wall = GetComponent<PlayerCollision>().on_wall;
-        grounded = GetComponent<PlayerCollision>().on_ground;
+        on_wall = player_collision.on_wall;
+        if (!grounded && player_collision.on_ground && rigbod.velocity.y < 0)
+        {
+            playerAudio.playAudio(SoundType.land);
+        }
+        grounded = player_collision.on_ground;
 
         if (grounded)
         {
             secondary_reset = true;
         }
 
-        wall_push = (move.x * facing > 0) && (GetComponent<PlayerCollision>().col_face == facing);
+        wall_push = (move.x * facing > 0) && (player_collision.col_face == facing);
         //to wallslide player must not be grounded, they must be traveling down the wall, and must press against the wall or already be wall sliding
-        wall_sliding = (GetComponent<PlayerCollision>().on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || wall_push));
+        wall_sliding = (player_collision.on_wall && !grounded && rigbod.velocity.y < 0 && (wall_sliding || wall_push));
         if ((grounded || wall_sliding))
         {
             wall_jump = false;
@@ -229,19 +245,24 @@ public class PlayerController : MonoBehaviour
             jump_count = 0;
         }
 
-        
-        if(grounded)
+
+        if (grounded)
         {
             current_jump_cool_down += Time.deltaTime;
         }
 
-        if(!death_status)
+        if (!death_status)
         {
             Move();
             EngageSecondaryMovement();
             CheckForLastKeyPress();
         }
         Revive();
+
+        if(facing_last_input != facing)
+        {
+            facing_last_input = facing;
+        }
     }
 
     protected void Move()
@@ -249,15 +270,15 @@ public class PlayerController : MonoBehaviour
         if (!is_secondary_moving && !stunned)
         {
             direction = new Vector3(move.x, move.y, 0f);
-            if (direction.x != 0)
+            if (Mathf.Sign(direction.x) != facing)
             {
                 facing = Mathf.Sign(direction.x);
                 neutral_position = 0;
+                changed_direction = true;
             }
-            else if(neutral_position < 5)
+            else if (neutral_position < 5)
             {
                 neutral_position++;
-                Debug.Log("Neutral: " + neutral_position);
             }
             if (!wall_jump)
             {
@@ -300,12 +321,11 @@ public class PlayerController : MonoBehaviour
     protected void AnimationHandler()
     {
         int angle = 0;
-        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
-    
-        if(player_collision.on_wall && !player_collision.on_ground)
+
+        if (player_collision.on_wall && !player_collision.on_ground)
         {
-            if(facing == 1)
+            if (facing == 1)
             {
                 angle = 0;
             }
@@ -314,57 +334,57 @@ public class PlayerController : MonoBehaviour
                 angle = 180;
             }
         }
-        else if(facing == 1)
+        else if (facing == 1)
         {
             angle = 180;
         }
 
-        if(is_secondary_moving)
+        if (is_secondary_moving)
         {
             animator.SetBool("dash", true);
         }
-        else if(!is_secondary_moving && animator.GetBool("dash"))
+        else if (!is_secondary_moving && animator.GetBool("dash"))
         {
             animator.SetBool("dash", false);
         }
 
-        if(grounded && animator.GetBool("in_air"))
+        if (grounded && animator.GetBool("in_air"))
         {
             animator.SetBool("in_air", false);
             animator.SetBool("jumping", false);
             animator.SetBool("landed", true);
         }
-        else if(!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
+        else if (!grounded && animator.GetBool("jumping") && !animator.GetBool("landed") && !wall_push)
         {
             animator.SetBool("in_air", true);
         }
-        else if(current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
+        else if (current_jump_cool_down >= jump_cool_down && new_jump && animator.GetBool("landed"))
         {
             animator.SetBool("jumping", true);
             animator.SetBool("landed", false);
         }
-        else if(animator.GetBool("landed") && !grounded)
+        else if (animator.GetBool("landed") && !grounded)
         {
             animator.SetBool("in_air", true);
             animator.SetBool("landed", false);
         }
 
-        if(!animator.GetBool("holding_on_wall") && on_wall
+        if (!animator.GetBool("holding_on_wall") && on_wall
             && !player_collision.on_ground)
         {
             animator.SetBool("holding_on_wall", true);
         }
-        else if(animator.GetBool("holding_on_wall") && (!on_wall || player_collision.on_ground))
+        else if (animator.GetBool("holding_on_wall") && (!on_wall || player_collision.on_ground))
         {
             animator.SetBool("holding_on_wall", false);
         }
 
-        if(!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
+        if (!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && (animator.GetBool("landed")))
         {
             animator.SetBool("running", true);
         }
-        else if(animator.GetBool("running") && ((rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) 
+        else if (animator.GetBool("running") && ((rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f)
                 && neutral_position > 4) || player_collision.on_wall))
         {
             animator.SetBool("running", false);
@@ -374,30 +394,91 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    // Using local position to place the animation clip.
+    // I put dust_position just incase you need any other positions for different clips
+    // If you set dust_position to 0,0,0 you will be right on top of the player, so for jumps
+    // changing the x position to 0 when that animation is made may be useful.
+    // I used bools for transition parameters. Ask question if the code seems confusing.
+    protected void Animation2DHandler()
+    {
+        Vector3 dust_position = animator_2d.gameObject.transform.localPosition;
+        int angle = 180;
+
+
+        if (facing == 1)
+        {
+            angle = 0;
+
+            if(Mathf.Sign(dust_position.x) == 1)
+            {
+                dust_position = new Vector3(-dust_position.x, dust_position.y, dust_position.z);
+            }
+        }
+        else if (facing == -1 && Mathf.Sign(dust_position.x) == -1)
+        {
+            dust_position = new Vector3(-dust_position.x, dust_position.y, dust_position.z);
+        }
+
+
+        if (!grounded)
+        {
+            animator_2d.SetBool("in_air", true);
+            animator_2d.SetBool("running", false);
+        }
+        else if (grounded && animator_2d.GetBool("in_air"))
+        {
+            animator_2d.SetBool("in_air", false);
+        }
+
+
+        if ((!animator_2d.GetBool("running") && !animator_2d.GetBool("in_air") && !is_secondary_moving
+            && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)))
+        {
+            animator_2d.SetBool("running", true);
+        }
+        else if ((animator_2d.GetBool("running") && (rigbod.velocity == new Vector3(0.0f, rigbod.velocity.y, 0.0f) || player_collision.on_wall))
+                || changed_direction)
+        {
+            animator_2d.SetBool("running", false);
+        }
+
+    
+        animator_2d.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+        animator_2d.gameObject.transform.localPosition = dust_position;
+
+        if(changed_direction)
+        {
+            changed_direction = false;
+        }
+    }
+
+
     public virtual void OnJump(InputValue value)
     {
-        if(!death_status && !is_secondary_moving)
+        if (!death_status && !is_secondary_moving)
         {
             if (grounded && current_jump_cool_down >= jump_cool_down)
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
                 jump_count++;
                 grounded = false;
+                playerAudio.playAudio(SoundType.jump);
                 new_jump = true;
             }
-            else if (wall_sliding || (GetComponent<PlayerCollision>().on_wall && wall_push))
+            else if (wall_sliding || (player_collision.on_wall && wall_push))
             {
                 wall_sliding = false;
                 rigbod.velocity = (new Vector3(wall_jump_force * wall_jump_direction.x * -facing, wall_jump_force * wall_jump_direction.y));
 
                 facing *= -1f;
                 wall_jump = true;
-                jump_count=0;
+                jump_count = 0;
+                playerAudio.playAudio(SoundType.walljump);
             }
             else if (jump_count < jump_max - 1 && (current_jump_cool_down >= jump_cool_down || !grounded))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                jump_count++; 
+                jump_count++;
                 grounded = false;
                 new_jump = true;
             }
@@ -413,13 +494,14 @@ public class PlayerController : MonoBehaviour
 
     protected void EngageJump()
     {
-        if(!death_status && !is_secondary_moving)
+        if (!death_status && !is_secondary_moving)
         {
-            if (grounded && current_jump_cool_down >= jump_cool_down)
+            if (grounded && (current_jump_cool_down >= jump_cool_down || trapped))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
                 jump_count++;
                 grounded = false;
+                playerAudio.playAudio(SoundType.jump);
                 new_jump = true;
                 last_keypress = InputType.No_Press;
             }
@@ -430,13 +512,13 @@ public class PlayerController : MonoBehaviour
 
                 facing *= -1f;
                 wall_jump = true;
-                jump_count=0;
+                jump_count = 0;
                 last_keypress = InputType.No_Press;
             }
             else if (jump_count < jump_max - 1 && (current_jump_cool_down >= jump_cool_down || !grounded))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
-                jump_count++; 
+                jump_count++;
                 grounded = false;
                 new_jump = true;
                 last_keypress = InputType.No_Press;
@@ -468,7 +550,7 @@ public class PlayerController : MonoBehaviour
         Vector3 left_stick_position = new Vector3(move.x, move.y, 0.0f) * retical_radius;
 
 
-        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius, ~(1<<10))
+        if (Physics.Raycast(this.transform.position, left_stick_position, out hit, retical_radius, ~(1 << 10))
             && !hit.collider.gameObject.tag.Equals("Player"))
         {
             retical.transform.position = hit.point;
@@ -480,15 +562,15 @@ public class PlayerController : MonoBehaviour
         }
 
         ui_retical.transform.position = Camera.main.WorldToScreenPoint(retical.transform.position);
-        
+
     }
 
 
     public virtual void OnDash(InputValue value)
     {
-        if(!death_status)
+        if (!death_status)
         {
-            if (!is_secondary_moving && current_dash_cool_down >= dash_cool_down 
+            if (!is_secondary_moving && current_dash_cool_down >= dash_cool_down
                 && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
@@ -498,7 +580,7 @@ public class PlayerController : MonoBehaviour
                     secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
                     Debug.Log("Rolling!");
                 }
-                else if(secondary_movement == SecondaryMovementTypes.Dash)
+                else if (secondary_movement == SecondaryMovementTypes.Dash)
                 {
                     secondary_movement_velocity = move.normalized * secondary_speed;
                     grounded = false;
@@ -513,6 +595,7 @@ public class PlayerController : MonoBehaviour
                 rigbod.velocity = secondary_movement_velocity;
                 is_secondary_moving = true;
                 wall_jump = false;
+                playerAudio.playAudio(SoundType.dash);
                 current_dash_cool_down = 0;
             }
         }
@@ -533,7 +616,7 @@ public class PlayerController : MonoBehaviour
                 current_secondary_movement_time = secondary_movement_time;
                 Debug.Log("Rolling.");
             }
-            else if (secondary_movement == SecondaryMovementTypes.Dash 
+            else if (secondary_movement == SecondaryMovementTypes.Dash
                     && current_secondary_movement_time < secondary_movement_time)
             {
                 current_secondary_movement_time += Time.deltaTime;
@@ -566,12 +649,12 @@ public class PlayerController : MonoBehaviour
 
     protected void StunnedActions()
     {
-        if(stunned_counter == 0)
+        if (stunned_counter == 0)
         {
             rigbod.velocity = stunned_forces;
         }
 
-        if(stunned_counter < stunned_wait_timer && rigbod.velocity != Vector3.zero)
+        if (stunned_counter < stunned_wait_timer && rigbod.velocity != Vector3.zero)
         {
             stunned_counter += Time.deltaTime;
         }
@@ -590,7 +673,7 @@ public class PlayerController : MonoBehaviour
 
     protected void TestDeath()
     {
-        if(death_test)
+        if (death_test)
         {
             PlayerDeath();
             death_test = false;
@@ -606,7 +689,7 @@ public class PlayerController : MonoBehaviour
 
     protected void Revive()
     {
-        if(reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
+        if (reviver && Vector3.Distance(this.transform.position, reviver.transform.position) >= 2.0f)
         {
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
@@ -637,7 +720,7 @@ public class PlayerController : MonoBehaviour
 
     protected void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
+        if (col.gameObject.tag.Equals("Player") && col.GetComponent<PlayerController>().IsSecondary())
         {
             reviver = col.gameObject;
         }
@@ -648,12 +731,11 @@ public class PlayerController : MonoBehaviour
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
 
-        foreach(AnimationClip clip in clips)
+        foreach (AnimationClip clip in clips)
         {
-            switch(clip.name)
+            switch (clip.name)
             {
                 case "Jump_Landing":
-                Debug.Log("Jump_Landing clip.Length: " + clip.length);
                     jump_cool_down = clip.length;
                     break;
                 case "Slide":
@@ -671,9 +753,9 @@ public class PlayerController : MonoBehaviour
 
     protected void CheckForLastKeyPress()
     {
-        if(current_keypress_time <= max_keypress_time && last_keypress != InputType.No_Press)
+        if (current_keypress_time <= max_keypress_time && last_keypress != InputType.No_Press)
         {
-            switch(last_keypress)
+            switch (last_keypress)
             {
                 case InputType.Jump:
                     EngageJump();
@@ -710,7 +792,7 @@ public class PlayerController : MonoBehaviour
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
             PlayerManager.Instance.LivingPlayersCheck();
-        } 
+        }
     }
 
 
@@ -740,7 +822,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        if(ui_retical != null)
+        if (ui_retical != null)
         {
             ui_retical.SetActive(false);
         }

@@ -1,0 +1,614 @@
+fileFormatVersion: 2
+guid: 6aba573f6801d4eb98e4458b576933b0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5820801884572146327
+    second: running_dust_0
+  - first:
+      213: -777563489953213830
+    second: running_dust_1
+  - first:
+      213: -8216236610303847115
+    second: running_dust_2
+  - first:
+      213: -4821461499183319406
+    second: running_dust_3
+  - first:
+      213: 7798136450621349582
+    second: running_dust_4
+  - first:
+      213: -3281557155025835993
+    second: running_dust_5
+  - first:
+      213: 4437999378804657833
+    second: running_dust_6
+  - first:
+      213: -1175005123451551436
+    second: running_dust_7
+  - first:
+      213: -856565766242052215
+    second: running_dust_8
+  - first:
+      213: -5551985415299541630
+    second: running_dust_9
+  - first:
+      213: 6446856567416281743
+    second: running_dust_10
+  - first:
+      213: 2803384121056323521
+    second: running_dust_11
+  - first:
+      213: 8412813725386907313
+    second: running_dust_12
+  - first:
+      213: 1576127855202598035
+    second: running_dust_13
+  - first:
+      213: -3539654128032585092
+    second: running_dust_14
+  - first:
+      213: -1234585375752629200
+    second: running_dust_15
+  - first:
+      213: 2075861252764030636
+    second: running_dust_16
+  - first:
+      213: 1863253242077959909
+    second: running_dust_17
+  - first:
+      213: -8640374055742720006
+    second: running_dust_18
+  - first:
+      213: 7217080691126491564
+    second: running_dust_19
+  - first:
+      213: -2170064372012871994
+    second: running_dust_20
+  - first:
+      213: 3620371083744426460
+    second: running_dust_21
+  - first:
+      213: 3011644970154498873
+    second: running_dust_22
+  - first:
+      213: 2224538299284747906
+    second: running_dust_23
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: running_dust_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 460
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77671458e19d05f408d982e0215055ad
+      internalID: 5820801884572146327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_1
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 460
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 934bdc6eaa739eb45bc7e3eeb28d3d04
+      internalID: -777563489953213830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_2
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 460
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d980a5a4c44ef4d944f9dcc964b27d
+      internalID: -8216236610303847115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_3
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 460
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c033671e744f87749a5ee7b96a9ad12d
+      internalID: -4821461499183319406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_4
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 460
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6027c87ec0671a54e8f2fa5ebf342d74
+      internalID: 7798136450621349582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_5
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 460
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01244bde1a5d0c04dabce77a1f8e0764
+      internalID: -3281557155025835993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 307
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcfaa50b8ce493644b8737b22db90d1f
+      internalID: 4437999378804657833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_7
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 307
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0c9a86abfc9420499f7e82b61580005
+      internalID: -1175005123451551436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_8
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 307
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe3123bea869844cbe21412014a849a
+      internalID: -856565766242052215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_9
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 307
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e58e2155696224ab046302ac90f7f7
+      internalID: -5551985415299541630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_10
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 307
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6fb68868cf94ea48bae76c50476d0db
+      internalID: 6446856567416281743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_11
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 307
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef0564df28f1eb14599ce1b0521249ff
+      internalID: 2803384121056323521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 154
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaa66fe14b03eef4d833af080cb0afc3
+      internalID: 8412813725386907313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_13
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 154
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4df1ce5c6885f9f4fb864cc86a5fda83
+      internalID: 1576127855202598035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_14
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 154
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b393b689c48e35449aaf6bb001b4dff9
+      internalID: -3539654128032585092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_15
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 154
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc9438f7951a3384d9836c4bd9728b96
+      internalID: -1234585375752629200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_16
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 154
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f4a4b864816e641bb4cae530aa40b6
+      internalID: 2075861252764030636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_17
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 154
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b77bbc10245762a44aebeadb2e861990
+      internalID: 1863253242077959909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e7e86fe51d02804aa421e1332ffcf16
+      internalID: -8640374055742720006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_19
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 1
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37a512589da64834db25b2966931966b
+      internalID: 7217080691126491564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_dust_20
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 1
+        width: 179
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e343078249282b4dba8cbae42fae1a6
+      internalID: -2170064372012871994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 7996b627d33cd57278cdd29910d3b0d0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -8,13 +8,11 @@ public class EnemyB : Enemy
     public float offset = 0.75f;
     public float search_arch;
     public float sight_distance;
-    [Range(0.5f, 5.0f)]
-    public float stop_distance = 0.5f;
 
 
+    private float stop_distance = 1.60f;
     private float cur_search_arch;
     private float arch_adder;
-    private bool recently_collided;
 
     
     [Header("B-Tier Variables")]
@@ -38,7 +36,6 @@ public class EnemyB : Enemy
     {
         current_patrol_timer = patrol_wait_timer;
         cur_search_arch = 0;
-        recently_collided = false;
         rigidbody = this.GetComponent<Rigidbody>();
         collider = this.GetComponent<BoxCollider>();
 
@@ -86,22 +83,20 @@ public class EnemyB : Enemy
                 direction = -direction;
                 current_patrol_timer = 0;
             }
-            else if(Physics.Raycast(next_position, new Vector2(direction, 0.0f), out check_right, 1.0f) && !check_right.collider.tag.Equals("Player"))
+            else if(Physics.Raycast(this.transform.position, new Vector2(direction, 0.0f), out check_right, 1.0f) && !check_right.collider.tag.Equals("Player"))
             {
-                if(Vector2.Distance(next_position, check_right.collider.transform.position) <= stop_distance)
+                if(Vector2.Distance(this.transform.position, check_right.collider.transform.position) <= stop_distance)
                 {
                     direction = -direction;
                     current_patrol_timer = 0;
                 }
-
-                Debug.Log(Vector2.Distance(next_position, check_right.collider.transform.position));
             }
             else
             {
                 this.rigidbody.velocity = Vector3.Lerp(new Vector2(speed * direction, this.rigidbody.velocity.y), rigidbody.velocity, Time.deltaTime);
             }
 
-            Debug.Log(check_down.collider.tag);
+            //Debug.Log(check_down.collider.tag);
         }
 
         // if(recently_collided)
@@ -111,8 +106,8 @@ public class EnemyB : Enemy
         //     recently_collided = false;
         // }
 
-        Debug.DrawRay(next_position, new Vector2(direction, 0.0f), Color.yellow);
-        Debug.DrawRay(next_position, Vector2.down, Color.yellow);
+        Debug.DrawRay(this.transform.position, new Vector2(direction, 0.0f), Color.yellow);
+        Debug.DrawRay(this.transform.position, Vector2.down, Color.yellow);
     }
 
 

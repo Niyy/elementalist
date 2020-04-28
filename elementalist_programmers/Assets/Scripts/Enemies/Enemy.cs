@@ -43,13 +43,21 @@ public class Enemy : MonoBehaviour
         GameObject icecube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         icecube.transform.position = transform.position;
         icecube.transform.parent = transform.parent;
-        transform.parent = icecube.transform;
-        icecube.transform.localScale = GetComponent<Renderer>().bounds.size;
+        if(GetComponent<Renderer>() != null)
+        {
+            icecube.transform.localScale = GetComponent<Renderer>().bounds.size;
+        }
+        else
+        {
+            icecube.transform.localScale = transform.gameObject.GetComponentInChildren<Renderer>().bounds.size;
+        }
+        GetComponent<Collider>().isTrigger = true;
         GetComponent<Rigidbody>().isKinematic = true;
         icecube.GetComponent<Renderer>().material = ice_material;
         alive = false;
         Rigidbody ice_rb = icecube.AddComponent<Rigidbody>();
         ice_rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        transform.parent = icecube.transform;
         //icecube.GetComponent<Renderer>().material.color = new Color(130f/255f, 245f/255f, 207f/255f, 60f/255f);
         StartCoroutine(Melt());
     }
