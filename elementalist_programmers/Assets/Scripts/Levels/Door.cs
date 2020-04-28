@@ -8,18 +8,26 @@ public class Door : MonoBehaviour
 
     public bool open = false;
 
-    public GameObject spawnPoint;
+    public GameObject spawnPoint, arrow;
 
+    private void Start()
+    {
+        arrow = gameObject.transform.GetChild(1).gameObject;
+        arrow.SetActive(false);
+    }
     private void Update()
     {
         if (open)
-        openDoor();
+        {
+            openDoor();
+            arrow.SetActive(true);
+        }
        
+        
     }
 
     void openDoor()
     {
-        print("Door is open");
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
     }
