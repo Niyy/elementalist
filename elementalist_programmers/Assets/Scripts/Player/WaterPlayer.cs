@@ -124,6 +124,7 @@ public class WaterPlayer : PlayerController
             if (!hovering)
             {
                 hovering = true;
+                waterAudio.playAudio(SoundType.hover);
                 //if (rigbod.velocity.y > 0)
                 //{
                 //    rigbod.velocity = Vector3.zero;
@@ -145,6 +146,7 @@ public class WaterPlayer : PlayerController
         }
         else
         {
+            waterAudio.stopHover();
             hovering = false;
             base.Airborn();
         }

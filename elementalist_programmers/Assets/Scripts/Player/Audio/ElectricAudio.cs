@@ -15,8 +15,8 @@ public class ElectricAudio : PlayerAudio
                 break;
             default:
                 audioSource[0].clip = null;
+                base.playAudio(sound);
                 break;
         }
-        base.playAudio(sound);
     }
 }

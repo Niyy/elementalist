@@ -22,10 +22,12 @@ public class AirPlayer : PlayerController
     private Vector3 draw_angle_mid;
 
     Renderer player_renderer;
+    AirAudio airAudio;
 
     protected override void Awake()
     {
         base.Awake();
+        airAudio = GetComponent<AirAudio>();
         cooling_time = cool_down;
         player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
 
@@ -101,6 +103,7 @@ public class AirPlayer : PlayerController
         shots[0].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
         shots[1].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
         shots[2].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
+        airAudio.playAudio(SoundType.special);
     }
 
     public override void OnDash(InputValue value)

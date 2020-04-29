@@ -7,6 +7,8 @@ public class Interactable : MonoBehaviour
 {
     public RoomManager room_manager;
     public InteractableChoice interactable_choice;
+    private AudioSource audioSource;
+    public AudioClip sound;
     public enum InteractableChoice
     {
         Collectable,
@@ -21,6 +23,11 @@ public class Interactable : MonoBehaviour
     private void Awake()
     {
         level_manager = GameObject.Find("LevelManager");
+        if (interactable_choice == InteractableChoice.Collectable)
+        {
+            audioSource = GetComponent<AudioSource>();
+            audioSource.clip = sound;
+        }
     }
 
 
@@ -64,5 +71,10 @@ public class Interactable : MonoBehaviour
     {
         room_manager.switchs.Remove(this.gameObject);
         Destroy(this.gameObject);
+    }
+
+    private void PlayAudio()
+    {
+        audioSource.Play();
     }
 }

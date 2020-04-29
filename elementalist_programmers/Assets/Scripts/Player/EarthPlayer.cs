@@ -137,8 +137,6 @@ public class EarthPlayer : PlayerController
                             rock = rock_check;
                         }
                     }
-
-
                     index = rock_list.IndexOf(rock);
                     rock_list.Remove(rock);
                     rock.transform.parent = null;

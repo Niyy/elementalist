@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirAudio : MonoBehaviour
+public class AirAudio : PlayerAudio
 {
-    // Start is called before the first frame update
-    void Start()
+    public AudioClip attack;
+    public override void playAudio(SoundType sound)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        switch (sound)
+        {
+            case SoundType.special:
+                audioSource[1].clip = attack;
+                audioSource[1].Play();
+                break;
+            default:
+                audioSource[0].clip = null;
+                base.playAudio(sound);
+                break;
+        }
     }
 }

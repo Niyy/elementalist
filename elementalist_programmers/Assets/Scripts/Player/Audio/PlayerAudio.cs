@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum SoundType
 {
-    jump, walljump, dash, special, land, dig, rockform, rockbreak, underground, death, revive
+    jump, walljump, dash, special, land, dig, rockform, rockbreak, underground, hover, death, revive
 }
 
 public class PlayerAudio : MonoBehaviour
