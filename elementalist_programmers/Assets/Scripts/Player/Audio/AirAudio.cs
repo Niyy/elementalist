@@ -13,6 +13,10 @@ public class AirAudio : PlayerAudio
                 audioSource[1].clip = attack;
                 audioSource[1].Play();
                 break;
+            case SoundType.dash:
+                audioSource[2].clip = dash;
+                audioSource[2].Play();
+                break;
             default:
                 audioSource[0].clip = null;
                 base.playAudio(sound);
