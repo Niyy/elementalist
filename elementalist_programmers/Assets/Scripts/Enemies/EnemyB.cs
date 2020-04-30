@@ -159,6 +159,7 @@ public class EnemyB : Enemy
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (!frozen)
@@ -166,6 +167,19 @@ public class EnemyB : Enemy
             if (other.gameObject.tag.Equals("Freeze"))
             {
                 Freeze();
+            }
+
+            if (other.gameObject.tag.Equals("Projectile"))
+            {
+                GameObject projectile = other.gameObject;
+
+                if (Mathf.Sign(direction) == -Mathf.Sign(projectile.transform.position.x - this.transform.position.x))
+                {
+                    alive = false;
+                    death();
+                    Debug.Log("hurg");
+                }
+                Debug.Log("blurg.");
             }
         }
     }
