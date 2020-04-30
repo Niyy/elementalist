@@ -30,7 +30,8 @@ public class Platforms : MonoBehaviour
         Phasing
     };
 
-    private void Start()
+
+    private void OnEnable()
     {
         if (current_Plat == Platform.Phasing)
             StartCoroutine(phasing());
