@@ -27,7 +27,7 @@ public class ElectricPlayer : PlayerController
 
     protected override void Awake()
     {
-        
+        dashAnimation.SetActive(false);
         base.Awake();
         electricAudio = GetComponent<ElectricAudio>();
     }
@@ -100,9 +100,11 @@ public class ElectricPlayer : PlayerController
     protected void EngageSpecialMovement()
     {
         Vector2 next_position = this.transform.position + new Vector3(facing * 0.75f, 0.0f, 0.0f);
+       
 
         if (is_special_dashing)
         {
+            dashAnimation.SetActive(true);
 
             if (current_special_movement_time < special_dash_time && !stunned)
             {

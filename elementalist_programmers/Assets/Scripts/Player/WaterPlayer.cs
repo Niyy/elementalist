@@ -17,6 +17,7 @@ public class WaterPlayer : PlayerController
     public GameObject water_bar;
     private float water_bar_size;
     public float recovery_speed = 0.04f;
+    public GameObject hoverAnimation;
 
     [Header("Dash Variables")]
     public float special_speed = 25f;
@@ -42,6 +43,8 @@ public class WaterPlayer : PlayerController
 
     protected override void Awake()
     {
+        
+         hoverAnimation.SetActive(false);
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
         dash_cool_down += special_dash_time;
@@ -119,7 +122,9 @@ public class WaterPlayer : PlayerController
         {
             if (!hovering)
             {
+                hoverAnimation.SetActive(true);
                 hovering = true;
+               
                 //if (rigbod.velocity.y > 0)
                 //{
                 //    rigbod.velocity = Vector3.zero;
@@ -142,8 +147,10 @@ public class WaterPlayer : PlayerController
         else
         {
             hovering = false;
+            hoverAnimation.SetActive(false);
             base.Airborn();
         }
+        
     }
 
     public override void OnJump(InputValue value)

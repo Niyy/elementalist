@@ -11,6 +11,11 @@ public class twoDEvents : MonoBehaviour
        
     }
 
+    public void setFalse()
+    {
+        this.gameObject.SetActive(false);
+    }
+
 
 
 }

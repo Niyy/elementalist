@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public bool grounded;
     public int jump_max = 1;
     private float jump_cool_down;
-    Vector3 feetPos;
+    [HideInInspector] public Vector3 feetPos;
     public GameObject twoDJump;
 
 
@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviour
     protected float neutral_position;
     protected Vector2 secondary_movement_target;
     protected Vector2 secondary_movement_velocity;
+
+    public GameObject dashAnimation;
 
     PlayerInput inputAction;
 
@@ -190,6 +192,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("landed", true);
 
+       
         FindAnimationTimes();
     }
 
@@ -578,6 +581,7 @@ public class PlayerController : MonoBehaviour
                 && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
+                
                 current_secondary_movement_time = 0;
                 if (secondary_movement == SecondaryMovementTypes.Roll && grounded)
                 {
