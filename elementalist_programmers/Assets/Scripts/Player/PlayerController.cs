@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
     public bool grounded;
     public int jump_max = 1;
     private float jump_cool_down;
+    Vector3 feetPos;
+    public GameObject twoDJump;
 
 
     private int jump_count;
@@ -218,6 +220,7 @@ public class PlayerController : MonoBehaviour
             AnimationHandler();
             Animation2DHandler();
         }
+        feetPos = new Vector3(transform.position.x, transform.position.y - .4f, transform.position.z);
     }
 
 
@@ -463,6 +466,7 @@ public class PlayerController : MonoBehaviour
                 jump_count++;
                 grounded = false;
                 playerAudio.playAudio(SoundType.jump);
+                Instantiate(twoDJump, feetPos, Quaternion.identity); //instantiateInWorldSpace:(true));
                 new_jump = true;
             }
             else if (wall_sliding || (player_collision.on_wall && wall_push))
