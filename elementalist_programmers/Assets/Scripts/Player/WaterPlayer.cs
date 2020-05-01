@@ -40,14 +40,11 @@ public class WaterPlayer : PlayerController
 
     bool enemy_hit = false;
 
-    WaterAudio waterAudio;
-
     protected override void Awake()
     {
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
         dash_cool_down += special_dash_time;
-        waterAudio = GetComponent<WaterAudio>();
     }
 
     public override void FixedUpdate()
@@ -91,10 +88,11 @@ public class WaterPlayer : PlayerController
         if (!death_status)
         {
             if (!is_secondary_moving && !is_special_dashing && special_reset && !on_wall && !stunned
-                && current_dash_cool_down >= dash_cool_down && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+                && current_dash_cool_down >= dash_cool_down 
+                && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_special_movement_time = 0;
-                special_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+                special_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
                 grounded = false;
 
                 gameObject.layer = 11;
@@ -106,7 +104,6 @@ public class WaterPlayer : PlayerController
                 attacking = true;
                 current_dash_cool_down = 0;
                 transform.Find("Aura").gameObject.SetActive(true);
-                waterAudio.playAudio(SoundType.dash);
             }
         }
     }
@@ -124,7 +121,6 @@ public class WaterPlayer : PlayerController
             if (!hovering)
             {
                 hovering = true;
-                waterAudio.playAudio(SoundType.hover);
                 //if (rigbod.velocity.y > 0)
                 //{
                 //    rigbod.velocity = Vector3.zero;
@@ -146,7 +142,6 @@ public class WaterPlayer : PlayerController
         }
         else
         {
-            waterAudio.stopHover();
             hovering = false;
             base.Airborn();
         }
@@ -196,11 +191,6 @@ public class WaterPlayer : PlayerController
         }
     }
 
-    public override void EngageSecondaryMovement()
-    {
-        //base.EngageSecondaryMovement();
-    }
-
 
     public void OnSpecial()
     {
@@ -227,7 +217,7 @@ public class WaterPlayer : PlayerController
                     rb.AddExplosionForce(wave_force, wave_pos, wave_radius, wave_up_force, ForceMode.Impulse);
                 }
             }
-            waterAudio.playAudio(SoundType.special);
+            
             hover_elapsed_time += max_hover_time * wave_tank_usage;
             water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, time_ratio * water_bar_size);
         }

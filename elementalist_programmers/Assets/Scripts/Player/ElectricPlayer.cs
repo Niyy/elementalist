@@ -22,14 +22,10 @@ public class ElectricPlayer : PlayerController
     public Material special_mat;
 
     bool enemy_hit = false;
-
-    ElectricAudio electricAudio;
-
     protected override void Awake()
     {
-        
+   
         base.Awake();
-        electricAudio = GetComponent<ElectricAudio>();
     }
     public override void FixedUpdate()
     {
@@ -85,9 +81,8 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
-                electricAudio.playAudio(SoundType.special);
-                //  if(transform.childCount != 0)
-                //    transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
+              //  if(transform.childCount != 0)
+            //    transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
             }
         }
     }
@@ -114,13 +109,22 @@ public class ElectricPlayer : PlayerController
                 //Physics.IgnoreLayerCollision(8, 9, false);
                 is_special_dashing = false;
                 if(!stunned)rigbod.velocity = Vector2.zero;
-                attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;
-                
+                attacking_forgiveness_current = 0;
                 //if (transform.childCount != 0)
                    // transform.GetChild(0).GetComponent<Renderer>().material = player_mat;
             }
+        }
+
+
+        if(attacking_forgiveness_current >= attacking_forgiveness && !is_special_dashing)
+        {
+            attacking = false;
+        }
+        else if (attacking_forgiveness_current <= attacking_forgiveness)
+        {
+            attacking_forgiveness_current += Time.deltaTime;
         }
     }
 }

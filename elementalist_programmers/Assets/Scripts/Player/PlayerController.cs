@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
 
     protected float retical_radius = 2.5f;
-    public GameObject ui_retical;
+    protected GameObject ui_retical;
     protected GameObject retical;
 
     // Secondary Movement variables
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
 
     //Combat variables
-    protected bool attacking;
+    public bool attacking;
 
 
     // Camera for player
@@ -148,6 +148,10 @@ public class PlayerController : MonoBehaviour
     // Key Buffer
     [Header("Player Forgivness Variables")]
     public float max_keypress_time;
+    
+    
+    protected float attacking_forgiveness = 0.2f;
+    protected float attacking_forgiveness_current;
 
 
     private enum InputType
@@ -370,7 +374,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (!animator.GetBool("holding_on_wall") && on_wall
-            && !player_collision.on_ground)
+            && !player_collision.on_ground && !animator.GetBool("dash"))
         {
             animator.SetBool("holding_on_wall", true);
         }
@@ -576,7 +580,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!death_status)
         {
-            if (!is_secondary_moving && current_dash_cool_down >= dash_cool_down
+            if (!is_secondary_moving /*&& current_dash_cool_down >= dash_cool_down*/
                 && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
@@ -614,10 +618,8 @@ public class PlayerController : MonoBehaviour
 
         if (is_secondary_moving)
         {
-            RaycastHit check_down;
-
             if (secondary_movement == SecondaryMovementTypes.Roll && grounded
-            && !Physics.Raycast(next_position, Vector2.down * 2.0f, out check_down, 1.0f))
+            && !Physics.Raycast(next_position, Vector2.down * 2.0f,  1.0f))
             {
                 current_secondary_movement_time = secondary_movement_time;
                 Debug.Log("Rolling.");
