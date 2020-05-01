@@ -43,8 +43,8 @@ public class WaterPlayer : PlayerController
 
     protected override void Awake()
     {
-        
-         hoverAnimation.SetActive(false);
+        dashAnimation.SetActive(false);
+        hoverAnimation.SetActive(false);
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
         dash_cool_down += special_dash_time;
@@ -172,7 +172,7 @@ public class WaterPlayer : PlayerController
 
         if (is_special_dashing)
         {
-
+            dashAnimation.SetActive(true);
             if (current_special_movement_time < secondary_movement_time && !stunned)
             {
                 current_special_movement_time += Time.deltaTime;

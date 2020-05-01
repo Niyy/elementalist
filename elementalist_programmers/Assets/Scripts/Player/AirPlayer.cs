@@ -108,6 +108,7 @@ public class AirPlayer : PlayerController
         base.OnDash(value);
         if (!death_status && is_secondary_moving && player_renderer.enabled)
         {
+            Instantiate(dashAnimation, gameObject.transform.position, Quaternion.identity);
             player_renderer.enabled = false;
             ui_retical.SetActive(false);
         }

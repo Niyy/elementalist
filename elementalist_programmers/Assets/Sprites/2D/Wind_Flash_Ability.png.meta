@@ -1,7 +1,52 @@
 fileFormatVersion: 2
 guid: 132f81a53922ae14d8ba364b7ab1caf6
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6768530372793922865
+    second: Wind_Flash_Ability_0
+  - first:
+      213: -1066189047684343065
+    second: Wind_Flash_Ability_1
+  - first:
+      213: 2894336302547754413
+    second: Wind_Flash_Ability_2
+  - first:
+      213: 1101189038394098981
+    second: Wind_Flash_Ability_3
+  - first:
+      213: -4435259262871885710
+    second: Wind_Flash_Ability_4
+  - first:
+      213: -7552335042105526878
+    second: Wind_Flash_Ability_5
+  - first:
+      213: -2494428783947062820
+    second: Wind_Flash_Ability_6
+  - first:
+      213: 5982915425748190379
+    second: Wind_Flash_Ability_7
+  - first:
+      213: -6899740644543471487
+    second: Wind_Flash_Ability_8
+  - first:
+      213: 5879736314551240663
+    second: Wind_Flash_Ability_9
+  - first:
+      213: 4711663510015574182
+    second: Wind_Flash_Ability_10
+  - first:
+      213: 7564705925484818598
+    second: Wind_Flash_Ability_11
+  - first:
+      213: -792535087275417790
+    second: Wind_Flash_Ability_12
+  - first:
+      213: -1322953058074013178
+    second: Wind_Flash_Ability_13
+  - first:
+      213: -1159127837807879734
+    second: Wind_Flash_Ability_14
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,7 +85,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,9 +114,346 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 708
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f5865c99f95a404b8d8b93e7a3b6dde
+      internalID: -6768530372793922865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_1
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 708
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85b3502b6421c634b95bd685a40c0b17
+      internalID: -1066189047684343065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_2
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 708
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac828462b9f6e66479f5658ef46920d1
+      internalID: 2894336302547754413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_3
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 708
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6e942669d6d03a439763e4ecbac1ab3
+      internalID: 1101189038394098981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_4
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 708
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9843a7c27087ef74b9ad3ab001808887
+      internalID: -4435259262871885710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 472
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab7f5eda9bcd473409cf5b7ab04eb69a
+      internalID: -7552335042105526878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_6
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 472
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676ac68e4f48c5948b27f0029ecd835c
+      internalID: -2494428783947062820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_7
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 473
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d6a1bdd42bd41947a7571f908d06233
+      internalID: 5982915425748190379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_8
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 472
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b52554474fd45104880e365d92e5ac8b
+      internalID: -6899740644543471487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_9
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 472
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5c2997d5812bd343b5d2e63f6d3f5e4
+      internalID: 5879736314551240663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 236
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db874220e839c94e826dbfa191cf852
+      internalID: 4711663510015574182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_11
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 236
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0de2d40b31e3d374b9ef85a7ac039eef
+      internalID: 7564705925484818598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_12
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 236
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7485343e351a1544884df69482341ba1
+      internalID: -792535087275417790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_13
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 236
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d051a6c4a3eab0e41b90bbb02e0c4578
+      internalID: -1322953058074013178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind_Flash_Ability_14
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 236
+        width: 270
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cc2f1721abdc2d46a29fc9239bfcfca
+      internalID: -1159127837807879734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
