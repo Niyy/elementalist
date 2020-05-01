@@ -41,11 +41,11 @@ public class PlayerController : MonoBehaviour
     public float lowJumpMultiplier = 2f;
     public bool grounded;
     public int jump_max = 1;
-    private float jump_cool_down;
+    protected float jump_cool_down;
 
 
     private int jump_count;
-    private float current_jump_cool_down;
+    protected float current_jump_cool_down;
 
 
     [Header("Wall Jumping Variables")]
@@ -455,7 +455,13 @@ public class PlayerController : MonoBehaviour
 
     public virtual void OnJump(InputValue value)
     {
-        if (!death_status && !is_secondary_moving)
+        JumpCall();
+    }
+
+
+    protected virtual void JumpCall()
+    {
+        if(!death_status && !is_secondary_moving)
         {
             if (grounded && current_jump_cool_down >= jump_cool_down)
             {
@@ -727,7 +733,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void FindAnimationTimes()
+    protected virtual void FindAnimationTimes()
     {
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
 

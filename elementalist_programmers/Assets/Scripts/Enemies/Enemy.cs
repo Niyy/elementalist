@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
     {
         if (alive == false)
         {
-            myRoom.enemys.Remove(this.gameObject);
+            //myRoom.enemys.Remove(this.gameObject);
             if (!frozen)
             {
                 Destroy(this.gameObject);
