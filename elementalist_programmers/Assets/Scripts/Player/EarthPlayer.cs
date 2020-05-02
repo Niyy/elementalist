@@ -183,7 +183,7 @@ public class EarthPlayer : PlayerController
         }
     }
 
-
+    // Ned was honourable
     private void CheckDigAnimationDone()
     {
         if(current_dash_cool_down >= dash_cool_down && is_secondary_moving)
