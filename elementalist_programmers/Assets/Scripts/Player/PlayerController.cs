@@ -131,6 +131,9 @@ public class PlayerController : MonoBehaviour
     // Animator
     protected Animator animator;
     protected float take_off_time;
+    protected float idle_break_clip_max;
+    protected float idle_break_clip_length;
+    protected float idle_clip_length;
 
     //Traped in sand
     public bool trapped = false;
@@ -178,6 +181,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("landed", true);
 
         FindAnimationTimes();
+        ResetAnimationState();
     }
 
 
@@ -319,6 +323,18 @@ public class PlayerController : MonoBehaviour
             angle = 180;
         }
 
+        DashAnimation(player_collision);
+        JumpAnimation(player_collision);
+        WallSlideAnimation(player_collision);
+        RunningAnimation(player_collision);
+        IdleBreakAnimation(player_collision);
+
+        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+    }
+
+
+    protected void DashAnimation(PlayerCollision player_collision)
+    {
         if(is_secondary_moving)
         {
             animator.SetBool("dash", true);
@@ -327,7 +343,11 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("dash", false);
         }
+    }
 
+
+    protected void JumpAnimation(PlayerCollision player_collision)
+    {
         if(grounded && animator.GetBool("in_air"))
         {
             animator.SetBool("in_air", false);
@@ -348,7 +368,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("in_air", true);
             animator.SetBool("landed", false);
         }
+    }
 
+
+    protected void WallSlideAnimation(PlayerCollision player_collision)
+    {
         if(!animator.GetBool("holding_on_wall") && on_wall
             && !player_collision.on_ground)
         {
@@ -358,7 +382,11 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("holding_on_wall", false);
         }
+    }
 
+
+    protected void RunningAnimation(PlayerCollision player_collision)
+    {
         if(!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && (animator.GetBool("landed")))
         {
@@ -369,8 +397,34 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("running", false);
         }
+    }
 
-        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+
+    protected void IdleBreakAnimation(PlayerCollision player_collision)
+    {
+        if(animator.GetCurrentAnimatorStateInfo(0).length >= idle_clip_length &&
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            animator.SetBool("idle_break", true);
+            Debug.Log("idle_break on");
+        }
+        else if(animator.GetBool("idle_break") && idle_break_clip_length >= idle_break_clip_max)
+        {
+            animator.SetBool("idle_break", false);
+        }
+    }
+
+
+    protected void ResetAnimationState()
+    {
+        animator.SetBool("idle_break", false);
+        animator.SetBool("running", false);
+        animator.SetBool("holding_on_wall", false);
+        animator.SetBool("jumping", false);
+        animator.SetBool("dash", false);
+        animator.SetBool("in_air", false);
+
+        animator.SetBool("landed", true);
     }
 
 
@@ -667,6 +721,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Dash":
                     dash_cool_down = clip.length;
+                    break;
+                case "Idle":
+                    idle_clip_length = clip.length;
                     break;
                 default:
                     break;
