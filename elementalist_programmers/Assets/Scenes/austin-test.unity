@@ -803,6 +803,11 @@ PrefabInstance:
         'mainCharacter1_LeftHandMiddle1'\n\tTransform 'mainCharacter1_RightHandMiddle3'\n\tand
         more ...\n\tFrom animation clip 'Slide'"
       objectReference: {fileID: 0}
+    - target: {fileID: 2032058394310786946, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 22d3167f6207ce251a502dd8f4166a73, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1, type: 3}
 --- !u!1001 &1945746870
