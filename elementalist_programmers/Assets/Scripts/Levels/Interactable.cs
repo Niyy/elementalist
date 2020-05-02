@@ -9,6 +9,7 @@ public class Interactable : MonoBehaviour
     public InteractableChoice interactable_choice;
     private AudioSource audioSource;
     public AudioClip sound;
+    private Renderer obj_renderer;
     public enum InteractableChoice
     {
         Collectable,
@@ -23,10 +24,11 @@ public class Interactable : MonoBehaviour
     private void Awake()
     {
         level_manager = GameObject.Find("LevelManager");
-        if (interactable_choice == InteractableChoice.Collectable)
+        if (interactable_choice != InteractableChoice.Trap)
         {
             audioSource = GetComponent<AudioSource>();
             audioSource.clip = sound;
+            obj_renderer = GetComponent<Renderer>();
         }
     }
 
@@ -41,7 +43,7 @@ public class Interactable : MonoBehaviour
                     ActivateCollectable();
                     break;
                 case InteractableChoice.Trap:
-                    ActivateTrap();
+                    ActivateTrap(col);
                     break;
                 case InteractableChoice.Pressure_Plate: 
                     ActivatePressurePlate();
@@ -51,9 +53,10 @@ public class Interactable : MonoBehaviour
     }
 
 
-    private void ActivateTrap()
+    private void ActivateTrap(Collider col)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        col.GetComponent<PlayerController>().PlayerDeath();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
@@ -64,13 +67,15 @@ public class Interactable : MonoBehaviour
         {
             room_manager.switchs.Remove(this.gameObject);
         }
-        Destroy(this.gameObject);
+        audioSource.Play();
+        obj_renderer.enabled = false;
+        this.enabled = false;
     }
 
     private void ActivatePressurePlate()
     {
         room_manager.switchs.Remove(this.gameObject);
-        Destroy(this.gameObject);
+        PlayAudio();
     }
 
     private void PlayAudio()
