@@ -51,7 +51,6 @@ public class Projectile : MonoBehaviour
 
     protected void IdleMovement()
     {
-        Debug.Log(radius);
         if(this.transform.parent != null)
         {
             this.transform.position = new Vector3(radius * Mathf.Cos(current_angle * Mathf.Deg2Rad),

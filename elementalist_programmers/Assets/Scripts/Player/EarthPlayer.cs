@@ -19,11 +19,12 @@ public class EarthPlayer : PlayerController
     private bool currently_attacking;
 
     BoxCollider[] player_collider;
-    PlayerCollision playerCollision;
+    
     bool surface_blocked = false;
     Renderer player_renderer;
     GameObject dirt;
     float collider_height;
+    EarthAudio earthAudio;
 
 
     //Animation clip
@@ -37,17 +38,13 @@ public class EarthPlayer : PlayerController
         rock_list = new List<GameObject>();
 
         current_respawn_rate = 0.0f;
-        
-        player_collider = GetComponents<BoxCollider>();
-        playerCollision = GetComponent<PlayerCollision>();
-        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
-        collider_height = player_collider[0].size.y * transform.localScale.y;
         currently_attacking = false;
-    }
-
-    protected override void Start()
-    {
-        base.Start();
+        player_collider = GetComponents<BoxCollider>();
+        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
+        
+        currently_attacking = false;
+        collider_height = player_collider[0].size.y * transform.localScale.y;
+        earthAudio = GetComponent<EarthAudio>();
     }
 
 
@@ -55,7 +52,6 @@ public class EarthPlayer : PlayerController
     {
         base.Update();
 
-        
         if(!death_status)
         {
             RespawnRocks();
@@ -69,19 +65,17 @@ public class EarthPlayer : PlayerController
                 Destroy(rock);
             }
         }
-        Vector3 nxt_position = this.transform.position + new Vector3(facing * 0.2f, 0.0f, 0.0f);
-        Debug.DrawRay(nxt_position, Vector3.down * (collider_height / 2f + 0.1f), Color.blue);
     }
 
     
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (!grounded && is_secondary_moving)
+        currently_attacking = false;
+        if(!grounded && is_secondary_moving)
         {
             Unbury();
         }
-
         currently_attacking = false;
     }
 
@@ -159,6 +153,7 @@ public class EarthPlayer : PlayerController
                     rock.GetComponent<Rigidbody>().velocity = left_stick_position + throw_vector;
                     rock.GetComponent<Projectile>().Release();
                     currently_attacking = true;
+                    earthAudio.playAudio(SoundType.rockform);
                 }
             }
         }
@@ -178,6 +173,7 @@ public class EarthPlayer : PlayerController
             player_collider[0].enabled = false;
             player_collider[1].enabled = true;
             surface_blocked = false;
+            earthAudio.playAudio(SoundType.dig);
             current_dash_cool_down = 0;
         }
         else if(is_secondary_moving)
@@ -198,8 +194,9 @@ public class EarthPlayer : PlayerController
 
     private void Unbury()
     {
-        if (!playerCollision.HeadCollision())
+        if (!player_collision.HeadCollision())
         {
+            earthAudio.Unbury();
             gameObject.layer = 8;
             print("unbury");
             is_secondary_moving = false;
@@ -226,7 +223,7 @@ public class EarthPlayer : PlayerController
             }
             Vector3 next_position = this.transform.position + new Vector3(facing * 0.2f, 0.0f, 0.0f);
             RaycastHit check_down;
-            int layer_mask = 1 << 8;
+            int layer_mask = ~((1 << 10) | (1 << 8) | (1 << 11));
             layer_mask = ~layer_mask;
             if (Physics.Raycast(next_position, Vector3.down, out check_down, collider_height/2f+.01f,layer_mask))
             {

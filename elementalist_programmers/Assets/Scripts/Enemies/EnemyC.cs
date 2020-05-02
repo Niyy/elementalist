@@ -8,7 +8,9 @@ public class EnemyC : Enemy
 
     private Rigidbody rb;
     private Vector2 movement;
-    GameObject detector;
+    private GameObject detector;
+    private GameObject rig;
+    private Vector3 player_pos;
     //ublic float detectionRadius = 5f;
 
 
@@ -16,6 +18,7 @@ public class EnemyC : Enemy
     {
         rb = this.GetComponent<Rigidbody>();
         detector = transform.GetChild(0).gameObject;
+        rig = transform.GetChild(1).gameObject;
         //WhoAmIKilling();
     }
 
@@ -30,6 +33,7 @@ public class EnemyC : Enemy
             movement = direction;
         }
       
+        AnimationHandler();
     }
     private void FixedUpdate()
     {
@@ -40,6 +44,7 @@ public class EnemyC : Enemy
     {
         //rb.MovePosition((Vector2)transform.position + (direction * speed * Time.deltaTime));
         rb.velocity = Vector3.Lerp(rb.velocity, direction * speed, Time.deltaTime);
+        player_pos = direction;
     }
 
 
@@ -52,7 +57,7 @@ public class EnemyC : Enemy
         }
         if(collider.tag.Equals("Player") && !frozen)
         {
-            if(collider.GetComponent<PlayerController>().GetAttackStatus() == true)
+            if(collider.GetComponent<PlayerController>().GetAttackStatus())
             {
                 collider.GetComponent<PlayerController>().AttackHit();
                 alive = false;
@@ -65,5 +70,31 @@ public class EnemyC : Enemy
             }
         }
         
+    }
+
+
+    protected void AnimationHandler()
+    {
+        float rotation_y = 0;
+        float rotation_z = 0;
+
+        if(player_pos != Vector3.zero)
+        {
+            rotation_z = Mathf.Rad2Deg * Mathf.Atan2(player_pos.y, player_pos.x);
+
+            if(Mathf.Abs(rotation_z) <= 90)
+            {
+                rotation_y = 270;
+                rotation_z = Mathf.Rad2Deg * Mathf.Atan2(player_pos.y, player_pos.x);
+            }
+            else if(Mathf.Abs(rotation_z) > 90)
+            {
+                rotation_y = 90;
+                rotation_z = Mathf.Rad2Deg * Mathf.Atan2(player_pos.y, -player_pos.x);
+            }
+        }
+
+        rig.transform.rotation = Quaternion.Euler(rotation_z, rotation_y, 0.0f);
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum Playmode { singleplayer, multiplayer }
 
@@ -19,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     public bool character_select = true;
     [HideInInspector]
     public Playmode mode;
+    public GameObject instructions = null;
 
     void Start()
     {
@@ -85,10 +87,15 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 playerList[i].transform.GetChild(1).gameObject.GetComponent<PlayerController>().Neutralize();
-                playerList[i].GetComponent<DontDestroyOnLoad>().enabled = true;
+                //playerList[i].GetComponent<DontDestroyOnLoad>().enabled = true;
+                playerList[i].transform.parent = SceneManagement.Instance.transform;
                 //player.transform.GetChild(1).gameObject.SetActive(false);
                 Destroy(playerList[i].transform.GetChild(0).gameObject);
             }
+        }
+        if(instructions != null)
+        {
+            instructions.SetActive(false);
         }
         ModeCheck();
     }

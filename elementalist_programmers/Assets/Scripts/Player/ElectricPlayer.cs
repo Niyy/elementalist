@@ -109,12 +109,22 @@ public class ElectricPlayer : PlayerController
                 //Physics.IgnoreLayerCollision(8, 9, false);
                 is_special_dashing = false;
                 if(!stunned)rigbod.velocity = Vector2.zero;
-                attacking = false;
                 special_reset = enemy_hit;
                 enemy_hit = false;
+                attacking_forgiveness_current = 0;
                 //if (transform.childCount != 0)
                    // transform.GetChild(0).GetComponent<Renderer>().material = player_mat;
             }
+        }
+
+
+        if(attacking_forgiveness_current >= attacking_forgiveness && !is_special_dashing)
+        {
+            attacking = false;
+        }
+        else if (attacking_forgiveness_current <= attacking_forgiveness)
+        {
+            attacking_forgiveness_current += Time.deltaTime;
         }
     }
 }

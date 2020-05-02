@@ -17,6 +17,12 @@ public class mainMenu : MonoBehaviour
         Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSchYp9iN26vjy5UBgMMVG_96ef1LzLXi7jVDHo9gFtVzx05hw/viewform");
     }
     
+
+    public void MainMenuScreen()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");

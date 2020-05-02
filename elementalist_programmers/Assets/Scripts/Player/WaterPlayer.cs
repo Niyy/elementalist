@@ -10,7 +10,7 @@ public class WaterPlayer : PlayerController
     bool hover = true;
     public float max_hover_speed = 7f;
     public float max_hover_multiplayer = 4f;
-    float hover_multiplayer;
+    public float hover_multiplayer;
     bool hovering = false;
     public float max_hover_time = 4f;
     public float hover_elapsed_time;
@@ -88,10 +88,11 @@ public class WaterPlayer : PlayerController
         if (!death_status)
         {
             if (!is_secondary_moving && !is_special_dashing && special_reset && !on_wall && !stunned
-                && current_dash_cool_down >= dash_cool_down && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+                && current_dash_cool_down >= dash_cool_down 
+                && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_special_movement_time = 0;
-                special_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+                special_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
                 grounded = false;
 
                 gameObject.layer = 11;

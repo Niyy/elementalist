@@ -21,13 +21,17 @@ public class AirPlayer : PlayerController
     private Vector3 draw_angle_bottom;
     private Vector3 draw_angle_mid;
 
+    Renderer player_renderer;
+    AirAudio airAudio;
 
     protected override void Awake()
     {
         base.Awake();
+        airAudio = GetComponent<AirAudio>();
         cooling_time = cool_down;
+        player_renderer = transform.GetChild(0).GetChild(0).GetComponent<Renderer>();
 
-        if(spawn_distance == 0)
+        if (spawn_distance == 0)
         {
             spawn_distance = 1;
         }
@@ -92,14 +96,35 @@ public class AirPlayer : PlayerController
         shots.Add(Instantiate(air_shot_prefab, draw_angle_bottom, Quaternion.Euler(0.0f, 0.0f, angle_two * Mathf.Rad2Deg)));
         shots.Add(Instantiate(air_shot_prefab, draw_angle_mid, Quaternion.Euler(0.0f, 0.0f, theta * Mathf.Rad2Deg)));
 
-        shots[0].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_top, y_top, 0.0f), attack_time);
-        shots[1].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_bottom, y_bottom, 0.0f), attack_time);
-        shots[2].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_mid, y_mid, 0.0f), attack_time);
+        shots[0].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_top, y_top, 0.0f) * shot_speed, attack_time);
+        shots[1].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_bottom, y_bottom, 0.0f) * shot_speed, attack_time);
+        shots[2].GetComponent<Projectile>().SetNoVelocity(true, new Vector3(x_mid, y_mid, 0.0f) * shot_speed, attack_time);
 
         shots[0].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
         shots[1].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
+        shots[2].GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
+        airAudio.playAudio(SoundType.special);
     }
 
+    public override void OnDash(InputValue value)
+    {
+        base.OnDash(value);
+        if (!death_status && is_secondary_moving && player_renderer.enabled)
+        {
+            player_renderer.enabled = false;
+            ui_retical.SetActive(false);
+        }
+    }
+
+    public override void EngageSecondaryMovement()
+    {
+        if (is_secondary_moving && !(current_secondary_movement_time < secondary_movement_time))
+        {
+            player_renderer.enabled = true;
+            ui_retical.SetActive(true);
+        }
+        base.EngageSecondaryMovement();
+    }
 
     private void Debugger()
     {
