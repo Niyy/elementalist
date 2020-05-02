@@ -173,7 +173,6 @@ public class EarthPlayer : PlayerController
             player_collider[0].enabled = false;
             player_collider[1].enabled = true;
             surface_blocked = false;
-            player_renderer.enabled = false;
             earthAudio.playAudio(SoundType.dig);
             current_dash_cool_down = 0;
         }

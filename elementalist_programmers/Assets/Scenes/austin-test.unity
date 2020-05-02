@@ -699,17 +699,17 @@ PrefabInstance:
     - target: {fileID: 1185156191954394575, guid: 4c7d48085560b374aa76cd6e7705d262,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1185156192234599013, guid: 4c7d48085560b374aa76cd6e7705d262,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3796455213286353086, guid: 4c7d48085560b374aa76cd6e7705d262,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4018307462528076914, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
         type: 3}
@@ -767,6 +767,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2032058394613559908, guid: 3b0e28d52c45cbf4abdb30ae2984f0e1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cc47f10d5fa7a776595daaf7fe1ae634, type: 2}
+    - target: {fileID: 2032058394613559908, guid: 4c7d48085560b374aa76cd6e7705d262,
         type: 3}
       propertyPath: m_Controller
       value: 
@@ -1060,6 +1065,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Owl_C_Tier
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505608247136692735, guid: 41f263fa5e9426e6baccba226ace8087,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8505608247136692721, guid: 41f263fa5e9426e6baccba226ace8087,
         type: 3}
