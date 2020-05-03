@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
         if (!is_secondary_moving && !stunned)
         {
             direction = new Vector3(move.x, move.y, 0f);
-            if (Mathf.Sign(direction.x) != facing)
+            if (Mathf.Sign(direction.x) != facing && direction.x != 0)
             {
                 facing = Mathf.Sign(direction.x);
                 neutral_position = 0;
@@ -328,8 +328,21 @@ public class PlayerController : MonoBehaviour
 
     protected void AnimationHandler()
     {
-        int angle = 0;
+        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
+        DashAnimation(player_collision);
+        JumpAnimation(player_collision);
+        WallSlideAnimation(player_collision);
+        RunningAnimation(player_collision);
+        IdleAnimation(player_collision);
+
+        DefineFacingDirection();
+    }
+
+
+    protected virtual void DefineFacingDirection()
+    {
+        int angle = 0;
 
         if (player_collision.on_wall && !player_collision.on_ground)
         {
@@ -347,17 +360,11 @@ public class PlayerController : MonoBehaviour
             angle = 180;
         }
 
-        DashAnimation(player_collision);
-        JumpAnimation(player_collision);
-        WallSlideAnimation(player_collision);
-        RunningAnimation(player_collision);
-        IdleBreakAnimation(player_collision);
-
         animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
     }
 
 
-    protected void DashAnimation(PlayerCollision player_collision)
+    protected virtual void DashAnimation(PlayerCollision player_collision)
     {
         if(is_secondary_moving)
         {
@@ -370,7 +377,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void JumpAnimation(PlayerCollision player_collision)
+    protected virtual void JumpAnimation(PlayerCollision player_collision)
     {
         if(grounded && animator.GetBool("in_air"))
         {
@@ -395,7 +402,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void WallSlideAnimation(PlayerCollision player_collision)
+    protected virtual void WallSlideAnimation(PlayerCollision player_collision)
     {
         if(!animator.GetBool("holding_on_wall") && on_wall
             && !player_collision.on_ground)
@@ -409,7 +416,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void RunningAnimation(PlayerCollision player_collision)
+    protected virtual void RunningAnimation(PlayerCollision player_collision)
     {
         if(!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && (animator.GetBool("landed")))
@@ -424,13 +431,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void IdleBreakAnimation(PlayerCollision player_collision)
+    protected virtual void IdleAnimation(PlayerCollision player_collision)
     {
         if(animator.GetCurrentAnimatorStateInfo(0).length >= idle_clip_length &&
             animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             animator.SetBool("idle_break", true);
-            Debug.Log("idle_break on");
         }
         else if(animator.GetBool("idle_break") && idle_break_clip_length >= idle_break_clip_max)
         {
@@ -439,7 +445,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void ResetAnimationState()
+    protected virtual void ResetAnimationState()
     {
         animator.SetBool("idle_break", false);
         animator.SetBool("running", false);
@@ -550,7 +556,6 @@ public class PlayerController : MonoBehaviour
             {
                 last_keypress = InputType.Jump;
                 current_keypress_time = 0;
-                Debug.Log("Gave the player input: " + last_keypress);
             }
         }
     }
@@ -642,7 +647,6 @@ public class PlayerController : MonoBehaviour
                 if (secondary_movement == SecondaryMovementTypes.Roll && grounded)
                 {
                     secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
-                    Debug.Log("Rolling!");
                 }
                 else if (secondary_movement == SecondaryMovementTypes.Dash)
                 {
@@ -676,7 +680,6 @@ public class PlayerController : MonoBehaviour
             && !Physics.Raycast(next_position, Vector2.down * 2.0f,  1.0f))
             {
                 current_secondary_movement_time = secondary_movement_time;
-                Debug.Log("Rolling.");
             }
             else if (secondary_movement == SecondaryMovementTypes.Dash
                     && current_secondary_movement_time < secondary_movement_time)
