@@ -5,11 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Interactable : MonoBehaviour
 {
+    public Transform Flame;
     public RoomManager room_manager;
     public InteractableChoice interactable_choice;
-    private AudioSource audioSource;
-    public AudioClip sound;
-    private Renderer obj_renderer;
     public enum InteractableChoice
     {
         Collectable,
@@ -20,16 +18,17 @@ public class Interactable : MonoBehaviour
 
     private GameObject level_manager;
 
-
+    private void Start()
+    {
+        if (Flame != null)
+        {
+            Flame.GetComponent<ParticleSystem>().enableEmission = false;
+        }
+        
+    }
     private void Awake()
     {
         level_manager = GameObject.Find("LevelManager");
-        if (interactable_choice != InteractableChoice.Trap)
-        {
-            audioSource = GetComponent<AudioSource>();
-            audioSource.clip = sound;
-            obj_renderer = GetComponent<Renderer>();
-        }
     }
 
 
@@ -37,49 +36,43 @@ public class Interactable : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Player"))
         {
+            if (Flame != null)
+            {
+                Flame.GetComponent<ParticleSystem>().enableEmission = true;
+            }
             switch (interactable_choice)
             {
                 case InteractableChoice.Collectable:
                     ActivateCollectable();
                     break;
                 case InteractableChoice.Trap:
-                    ActivateTrap(col);
+                    ActivateTrap();
                     break;
                 case InteractableChoice.Pressure_Plate: 
                     ActivatePressurePlate();
                     break;
             }
+            
         }
     }
 
 
-    private void ActivateTrap(Collider col)
+    private void ActivateTrap()
     {
-        col.GetComponent<PlayerController>().PlayerDeath();
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
     private void ActivateCollectable()
     {
         level_manager.GetComponent<LevelManager>().AddToCollectedCoins();
-        if (room_manager.switchs.Contains(this.gameObject))
-        {
-            room_manager.switchs.Remove(this.gameObject);
-        }
-        audioSource.Play();
-        obj_renderer.enabled = false;
-        this.enabled = false;
+        Destroy(this.gameObject);
     }
 
     private void ActivatePressurePlate()
     {
         room_manager.switchs.Remove(this.gameObject);
-        PlayAudio();
-    }
+        GetComponent<CapsuleCollider>().enabled = false;
 
-    private void PlayAudio()
-    {
-        audioSource.Play();
     }
 }
