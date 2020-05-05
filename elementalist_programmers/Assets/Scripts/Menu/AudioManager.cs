@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     public AudioMixer sfxMixer;
     public float musicVol = 1;
     public float sfxVol = 1;
+    public AudioClip buttonAudio;
+    AudioSource audioSource;
 
 
     public static AudioManager Instance;
@@ -23,6 +25,8 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
         }
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = buttonAudio;
     }
 
     public void SetMusicVolume(float slider)
@@ -36,5 +40,10 @@ public class AudioManager : MonoBehaviour
     {
         sfxVol = slider;
         sfxMixer.SetFloat("SfxVol", Mathf.Log10(slider) * 20);
+    }
+
+    public void playAudio()
+    {
+        audioSource.Play();
     }
 }
