@@ -26,7 +26,14 @@ public class EarthPlayer : PlayerController
     float collider_height;
     EarthAudio earthAudio;
 
+
     public GameObject twoD_Burried;
+
+
+    //Animation clip
+    private float arise_clip_current;
+    private float arise_clip_length;
+
 
     protected override void Awake()
     {
@@ -56,6 +63,7 @@ public class EarthPlayer : PlayerController
         if(!death_status)
         {
             RespawnRocks();
+            CheckDigAnimationDone();
         }
         else if(rock_list.Count > 0)
         {
@@ -143,8 +151,6 @@ public class EarthPlayer : PlayerController
                             rock = rock_check;
                         }
                     }
-
-
                     index = rock_list.IndexOf(rock);
                     rock_list.Remove(rock);
                     rock.transform.parent = null;
@@ -168,7 +174,7 @@ public class EarthPlayer : PlayerController
 
     public void OnDig(InputValue value)
     {
-        if (value.isPressed && grounded)
+        if (value.isPressed && grounded && current_jump_cool_down >= jump_cool_down)
         {
             Instantiate(dashAnimation, feetPos, Quaternion.identity);
             gameObject.layer = 11;
@@ -176,7 +182,8 @@ public class EarthPlayer : PlayerController
             player_collider[0].enabled = false;
             player_collider[1].enabled = true;
             surface_blocked = false;
-            player_renderer.enabled = false;
+            earthAudio.playAudio(SoundType.dig);
+            current_dash_cool_down = 0;
         }
         else if(is_secondary_moving)
         {
@@ -184,11 +191,25 @@ public class EarthPlayer : PlayerController
         }
     }
 
+    // Ned was honourable
+    private void CheckDigAnimationDone()
+    {
+        if(current_dash_cool_down >= dash_cool_down && is_secondary_moving)
+            player_renderer.enabled = false;
+        else if(current_dash_cool_down <= dash_cool_down)
+            current_dash_cool_down += Time.deltaTime;
+    }
+
+
     private void Unbury()
     {
         if (!player_collision.HeadCollision())
         {
+
             twoD_Burried.SetActive(false);
+
+            earthAudio.Unbury();
+
             gameObject.layer = 8;
             print("unbury");
             is_secondary_moving = false;
@@ -236,6 +257,10 @@ public class EarthPlayer : PlayerController
         {
             Unbury();
         }
+        else if (current_jump_cool_down <= jump_cool_down)
+        {
+            current_jump_cool_down += Time.deltaTime;
+        }
     }
 
 
@@ -252,6 +277,34 @@ public class EarthPlayer : PlayerController
             current_respawn_rate = 0;
 
             Destroy(rock);
+        }
+    }
+
+
+    protected override void FindAnimationTimes()
+    {
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+
+        foreach(AnimationClip clip in clips)
+        {
+            switch(clip.name)
+            {
+                case "Jump_Landing":
+                Debug.Log("Jump_Landing clip.Length: " + clip.length);
+                    jump_cool_down = clip.length;
+                    break;
+                case "Slide":
+                    dash_cool_down = clip.length;
+                    break;
+                case "Earthdash":
+                    dash_cool_down = clip.length;
+                    break;
+                case "Eartharise":
+                    arise_clip_length = clip.length;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

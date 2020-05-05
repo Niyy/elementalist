@@ -57,7 +57,7 @@ public class EnemyC : Enemy
         }
         if(collider.tag.Equals("Player") && !frozen)
         {
-            if(collider.GetComponent<PlayerController>().GetAttackStatus() == true)
+            if(collider.GetComponent<PlayerController>().GetAttackStatus())
             {
                 collider.GetComponent<PlayerController>().AttackHit();
                 alive = false;
@@ -75,7 +75,7 @@ public class EnemyC : Enemy
 
     protected void AnimationHandler()
     {
-        float rotation_y = 180;
+        float rotation_y = 0;
         float rotation_z = 0;
 
         if(player_pos != Vector3.zero)
@@ -84,13 +84,13 @@ public class EnemyC : Enemy
 
             if(Mathf.Abs(rotation_z) <= 90)
             {
-                rotation_y = 90;
-                rotation_z = Mathf.Rad2Deg * Mathf.Atan2(-player_pos.y, player_pos.x);
+                rotation_y = 270;
+                rotation_z = Mathf.Rad2Deg * Mathf.Atan2(player_pos.y, player_pos.x);
             }
             else if(Mathf.Abs(rotation_z) > 90)
             {
-                rotation_y = 270;
-                rotation_z = Mathf.Rad2Deg * Mathf.Atan2(-player_pos.y, -player_pos.x);
+                rotation_y = 90;
+                rotation_z = Mathf.Rad2Deg * Mathf.Atan2(player_pos.y, -player_pos.x);
             }
         }
 

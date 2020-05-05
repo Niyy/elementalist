@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 983a2cc844967b044bab07836026752d
+guid: 0c6bc8487447daca795b9364c6815b9f
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -22,30 +22,30 @@ ModelImporter:
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'mainCharacter1_LeftUpLeg'
       : position error = 20730.371094 mm\n\t'mainCharacter1_LeftLeg' : position error
-      = 36205.785156 mm\n\t'mainCharacter1_LeftFoot' : position error = 37683.253906
-      mm\n\t'mainCharacter1_LeftToeBase' : position error = 13322.090820 mm\n\t'mainCharacter1_RightUpLeg'
-      : position error = 15680.658203 mm\n\t'mainCharacter1_RightLeg' : position error
-      = 36205.812500 mm\n\t'mainCharacter1_RightFoot' : position error = 37683.222656
-      mm\n\t'mainCharacter1_RightToeBase' : position error = 13322.079102 mm\n\t'mainCharacter1_Spine'
-      : position error = 10830.125000 mm\n\t'mainCharacter1_Spine1' : position error
-      = 14908.377930 mm\n\t'mainCharacter1_Spine2' : position error = 14892.932617
-      mm\n\t'mainCharacter1_LeftShoulder' : position error = 9464.708984 mm\n\t'mainCharacter1_LeftArm'
-      : position error = 9913.380859 mm\n\t'mainCharacter1_LeftForeArm' : position
-      error = 25280.921875 mm\n\t'mainCharacter1_LeftHand' : position error = 24717.712891
-      mm\n\t'mainCharacter1_LeftHandThumb1' : position error = 4600.754883 mm\n\t'mainCharacter1_LeftHandThumb2'
-      : position error = 2467.189697 mm\n\t'mainCharacter1_LeftHandThumb3' : position
-      error = 2354.581543 mm\n\t'mainCharacter1_LeftHandMiddle1' : position error
-      = 8175.609375 mm\n\t'mainCharacter1_LeftHandMiddle2' : position error = 4502.665527
-      mm\n\t'mainCharacter1_LeftHandMiddle3' : position error = 3536.368652 mm\n\t'mainCharacter1_RightShoulder'
-      : position error = 9464.708008 mm\n\t'mainCharacter1_RightArm' : position error
-      = 9913.371094 mm\n\t'mainCharacter1_RightForeArm' : position error = 25280.945313
-      mm\n\t'mainCharacter1_RightHand' : position error = 24717.722656 mm\n\t'mainCharacter1_RightHandThumb1'
+      = 36205.812500 mm\n\t'mainCharacter1_LeftFoot' : position error = 37683.246094
+      mm\n\t'mainCharacter1_LeftToeBase' : position error = 13322.080078 mm\n\t'mainCharacter1_RightUpLeg'
+      : position error = 15680.660156 mm\n\t'mainCharacter1_RightLeg' : position error
+      = 36205.812500 mm\n\t'mainCharacter1_RightFoot' : position error = 37683.218750
+      mm\n\t'mainCharacter1_RightToeBase' : position error = 13322.077148 mm\n\t'mainCharacter1_Spine'
+      : position error = 10830.125977 mm\n\t'mainCharacter1_Spine1' : position error
+      = 14908.374023 mm\n\t'mainCharacter1_Spine2' : position error = 14892.927734
+      mm\n\t'mainCharacter1_LeftShoulder' : position error = 9464.711914 mm\n\t'mainCharacter1_LeftArm'
+      : position error = 9913.375000 mm\n\t'mainCharacter1_LeftForeArm' : position
+      error = 25280.947266 mm\n\t'mainCharacter1_LeftHand' : position error = 24717.708984
+      mm\n\t'mainCharacter1_LeftHandThumb1' : position error = 4600.751953 mm\n\t'mainCharacter1_LeftHandThumb2'
+      : position error = 2467.196777 mm\n\t'mainCharacter1_LeftHandThumb3' : position
+      error = 2354.579346 mm\n\t'mainCharacter1_LeftHandMiddle1' : position error
+      = 8175.615234 mm\n\t'mainCharacter1_LeftHandMiddle2' : position error = 4502.673828
+      mm\n\t'mainCharacter1_LeftHandMiddle3' : position error = 3536.362061 mm\n\t'mainCharacter1_RightShoulder'
+      : position error = 9464.713867 mm\n\t'mainCharacter1_RightArm' : position error
+      = 9913.377930 mm\n\t'mainCharacter1_RightForeArm' : position error = 25280.939453
+      mm\n\t'mainCharacter1_RightHand' : position error = 24717.687500 mm\n\t'mainCharacter1_RightHandThumb1'
       : position error = 4600.753418 mm\n\t'mainCharacter1_RightHandThumb2' : position
-      error = 2467.191650 mm\n\t'mainCharacter1_RightHandThumb3' : position error
-      = 2354.581787 mm\n\t'mainCharacter1_RightHandMiddle1' : position error = 8175.617188
+      error = 2467.190918 mm\n\t'mainCharacter1_RightHandThumb3' : position error
+      = 2354.580322 mm\n\t'mainCharacter1_RightHandMiddle1' : position error = 8175.620117
       mm\n\t'mainCharacter1_RightHandMiddle2' : position error = 4502.675293 mm\n\t'mainCharacter1_RightHandMiddle3'
-      : position error = 3536.368164 mm\n\t'mainCharacter1_Neck' : position error
-      = 14877.813477 mm\n\t'mainCharacter1_Head' : position error = 26366.205078 mm\n"
+      : position error = 3536.361328 mm\n\t'mainCharacter1_Neck' : position error
+      = 14877.831055 mm\n\t'mainCharacter1_Head' : position error = 26366.304688 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -61,25 +61,25 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run
+      name: Eartharise
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 5
-      lastFrame: 22
+      firstFrame: 1
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

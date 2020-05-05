@@ -10,12 +10,13 @@ public class ElectricAudio : PlayerAudio
         switch (sound)
         {
             case SoundType.special:
-                audioSource.clip = electric_dash;
+                audioSource[0].clip = electric_dash;
+                audioSource[0].Play();
                 break;
             default:
-                audioSource.clip = null;
+                audioSource[0].clip = null;
+                base.playAudio(sound);
                 break;
         }
-        base.playAudio(sound);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Interactable : MonoBehaviour
 {
+    public Transform Flame;
     public RoomManager room_manager;
     public InteractableChoice interactable_choice;
     public enum InteractableChoice
@@ -17,7 +18,14 @@ public class Interactable : MonoBehaviour
 
     private GameObject level_manager;
 
-
+    private void Start()
+    {
+        if (Flame != null)
+        {
+            Flame.GetComponent<ParticleSystem>().enableEmission = false;
+        }
+        
+    }
     private void Awake()
     {
         level_manager = GameObject.Find("LevelManager");
@@ -28,6 +36,10 @@ public class Interactable : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Player"))
         {
+            if (Flame != null)
+            {
+                Flame.GetComponent<ParticleSystem>().enableEmission = true;
+            }
             switch (interactable_choice)
             {
                 case InteractableChoice.Collectable:
@@ -40,6 +52,7 @@ public class Interactable : MonoBehaviour
                     ActivatePressurePlate();
                     break;
             }
+            
         }
     }
 
@@ -53,16 +66,13 @@ public class Interactable : MonoBehaviour
     private void ActivateCollectable()
     {
         level_manager.GetComponent<LevelManager>().AddToCollectedCoins();
-        if (room_manager.switchs.Contains(this.gameObject))
-        {
-            room_manager.switchs.Remove(this.gameObject);
-        }
         Destroy(this.gameObject);
     }
 
     private void ActivatePressurePlate()
     {
         room_manager.switchs.Remove(this.gameObject);
-        Destroy(this.gameObject);
+        GetComponent<CapsuleCollider>().enabled = false;
+
     }
 }

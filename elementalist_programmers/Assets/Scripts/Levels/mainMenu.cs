@@ -25,9 +25,13 @@ public class mainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quit");
 
         Application.Quit();
 
+    }
+
+    public void ButtonAudio()
+    {
+        AudioManager.Instance.playAudio();
     }
 }

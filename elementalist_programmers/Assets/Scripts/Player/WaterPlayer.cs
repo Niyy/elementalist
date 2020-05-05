@@ -93,10 +93,11 @@ public class WaterPlayer : PlayerController
         if (!death_status)
         {
             if (!is_secondary_moving && !is_special_dashing && special_reset && !on_wall && !stunned
-                && current_dash_cool_down >= dash_cool_down && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
+                && current_dash_cool_down >= dash_cool_down 
+                && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
                 current_special_movement_time = 0;
-                special_movement_velocity = new Vector2(move.x, move.y) * secondary_speed;
+                special_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
                 grounded = false;
 
                 gameObject.layer = 11;
@@ -242,5 +243,60 @@ public class WaterPlayer : PlayerController
         }
         using_wave = false;
 
+    }
+
+
+    protected override void DefineFacingDirection()
+    {
+        float angle = 0;
+        float angle_ease = 0;
+        float assess = 0;
+        float last_angle = animator.gameObject.transform.rotation.eulerAngles.y;
+
+        if(animator.GetBool("landed") && !animator.GetBool("running") && !animator.GetBool("holding_on_wall") &&
+            !animator.GetBool("jumping") && !animator.GetBool("in_air") && !animator.GetBool("dash"))
+        {
+            if (facing == 1)
+            {
+                angle = -1;
+                assess = 90;
+            }
+            else
+            {
+                angle = -1;
+                assess = 270;
+            }
+
+            if(Mathf.Abs(assess - last_angle) >= 1.0f)
+            {
+                angle_ease = angle * (90 * 0.33f);
+                angle = last_angle + angle_ease;
+
+            }
+            else
+            {
+                angle = assess;
+            }
+        }
+        else if (player_collision.on_wall && !player_collision.on_ground)
+        {
+            if (facing == 1)
+            {
+                angle = 0;
+            }
+            else
+            {
+                angle = 180;
+            }
+
+            angle_ease = 0;
+        }
+        else if (facing == 1)
+        {
+            angle = 180;
+            angle_ease = 0;
+        }
+
+        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
     }
 }
