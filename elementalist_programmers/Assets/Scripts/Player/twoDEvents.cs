@@ -16,6 +16,6 @@ public class twoDEvents : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-
+    
 
 }

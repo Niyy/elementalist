@@ -27,6 +27,7 @@ public class WaterPlayer : PlayerController
     float current_special_movement_time;
     Vector2 special_movement_target;
     Vector2 special_movement_velocity;
+    public GameObject twoD_AttackAnimation;
 
     [Header("Special Variables")]
     public float wave_force = 20f;
@@ -45,6 +46,7 @@ public class WaterPlayer : PlayerController
     {
         dashAnimation.SetActive(false);
         hoverAnimation.SetActive(false);
+        twoD_AttackAnimation.SetActive(false);
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
         dash_cool_down += special_dash_time;
@@ -172,7 +174,17 @@ public class WaterPlayer : PlayerController
 
         if (is_special_dashing)
         {
+            if(facing == 1)
+            {
+                dashAnimation.transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
+                
+            }
+            if(facing == -1)
+            {
+                dashAnimation.transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            }
             dashAnimation.SetActive(true);
+
             if (current_special_movement_time < secondary_movement_time && !stunned)
             {
                 current_special_movement_time += Time.deltaTime;
@@ -205,6 +217,7 @@ public class WaterPlayer : PlayerController
 
     public void WavePush()
     {
+        twoD_AttackAnimation.SetActive(true);
         wave_pos = transform.position;
         colliders = Physics.OverlapSphere(wave_pos, wave_radius);
         if(max_hover_time == 0f)

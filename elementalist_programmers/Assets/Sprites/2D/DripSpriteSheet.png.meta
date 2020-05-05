@@ -1,7 +1,49 @@
 fileFormatVersion: 2
 guid: e9f8b9a6c0a951e48ac3505ac18563f1
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1636917199390705077
+    second: DripSpriteSheet_0
+  - first:
+      213: -4050405222901032540
+    second: DripSpriteSheet_1
+  - first:
+      213: 5543708977745737343
+    second: DripSpriteSheet_2
+  - first:
+      213: 163374216041901876
+    second: DripSpriteSheet_3
+  - first:
+      213: -361740931651324434
+    second: DripSpriteSheet_4
+  - first:
+      213: 6739492537541405466
+    second: DripSpriteSheet_5
+  - first:
+      213: 1834239331378033694
+    second: DripSpriteSheet_6
+  - first:
+      213: -5816642613447257836
+    second: DripSpriteSheet_7
+  - first:
+      213: 5805987372013196956
+    second: DripSpriteSheet_8
+  - first:
+      213: -565639780681617697
+    second: DripSpriteSheet_9
+  - first:
+      213: 2595860932575714740
+    second: DripSpriteSheet_10
+  - first:
+      213: -4579003714476499348
+    second: DripSpriteSheet_11
+  - first:
+      213: 8797962369495395996
+    second: DripSpriteSheet_12
+  - first:
+      213: 3221122304241031983
+    second: DripSpriteSheet_13
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,7 +82,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,9 +111,325 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: DripSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 633
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43568dec2851b164485786af1146b8f1
+      internalID: -1636917199390705077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 633
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edf99edeabe11f448930f75420d126c9
+      internalID: -4050405222901032540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 633
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35128edd625f2714e84f9c5b78cf613a
+      internalID: 5543708977745737343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 633
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dc428867a731e54faac6b3c2fd86bc2
+      internalID: 163374216041901876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 422
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0fa6c4054b560542af50b741e49735f
+      internalID: -361740931651324434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 422
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 725023c9694646e44978bd0f4f593b92
+      internalID: 6739492537541405466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 422
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5af5f405c416ed4e98bf048e08ca402
+      internalID: 1834239331378033694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 422
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16cf32eeb7e07b6488457f3437618cca
+      internalID: -5816642613447257836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 211
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d8bc1c9ba0aac7469eccf228ac8a11e
+      internalID: 5805987372013196956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 211
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e81f8a73916be46a17bcbcf37de3bb
+      internalID: -565639780681617697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 211
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4440c54250b5b5347a0a509528e0977f
+      internalID: 2595860932575714740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 211
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0114a75434b99643b2b19e1502c860a
+      internalID: -4579003714476499348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a66db49a7dd3b8f49af5f5fb1f3e65ac
+      internalID: 8797962369495395996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DripSpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 0
+        width: 331
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a956cd1af9090f84eb1b80ffc32d32e4
+      internalID: 3221122304241031983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

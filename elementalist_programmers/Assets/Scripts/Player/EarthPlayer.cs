@@ -26,6 +26,8 @@ public class EarthPlayer : PlayerController
     float collider_height;
     EarthAudio earthAudio;
 
+    public GameObject twoD_Burried;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +42,10 @@ public class EarthPlayer : PlayerController
         currently_attacking = false;
         collider_height = player_collider[0].size.y * transform.localScale.y;
         earthAudio = GetComponent<EarthAudio>();
+
+        twoD_Burried.SetActive(false);
+
+
     }
 
 
@@ -164,6 +170,7 @@ public class EarthPlayer : PlayerController
     {
         if (value.isPressed && grounded)
         {
+            Instantiate(dashAnimation, feetPos, Quaternion.identity);
             gameObject.layer = 11;
             is_secondary_moving = true;
             player_collider[0].enabled = false;
@@ -181,6 +188,7 @@ public class EarthPlayer : PlayerController
     {
         if (!player_collision.HeadCollision())
         {
+            twoD_Burried.SetActive(false);
             gameObject.layer = 8;
             print("unbury");
             is_secondary_moving = false;
@@ -200,6 +208,9 @@ public class EarthPlayer : PlayerController
     {
         if (is_secondary_moving && !surface_blocked)
         {
+
+            twoD_Burried.SetActive(true);
+
             direction = new Vector3(move.x, move.y, 0f);
             if (direction.x != 0)
             {

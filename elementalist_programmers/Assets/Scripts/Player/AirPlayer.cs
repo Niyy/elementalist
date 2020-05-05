@@ -23,6 +23,8 @@ public class AirPlayer : PlayerController
 
     Renderer player_renderer;
 
+    public GameObject dashOut;
+
     protected override void Awake()
     {
         base.Awake();
@@ -118,6 +120,7 @@ public class AirPlayer : PlayerController
     {
         if (is_secondary_moving && !(current_secondary_movement_time < secondary_movement_time))
         {
+            Instantiate(dashOut, gameObject.transform.position, Quaternion.identity);
             player_renderer.enabled = true;
             ui_retical.SetActive(true);
         }
