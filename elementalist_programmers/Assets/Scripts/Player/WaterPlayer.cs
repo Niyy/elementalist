@@ -233,8 +233,8 @@ public class WaterPlayer : PlayerController
         float assess = 0;
         float last_angle = animator.gameObject.transform.rotation.eulerAngles.y;
 
-        if(animator.GetBool("landed") && !animator.GetBool("running") && !animator.GetBool("holding_on_wall") &&
-            !animator.GetBool("jumping") && !animator.GetBool("in_air") && !animator.GetBool("dash"))
+        if(animator.GetBool("landed") && !animator.GetBool("running") && !animator.GetBool("holding_on_wall") && !animator.GetBool("jumping") &&
+            !animator.GetBool("in_air") && !animator.GetBool("dash"))
         {
             if (facing == 1)
             {
@@ -258,6 +258,17 @@ public class WaterPlayer : PlayerController
                 angle = assess;
             }
         }
+        else if (animator.GetBool("hover"))
+        {
+            if (facing == 1)
+            {
+                angle = 90;
+            }
+            else
+            {
+                angle = 270;
+            }
+        }
         else if (player_collision.on_wall && !player_collision.on_ground)
         {
             if (facing == 1)
@@ -274,9 +285,37 @@ public class WaterPlayer : PlayerController
         else if (facing == 1)
         {
             angle = 180;
-            angle_ease = 0;
         }
 
         animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+    }
+
+
+    protected override void AnimationHandler()
+    {
+        PlayerCollision player_collision = GetComponent<PlayerCollision>();
+
+        DashAnimation(player_collision);
+        JumpAnimation(player_collision);
+        WallSlideAnimation(player_collision);
+        RunningAnimation(player_collision);
+        IdleAnimation(player_collision);
+        HoverAnimation(player_collision);
+
+        DefineFacingDirection();
+    }
+
+
+    private void HoverAnimation(PlayerCollision player_collision)
+    {
+        Debug.Log("checking hover: ");
+        if(animator.GetBool("in_air") && hovering)
+        {
+            animator.SetBool("hover", true);
+        }
+        else if(!hovering || grounded)
+        {
+            animator.SetBool("hover", false);
+        }
     }
 }

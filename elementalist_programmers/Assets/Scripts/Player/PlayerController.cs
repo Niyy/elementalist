@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void AnimationHandler()
+    protected virtual void AnimationHandler()
     {
         PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
