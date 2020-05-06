@@ -312,4 +312,11 @@ public class EarthPlayer : PlayerController
             }
         }
     }
+
+
+    protected override void ResetAnimationState()
+    {
+        animator.SetBool("idle_break", false);
+        base.ResetAnimationState();
+    }
 }

@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    protected void AnimationHandler()
+    protected virtual void AnimationHandler()
     {
         PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
@@ -865,6 +865,7 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             PlayerManager.Instance.DeathSound();
+            ResetAnimationState();
             PlayerReset();
         }
         else
