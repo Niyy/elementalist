@@ -41,7 +41,12 @@ public class PlayerController : MonoBehaviour
     public float lowJumpMultiplier = 2f;
     public bool grounded;
     public int jump_max = 1;
+
+    [HideInInspector] public Vector3 feetPos;
+    public GameObject twoDJump;
+
     protected float jump_cool_down;
+
 
 
     private int jump_count;
@@ -91,6 +96,8 @@ public class PlayerController : MonoBehaviour
     protected float neutral_position;
     protected Vector2 secondary_movement_target;
     protected Vector2 secondary_movement_velocity;
+
+    public GameObject dashAnimation;
 
     PlayerInput inputAction;
 
@@ -195,6 +202,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("landed", true);
 
+       
         FindAnimationTimes();
         ResetAnimationState();
     }
@@ -226,6 +234,7 @@ public class PlayerController : MonoBehaviour
             AnimationHandler();
             Animation2DHandler();
         }
+        feetPos = new Vector3(transform.position.x, transform.position.y - .4f, transform.position.z);
     }
 
 
@@ -533,6 +542,7 @@ public class PlayerController : MonoBehaviour
                 jump_count++;
                 grounded = false;
                 playerAudio.playAudio(SoundType.jump);
+                Instantiate(twoDJump, feetPos, Quaternion.identity); //instantiateInWorldSpace:(true));
                 new_jump = true;
             }
             else if (wall_sliding || (player_collision.on_wall && wall_push))
@@ -643,6 +653,7 @@ public class PlayerController : MonoBehaviour
                 && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
+                
                 current_secondary_movement_time = 0;
                 if (secondary_movement == SecondaryMovementTypes.Roll && grounded)
                 {
