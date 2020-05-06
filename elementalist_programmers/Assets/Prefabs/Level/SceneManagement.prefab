@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4018307461352638664}
   - component: {fileID: 4018307461352638667}
+  - component: {fileID: 4713385111486237428}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -53,6 +54,104 @@ MonoBehaviour:
   character_select: 1
   mode: 0
   instructions: {fileID: 0}
+  death: {fileID: 8300000, guid: c4a43750fe27839479e10507e4856882, type: 3}
+  game_over: {fileID: 8300000, guid: 8480e96e2b8e7d54a815f87d52067359, type: 3}
+--- !u!82 &4713385111486237428
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4018307461352638665}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4018307462528076912
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,17 +820,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1360825103302425302, guid: 48cbec92e773af5499cd6ae9ca46ac5f,
-        type: 3}
-      propertyPath: stunned_wait_timer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1360825103302425302, guid: 48cbec92e773af5499cd6ae9ca46ac5f,
-        type: 3}
-      propertyPath: ui_retical_prefab
-      value: 
-      objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
-        type: 3}
     - target: {fileID: 9087379563090231060, guid: 48cbec92e773af5499cd6ae9ca46ac5f,
         type: 3}
       propertyPath: m_RootOrder
@@ -762,6 +850,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 1360825103302425302, guid: 48cbec92e773af5499cd6ae9ca46ac5f,
+        type: 3}
+      propertyPath: stunned_wait_timer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360825103302425302, guid: 48cbec92e773af5499cd6ae9ca46ac5f,
+        type: 3}
+      propertyPath: ui_retical_prefab
+      value: 
+      objectReference: {fileID: 5794879559576579234, guid: 03666c7678a6a165f9a2de1aac681082,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48cbec92e773af5499cd6ae9ca46ac5f, type: 3}
 --- !u!1 &927048672552609171 stripped

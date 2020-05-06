@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public enum Playmode { singleplayer, multiplayer }
 
@@ -21,6 +22,9 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector]
     public Playmode mode;
     public GameObject instructions = null;
+    public AudioClip death;
+    public AudioClip game_over;
+    AudioSource audioSource;
 
     void Start()
     {
@@ -39,6 +43,7 @@ public class PlayerManager : MonoBehaviour
         {
             Instance = this;
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SetPlayers(GameObject player)
@@ -74,7 +79,6 @@ public class PlayerManager : MonoBehaviour
     public void RemovePlayers()
     {
         //List<GameObject> unselected = new List<GameObject>();
-        print("Removing players");
         for (int i = playerList.Count - 1; i >= 0; i--)
         {
             if (playerList[i].transform.childCount < 2)
@@ -82,7 +86,6 @@ public class PlayerManager : MonoBehaviour
                 Destroy(playerList[i]);
                 playerList.RemoveAt(i);
                 //unselected.Add(player);
-                print("should be removed");
             }
             else
             {
@@ -112,12 +115,16 @@ public class PlayerManager : MonoBehaviour
         }
         if (!players_remain)
         {
+            DeathSound(game_over);
             foreach (GameObject player in playerList)
             {
                 player.transform.GetChild(0).GetComponent<PlayerController>().PlayerReset();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                print("playerReset, new scene");
             }
+        }
+        else
+        {
+            DeathSound(death);
         }
     }
 
@@ -127,5 +134,15 @@ public class PlayerManager : MonoBehaviour
         {
             player.GetComponent<DontDestroyOnLoad>().enabled = false;
         }
+    }
+
+    public void DeathSound(AudioClip sound = null)
+    {
+        if(sound == null)
+        {
+            sound = game_over;
+        }
+        audioSource.clip = sound;
+        audioSource.Play();
     }
 }
