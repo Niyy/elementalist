@@ -334,6 +334,7 @@ public class WaterPlayer : PlayerController
         RunningAnimation(player_collision);
         IdleAnimation(player_collision);
         HoverAnimation(player_collision);
+        AttackAnimation(player_collision);
 
         DefineFacingDirection();
     }
@@ -341,7 +342,6 @@ public class WaterPlayer : PlayerController
 
     private void HoverAnimation(PlayerCollision player_collision)
     {
-        Debug.Log("checking hover: ");
         if(animator.GetBool("in_air") && hovering)
         {
             animator.SetBool("hover", true);
@@ -353,9 +353,23 @@ public class WaterPlayer : PlayerController
     }
 
 
+    private void AttackAnimation(PlayerCollision player_collision)
+    {
+        if(using_wave)
+        {
+            animator.SetBool("attack", true);
+        }
+        else if(!attacking && animator.GetBool("attack"))
+        {
+            animator.SetBool("attack", false);
+        }
+    }
+
+
     protected override void ResetAnimationState()
     {
         animator.SetBool("idle_break", false);
+        animator.SetBool("attack", false);
         base.ResetAnimationState();
     }
 }
