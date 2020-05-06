@@ -5,13 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class levelsCompleated
 {
-    public bool l1, l2, l3, l4;
+    public bool[] unlockedArray;
 
     public levelsCompleated()
     {
-        l1 = true;
-        l2 = false;
-        l3 = false;
-        l4 = false;
+        unlockedArray = new bool[4];
+        unlockedArray[0] = true;
+        unlockedArray[1] = false;
+        unlockedArray[2] = false;
+        unlockedArray[3] = false;
     }
 }

@@ -769,7 +769,8 @@ public class PlayerController : MonoBehaviour
         {
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
-            child.SetActive(true);
+            //child.SetActive(true);
+            transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
             ui_retical.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
@@ -782,7 +783,7 @@ public class PlayerController : MonoBehaviour
         death_status = false;
 
         //this.GetComponent<MeshRenderer>().enabled = true;
-        child.SetActive(true);
+        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         this.GetComponent<Collider>().isTrigger = false;
         rigbod.isKinematic = false;
         Neutralize();
@@ -861,13 +862,15 @@ public class PlayerController : MonoBehaviour
         if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerManager.Instance.DeathSound();
             PlayerReset();
         }
         else
         {
             death_status = true;
             ui_retical.SetActive(false);
-            child.SetActive(false);
+            //child.SetActive(false);
+            transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
             PlayerManager.Instance.LivingPlayersCheck();
