@@ -22,14 +22,16 @@ public class ElectricPlayer : PlayerController
     public Material special_mat;
 
     bool enemy_hit = false;
+
+    ElectricAudio electricAudio;
+
     protected override void Awake()
     {
 
         dashAnimation.SetActive(false);
-
-   
-
         base.Awake();
+        electricAudio = GetComponent<ElectricAudio>();
+
     }
     public override void FixedUpdate()
     {
@@ -85,10 +87,12 @@ public class ElectricPlayer : PlayerController
                 is_special_dashing = true;
                 wall_jump = false;
                 attacking = true;
-              //  if(transform.childCount != 0)
-            //    transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
+                //  if(transform.childCount != 0)
+                //    transform.GetChild(0).GetComponent<Renderer>().material = special_mat;
+                electricAudio.playAudio(SoundType.special);
             }
         }
+        
     }
 
     public override void AttackHit()

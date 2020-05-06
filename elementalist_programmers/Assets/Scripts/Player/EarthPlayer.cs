@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class EarthPlayer : PlayerController
 {
@@ -95,15 +96,19 @@ public class EarthPlayer : PlayerController
             if(current_respawn_rate >= rock_respawn_rate)
             {
                 GameObject new_rock = Instantiate(rock_prefab, this.transform);
-                float start_radius;
+                float start_radius = 0;
 
                 if(rock_list.Count > 0)
                 {
-                    start_radius = rock_list[rock_list.Count - 1].GetComponent<Projectile>().GetAngle() - (360 / max_rocks);
-                }
-                else
-                {
-                    start_radius = 0;
+                    try
+                    {
+                        start_radius = rock_list[rock_list.Count - 1].GetComponent<Projectile>().GetAngle() - (360 / max_rocks);
+                    }
+                    catch(ArgumentOutOfRangeException e)
+                    {
+                        rock_list.Clear();
+                        Debug.Log("I threw a complaint."); // Don't delete this until Austin says.
+                    }
                 }
 
                 new_rock.GetComponent<Projectile>().SetPlayerPosition(this.gameObject);
@@ -146,7 +151,7 @@ public class EarthPlayer : PlayerController
                 {
                     foreach(GameObject rock_check in rock_list)
                     {
-                        if(rock_check.transform.position.y >= highest)
+                        if(rock_check != null && rock_check.transform.position.y >= highest)
                         {
                             rock = rock_check;
                         }

@@ -22,6 +22,7 @@ public class InputManagement : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Starting input management");
         players = new InputUser[4];
         controllers = new Controllers[4];
         
@@ -63,8 +64,11 @@ public class InputManagement : MonoBehaviour
 
     void ListenForUnpairedDevices(InputControl control, InputEventPtr arg)
     {
+        Debug.Log("Found unpaired device");
         if (control.device is Gamepad)
         {
+            Debug.Log("Gamepad");
+            Debug.Log(control.device);
             InputDevice pair_with_device = control.device;
             for (var i = 0; i < players.Length; i++)
             {
@@ -81,6 +85,7 @@ public class InputManagement : MonoBehaviour
         }
         if (control.device is Keyboard)
         {
+            Debug.Log("Keyboard");
             InputDevice pair_with_device = control.device;
             for (var i = 0; i < players.Length; i++)
             {

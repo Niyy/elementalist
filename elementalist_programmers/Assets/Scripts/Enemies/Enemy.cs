@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
     {
         death();
     }
+   
 
     public void Freeze()
     {
@@ -86,9 +87,19 @@ public class Enemy : MonoBehaviour
     {
         if (alive == false)
         {
-            //myRoom.enemys.Remove(this.gameObject);
+            if(myRoom.enemys.Contains(this.gameObject))
+            {
+                print("Found Gameobject");
+            }
+            else
+            {
+                print("Didnt find");
+
+            }
+            myRoom.enemys.Remove(this.gameObject);
             if (!frozen)
             {
+                Debug.Log("I should have died.");
                 Destroy(this.gameObject);
             }
         }

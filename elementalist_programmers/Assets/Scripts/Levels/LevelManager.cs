@@ -8,12 +8,13 @@ public class LevelManager : MonoBehaviour
     static public LevelManager _instance;
     static public LevelManager Instance { get { return _instance; } }
 
+    
     public int coins = 0;
     public int coinsAmount = 4;
     public BossDoor bossDoor;
 
     public Text keyFrags;
-    public Text win;
+    //public Text win;
     public Text bossDoorT;
 
     public GameObject[] roomsCenter;
@@ -51,13 +52,13 @@ public class LevelManager : MonoBehaviour
         }
         roomsCenter[0].SetActive(true);
 
-      //  win.text = " ";
+        //win.text = " ";
     }
 
     private void Update()
     {
         openBossDoor();
-      //  setText();
+        setText();
     }
 
     public int getCurrentRoom()
@@ -89,16 +90,16 @@ public class LevelManager : MonoBehaviour
 
     void setText()
     {
-        keyFrags.text = "Key Fragments: " + coins;
+        keyFrags.text = ": " + coins + "/4";
         if (coins < 4)
-            bossDoorT.text = "Boss Door: Closed";
+            bossDoorT.text = "";
         else
-            bossDoorT.text = "Boss Door: Open";
+            bossDoorT.text = "Next World Unlocked!";
     }
 
     public void winState()
     {
-        win.text = "YOU WIN!\nPress escape to quit";
+       // win.text = "YOU WIN!\nPress escape to quit";
 
     }
 }

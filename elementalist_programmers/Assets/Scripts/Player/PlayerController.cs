@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
         ui_retical = Instantiate(ui_retical_prefab);
         ui_retical.name = "UI_Reticle_" + this.gameObject.name;
         ui_retical.transform.SetParent(canvas.transform, false);
+        ui_retical.SetActive(true);
         player_collision = GetComponent<PlayerCollision>();
 
         animator.SetBool("landed", true);
@@ -536,7 +537,8 @@ public class PlayerController : MonoBehaviour
     {
         if(!death_status && !is_secondary_moving)
         {
-            if (grounded && current_jump_cool_down >= jump_cool_down)
+
+            if (grounded && (current_jump_cool_down >= jump_cool_down || trapped))
             {
                 rigbod.velocity = (new Vector3(rigbod.velocity.x, jumpForce));
                 jump_count++;

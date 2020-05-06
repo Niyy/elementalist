@@ -69,7 +69,7 @@ public class EnemyC : Enemy
                 detector.GetComponent<LineOfSight>().Retarget();
             }
         }
-        
+
     }
 
 

@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject PauseUI;
     private GameObject PlayerCanvas;
     public GameObject ControllerScreen;
+    public GameObject DeathScreen;
     private EventSystem eventSystem;
     public GameObject BackButton;
    

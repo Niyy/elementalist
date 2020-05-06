@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GorillaAnimation : MonoBehaviour
+public class BtierAnimation : MonoBehaviour
 {
 
     Animator animator;

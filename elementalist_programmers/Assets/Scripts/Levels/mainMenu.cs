@@ -42,4 +42,16 @@ public class mainMenu : MonoBehaviour
     {
         AudioManager.Instance.playAudio();
     }
+
+    public void SetMusicVolume(float slider)
+    {
+        AudioManager.Instance.SetMusicVolume(slider);
+
+    }
+
+    public void SetSfxVolume(float slider)
+    {
+        AudioManager.Instance.SetSfxVolume(slider);
+
+    }
 }

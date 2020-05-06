@@ -17,11 +17,12 @@ public class Platforms : MonoBehaviour
     public float waitToCrumble = 0f;
     public float timeToRespawn = 0f;
     public bool crumbled = false;
+    public bool animating = false;
+    public Animator crumbleAnimation;
 
     [Header("Phasing - Can only have one physical collider")]
     public float timeActive;
     public float timeAway;
- 
 
     public enum Platform
     {
@@ -30,6 +31,13 @@ public class Platforms : MonoBehaviour
         Phasing
     };
 
+    private void Start()
+    {
+        if (current_Plat == Platform.Crumbling)
+        {
+            crumbleAnimation = GetComponent<Animator>();
+        }
+    }
 
     private void OnEnable()
     {
@@ -116,12 +124,12 @@ public class Platforms : MonoBehaviour
         if(crumbled == false)
         {
             crumbled = true;
-            this.GetComponent<MeshRenderer>().enabled = false;
             yield return new WaitForSeconds(.1f);
-            this.GetComponent<MeshRenderer>().enabled = true;
+            crumbleAnimation.SetBool("crumbling", true);
             yield return new WaitForSeconds(waitToCrumble);
             this.GetComponent<BoxCollider>().enabled = false;
             this.GetComponent<MeshRenderer>().enabled = false;
+            crumbleAnimation.SetBool("crumbling", false);
             yield return new WaitForSeconds(timeToRespawn);
             this.GetComponent<BoxCollider>().enabled = true;
             this.GetComponent<MeshRenderer>().enabled = true;

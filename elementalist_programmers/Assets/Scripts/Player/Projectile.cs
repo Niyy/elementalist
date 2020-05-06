@@ -89,12 +89,12 @@ public class Projectile : MonoBehaviour
     {
         if(!collider.tag.Equals("Player") && !collider.tag.Equals("Projectile"))
         {
-            if(collider.tag.Equals("enemy"))
+            if(collider.tag.Equals("Enemy"))
             {
                 collider.gameObject.GetComponent<Enemy>().alive = false;
+                Debug.Log("Dead: " + collider.name);   
             }
 
-            Debug.Log("Dead: " + collider.name);   
             Destroy(this.gameObject);
         }
     }

@@ -40,6 +40,8 @@ public class WaterPlayer : PlayerController
     [HideInInspector]
     public Collider[] colliders;
 
+    WaterAudio waterAudio;
+
     bool enemy_hit = false;
 
     protected override void Awake()
@@ -50,6 +52,8 @@ public class WaterPlayer : PlayerController
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
         dash_cool_down += special_dash_time;
+        waterAudio = GetComponent<WaterAudio>();
+
     }
 
     public override void FixedUpdate()
@@ -109,6 +113,8 @@ public class WaterPlayer : PlayerController
                 attacking = true;
                 current_dash_cool_down = 0;
                 transform.Find("Aura").gameObject.SetActive(true);
+                waterAudio.playAudio(SoundType.dash);
+
             }
         }
     }
@@ -125,6 +131,7 @@ public class WaterPlayer : PlayerController
         {
             if (!hovering)
             {
+                waterAudio.playAudio(SoundType.hover);
                 hoverAnimation.SetActive(true);
                 hovering = true;
                
@@ -146,14 +153,17 @@ public class WaterPlayer : PlayerController
             hover_elapsed_time += 0.02f;
             float time_ratio =  1f - hover_elapsed_time / max_hover_time;
             water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, time_ratio * water_bar_size);
+
         }
         else
         {
             hovering = false;
             hoverAnimation.SetActive(false);
             base.Airborn();
+            waterAudio.stopHover();
+
         }
-        
+
     }
 
     public override void OnJump(InputValue value)
@@ -240,7 +250,10 @@ public class WaterPlayer : PlayerController
             
             hover_elapsed_time += max_hover_time * wave_tank_usage;
             water_bar.transform.localScale = new Vector3(water_bar.transform.localScale.x, time_ratio * water_bar_size);
+            waterAudio.playAudio(SoundType.special);
+
         }
+
         using_wave = false;
 
     }

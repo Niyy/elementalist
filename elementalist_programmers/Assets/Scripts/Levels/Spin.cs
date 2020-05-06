@@ -15,7 +15,7 @@ public class Spin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.rotation = Quaternion.Euler(0.0f, count, 0.0f);
+        transform.rotation = Quaternion.Euler(transform.rotation.x, count, transform.rotation.z);
         count = count+40 * Time.deltaTime;
     }
 }

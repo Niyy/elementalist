@@ -8,9 +8,10 @@ public class EnemyB : Enemy
     public float offset = 0.75f;
     public float search_arch;
     public float sight_distance;
+    [Range(1.6f, 10.0f)]
+    public  float stop_distance = 1.60f;
 
 
-    private float stop_distance = 1.60f;
     private float cur_search_arch;
     private float arch_adder;
 
@@ -78,7 +79,7 @@ public class EnemyB : Enemy
         else
         {
             defending = false;
-            if (!Physics.Raycast(next_position, Vector2.down, out check_down, 1.0f))
+            if (!Physics.Raycast(next_position, Vector2.down, out check_down, 1.0f * this.transform.localScale.y))
             {
                 direction = -direction;
                 current_patrol_timer = 0;
@@ -157,7 +158,7 @@ public class EnemyB : Enemy
                     if (player.GetComponent<PlayerController>().GetAttackStatus() == true)
                     {
                         player.GetComponent<PlayerController>().AttackHit();
-                        Hit();
+                        alive = false;
                     }
                     else
                     {
@@ -190,17 +191,15 @@ public class EnemyB : Enemy
                 Freeze();
             }
 
-            if (other.gameObject.tag.Equals("Projectile"))
+            if(other.gameObject.tag.Equals("Projectile"))
             {
                 GameObject projectile = other.gameObject;
 
                 if (Mathf.Sign(direction) == -Mathf.Sign(projectile.transform.position.x - this.transform.position.x))
                 {
                     alive = false;
-                    death();
-                    Debug.Log("hurg");
+                    //death();
                 }
-                Debug.Log("blurg.");
             }
         }
     }

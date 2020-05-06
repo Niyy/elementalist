@@ -15,6 +15,7 @@ public class Door : MonoBehaviour
         arrow = gameObject.transform.GetChild(1).gameObject;
         arrow.SetActive(false);
     }
+
     private void Update()
     {
         if (open)
@@ -23,11 +24,11 @@ public class Door : MonoBehaviour
             arrow.SetActive(true);
         }
        
-        
     }
 
     void openDoor()
     {
+        //print("Door is open");
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
     }
@@ -53,7 +54,7 @@ public class Door : MonoBehaviour
             foreach (GameObject player in FindObjectOfType<PlayerManager>().playerList)
             {
                 player.transform.GetChild(0).transform.position = spawnPoint.transform.position;
-                print("I moved a player");
+                //print("I moved a player");
             }
            
             closeDoor();

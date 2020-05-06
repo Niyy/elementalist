@@ -32,7 +32,7 @@ public class RoomManager : MonoBehaviour
         {
             for (int i = 0; i < normal_Doors.Count; i++)
             {
-                print("Room Manager I opened doorssssssssssss");
+               
                 normal_Doors[i].open = true;
             }
         }

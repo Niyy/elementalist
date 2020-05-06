@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CharacterSelectionMenu : MonoBehaviour
 {
+
+   
     //this originally contained more variables, it can be cleaned up later to just be a variable instead of struct
     private struct Character
     {
@@ -60,5 +62,7 @@ public class CharacterSelectionMenu : MonoBehaviour
             }
         }
         PlayerManager.Instance.RemovePlayers();
+      
     }
+
 }
