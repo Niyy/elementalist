@@ -5,23 +5,19 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveSystem 
 {
-    public static void saveLevels()
+    
+
+    public static void saveLevels(levelsCompleated level)
     {
         BinaryFormatter format = new BinaryFormatter();
         string path = Application.persistentDataPath + "/levels.u";
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        levelsCompleated level = new levelsCompleated();
 
         format.Serialize(stream, level);
         stream.Close();
     }
-
-
-
-
-
 
 
     public static levelsCompleated load()
@@ -45,6 +41,6 @@ public class SaveSystem
         }
     }
 
-
+    
 
 }

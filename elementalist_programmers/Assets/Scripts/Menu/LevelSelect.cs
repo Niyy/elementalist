@@ -21,9 +21,21 @@ public class LevelSelect : MonoBehaviour
     public float timeDuration=1;
     float time_start;
     public Text world_name_ui;
+    levelsCompleated inst = new levelsCompleated();
 
     void Awake()
     {
+        if(SaveSystem.load() == null)
+        {
+            inst = new levelsCompleated();
+        }
+        else
+        {
+            inst = SaveSystem.load();
+        }
+
+
+
         levelProperties = new List<LevelProperties>();
         controls = new PlayerControls();
         controls.Menu.Select.performed += ctx => SelectWorld();
@@ -38,7 +50,8 @@ public class LevelSelect : MonoBehaviour
             print(q);
             GameObject wrld=Instantiate(Worlds[world],transform.position + q * Vector3.back * radius, Quaternion.identity);
             wrld.transform.parent = transform;
-            levelProperties.Add(wrld.GetComponent<LevelProperties>());
+            wrld.GetComponent<LevelProperties>().unlocked = inst.unlockedArray[world];
+            levelProperties.Add(wrld.GetComponent<LevelProperties>()); 
         }
         world_name_ui.text = levelProperties[choice].world_name;
     }
