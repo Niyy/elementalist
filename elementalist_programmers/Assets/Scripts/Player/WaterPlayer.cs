@@ -318,4 +318,11 @@ public class WaterPlayer : PlayerController
             animator.SetBool("hover", false);
         }
     }
+
+
+    protected override void ResetAnimationState()
+    {
+        animator.SetBool("idle_break", false);
+        base.ResetAnimationState();
+    }
 }

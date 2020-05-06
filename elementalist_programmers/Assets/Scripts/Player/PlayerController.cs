@@ -850,6 +850,7 @@ public class PlayerController : MonoBehaviour
         if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ResetAnimationState();
             PlayerReset();
         }
         else
