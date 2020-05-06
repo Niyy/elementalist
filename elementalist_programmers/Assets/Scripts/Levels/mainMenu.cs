@@ -6,15 +6,23 @@ public class mainMenu : MonoBehaviour
 {
     
 
-    public void PlayGame()
+    public void Tutorial()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Tutorial Part 1");
 
     }
 
-    public void SurveyPlease()
+    public void PlayGame()
     {
-        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSchYp9iN26vjy5UBgMMVG_96ef1LzLXi7jVDHo9gFtVzx05hw/viewform");
+        SceneManager.LoadScene("World Select");
+
+    }
+
+    
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
     }
     
 
