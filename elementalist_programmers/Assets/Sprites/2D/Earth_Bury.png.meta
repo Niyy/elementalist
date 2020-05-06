@@ -1,0 +1,496 @@
+fileFormatVersion: 2
+guid: 53170895431e73f4183e7975d1c7db3c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6929707714551725025
+    second: Earth_Bury_0
+  - first:
+      213: 6796184127650003597
+    second: Earth_Bury_1
+  - first:
+      213: 8471417285413030214
+    second: Earth_Bury_2
+  - first:
+      213: 606192190302224981
+    second: Earth_Bury_3
+  - first:
+      213: 544028464631122170
+    second: Earth_Bury_4
+  - first:
+      213: 5426360347164513410
+    second: Earth_Bury_5
+  - first:
+      213: -5909704373179215653
+    second: Earth_Bury_6
+  - first:
+      213: -1659070469338634887
+    second: Earth_Bury_7
+  - first:
+      213: -6870678017876519733
+    second: Earth_Bury_8
+  - first:
+      213: 2219797702494176454
+    second: Earth_Bury_9
+  - first:
+      213: -947038201084558007
+    second: Earth_Bury_10
+  - first:
+      213: -8531509855164225424
+    second: Earth_Bury_11
+  - first:
+      213: -4718088884805908861
+    second: Earth_Bury_12
+  - first:
+      213: 3981141053283929892
+    second: Earth_Bury_13
+  - first:
+      213: 4385552983432278385
+    second: Earth_Bury_14
+  - first:
+      213: -1263570257651541565
+    second: Earth_Bury_15
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Earth_Bury_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 654
+        width: 573
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfcb49ca9550be6459d55f3a24179bc0
+      internalID: -6929707714551725025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_1
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 647
+        width: 573
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00a78628a04d168409634b665750c6c5
+      internalID: 6796184127650003597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_2
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 642
+        width: 573
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5d77acaf9d8290498dff46af1666554
+      internalID: 8471417285413030214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_3
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 640
+        width: 573
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88ac72e1f00af7b4abd3b03f4d300794
+      internalID: 606192190302224981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 488
+        width: 573
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a90fb1189bbb75469f64174482578df
+      internalID: 544028464631122170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_5
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 485
+        width: 573
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bb173ee5d3ee464197e3c4395b47ee0
+      internalID: 5426360347164513410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_6
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 485
+        width: 573
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51fa330b66e84424d9b610e2af203787
+      internalID: -5909704373179215653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_7
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 485
+        width: 573
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aa5f7f6dbd0bda43a4532db9dea3470
+      internalID: -1659070469338634887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 321
+        width: 573
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73e6e8181aea0e243a3c8bb89948ae5f
+      internalID: -6870678017876519733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_9
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 324
+        width: 573
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 282929576280db04ca1480d317390935
+      internalID: 2219797702494176454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_10
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 329
+        width: 573
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f61b49acb54f74fba99beb4da0c2d5
+      internalID: -947038201084558007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_11
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 321
+        width: 573
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 098aad0963c70954aacb3a0078b6f9b9
+      internalID: -8531509855164225424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 166
+        width: 573
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a82f85d62bfc7a4a86379ed145fcdcb
+      internalID: -4718088884805908861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_13
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 0.75
+        width: 573
+        height: 201.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d69a5edb25a514bbe606c7ce5d9b40
+      internalID: 3981141053283929892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_14
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 0.75
+        width: 573
+        height: 201.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbabe08bbd0ed2242a22db966a2ac11f
+      internalID: 4385552983432278385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Earth_Bury_15
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 0.75
+        width: 573
+        height: 201.25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c054ce5c5f34e54785244cc9d45488e
+      internalID: -1263570257651541565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: a51cc0824939af44581c5f47259807e8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

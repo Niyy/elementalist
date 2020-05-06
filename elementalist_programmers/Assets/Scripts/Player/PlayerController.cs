@@ -41,7 +41,12 @@ public class PlayerController : MonoBehaviour
     public float lowJumpMultiplier = 2f;
     public bool grounded;
     public int jump_max = 1;
+
+    [HideInInspector] public Vector3 feetPos;
+    public GameObject twoDJump;
+
     protected float jump_cool_down;
+
 
 
     private int jump_count;
@@ -92,6 +97,8 @@ public class PlayerController : MonoBehaviour
     protected Vector2 secondary_movement_target;
     protected Vector2 secondary_movement_velocity;
 
+    public GameObject dashAnimation;
+
     PlayerInput inputAction;
 
     // Direction variable
@@ -134,6 +141,9 @@ public class PlayerController : MonoBehaviour
     protected Animator animator;
     protected Animator animator_2d;
     protected float take_off_time;
+    protected float idle_break_clip_max;
+    protected float idle_break_clip_length;
+    protected float idle_clip_length;
 
     //Traped in sand
     public bool trapped = false;
@@ -192,7 +202,9 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("landed", true);
 
+       
         FindAnimationTimes();
+        ResetAnimationState();
     }
 
 
@@ -222,6 +234,7 @@ public class PlayerController : MonoBehaviour
             AnimationHandler();
             Animation2DHandler();
         }
+        feetPos = new Vector3(transform.position.x, transform.position.y - .4f, transform.position.z);
     }
 
 
@@ -274,7 +287,7 @@ public class PlayerController : MonoBehaviour
         if (!is_secondary_moving && !stunned)
         {
             direction = new Vector3(move.x, move.y, 0f);
-            if (Mathf.Sign(direction.x) != facing)
+            if (Mathf.Sign(direction.x) != facing && direction.x != 0)
             {
                 facing = Mathf.Sign(direction.x);
                 neutral_position = 0;
@@ -324,8 +337,21 @@ public class PlayerController : MonoBehaviour
 
     protected void AnimationHandler()
     {
-        int angle = 0;
+        PlayerCollision player_collision = GetComponent<PlayerCollision>();
 
+        DashAnimation(player_collision);
+        JumpAnimation(player_collision);
+        WallSlideAnimation(player_collision);
+        RunningAnimation(player_collision);
+        IdleAnimation(player_collision);
+
+        DefineFacingDirection();
+    }
+
+
+    protected virtual void DefineFacingDirection()
+    {
+        int angle = 0;
 
         if (player_collision.on_wall && !player_collision.on_ground)
         {
@@ -343,7 +369,13 @@ public class PlayerController : MonoBehaviour
             angle = 180;
         }
 
-        if (is_secondary_moving)
+        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+    }
+
+
+    protected virtual void DashAnimation(PlayerCollision player_collision)
+    {
+        if(is_secondary_moving)
         {
             animator.SetBool("dash", true);
         }
@@ -351,8 +383,12 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("dash", false);
         }
+    }
 
-        if (grounded && animator.GetBool("in_air"))
+
+    protected virtual void JumpAnimation(PlayerCollision player_collision)
+    {
+        if(grounded && animator.GetBool("in_air"))
         {
             animator.SetBool("in_air", false);
             animator.SetBool("jumping", false);
@@ -372,9 +408,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("in_air", true);
             animator.SetBool("landed", false);
         }
+    }
 
-        if (!animator.GetBool("holding_on_wall") && on_wall
-            && !player_collision.on_ground && !animator.GetBool("dash"))
+
+    protected virtual void WallSlideAnimation(PlayerCollision player_collision)
+    {
+        if(!animator.GetBool("holding_on_wall") && on_wall
+            && !player_collision.on_ground)
         {
             animator.SetBool("holding_on_wall", true);
         }
@@ -382,8 +422,12 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("holding_on_wall", false);
         }
+    }
 
-        if (!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
+
+    protected virtual void RunningAnimation(PlayerCollision player_collision)
+    {
+        if(!animator.GetBool("running") && !is_secondary_moving && rigbod.velocity != new Vector3(0.0f, rigbod.velocity.y, 0.0f)
             && (animator.GetBool("landed")))
         {
             animator.SetBool("running", true);
@@ -393,8 +437,33 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("running", false);
         }
+    }
 
-        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
+
+    protected virtual void IdleAnimation(PlayerCollision player_collision)
+    {
+        if(animator.GetCurrentAnimatorStateInfo(0).length >= idle_clip_length &&
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            animator.SetBool("idle_break", true);
+        }
+        else if(animator.GetBool("idle_break") && idle_break_clip_length >= idle_break_clip_max)
+        {
+            animator.SetBool("idle_break", false);
+        }
+    }
+
+
+    protected virtual void ResetAnimationState()
+    {
+        animator.SetBool("idle_break", false);
+        animator.SetBool("running", false);
+        animator.SetBool("holding_on_wall", false);
+        animator.SetBool("jumping", false);
+        animator.SetBool("dash", false);
+        animator.SetBool("in_air", false);
+
+        animator.SetBool("landed", true);
     }
 
 
@@ -473,6 +542,7 @@ public class PlayerController : MonoBehaviour
                 jump_count++;
                 grounded = false;
                 playerAudio.playAudio(SoundType.jump);
+                Instantiate(twoDJump, feetPos, Quaternion.identity); //instantiateInWorldSpace:(true));
                 new_jump = true;
             }
             else if (wall_sliding || (player_collision.on_wall && wall_push))
@@ -496,7 +566,6 @@ public class PlayerController : MonoBehaviour
             {
                 last_keypress = InputType.Jump;
                 current_keypress_time = 0;
-                Debug.Log("Gave the player input: " + last_keypress);
             }
         }
     }
@@ -584,11 +653,11 @@ public class PlayerController : MonoBehaviour
                 && secondary_reset && !on_wall && !stunned && !trapped
                 && Vector2.Distance(this.transform.position, retical.transform.position) >= 0.1f)
             {
+                
                 current_secondary_movement_time = 0;
                 if (secondary_movement == SecondaryMovementTypes.Roll && grounded)
                 {
                     secondary_movement_velocity = new Vector2(Mathf.Sign(facing), 0.0f) * secondary_speed;
-                    Debug.Log("Rolling!");
                 }
                 else if (secondary_movement == SecondaryMovementTypes.Dash)
                 {
@@ -622,7 +691,6 @@ public class PlayerController : MonoBehaviour
             && !Physics.Raycast(next_position, Vector2.down * 2.0f,  1.0f))
             {
                 current_secondary_movement_time = secondary_movement_time;
-                Debug.Log("Rolling.");
             }
             else if (secondary_movement == SecondaryMovementTypes.Dash
                     && current_secondary_movement_time < secondary_movement_time)
@@ -701,7 +769,8 @@ public class PlayerController : MonoBehaviour
         {
             death_status = false;
             //this.GetComponent<MeshRenderer>().enabled = true;
-            child.SetActive(true);
+            //child.SetActive(true);
+            transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
             ui_retical.SetActive(true);
             this.GetComponent<Collider>().isTrigger = false;
             rigbod.isKinematic = false;
@@ -714,7 +783,7 @@ public class PlayerController : MonoBehaviour
         death_status = false;
 
         //this.GetComponent<MeshRenderer>().enabled = true;
-        child.SetActive(true);
+        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         this.GetComponent<Collider>().isTrigger = false;
         rigbod.isKinematic = false;
         Neutralize();
@@ -751,6 +820,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Dash":
                     dash_cool_down = clip.length;
+                    break;
+                case "Idle":
+                    idle_clip_length = clip.length;
                     break;
                 default:
                     break;
@@ -790,13 +862,15 @@ public class PlayerController : MonoBehaviour
         if (PlayerManager.Instance.mode.Equals(Playmode.singleplayer))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerManager.Instance.DeathSound();
             PlayerReset();
         }
         else
         {
             death_status = true;
             ui_retical.SetActive(false);
-            child.SetActive(false);
+            //child.SetActive(false);
+            transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
             this.GetComponent<Collider>().isTrigger = true;
             rigbod.isKinematic = true;
             PlayerManager.Instance.LivingPlayersCheck();

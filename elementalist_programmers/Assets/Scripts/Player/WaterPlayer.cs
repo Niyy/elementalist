@@ -17,6 +17,7 @@ public class WaterPlayer : PlayerController
     public GameObject water_bar;
     private float water_bar_size;
     public float recovery_speed = 0.04f;
+    public GameObject hoverAnimation;
 
     [Header("Dash Variables")]
     public float special_speed = 25f;
@@ -26,6 +27,7 @@ public class WaterPlayer : PlayerController
     float current_special_movement_time;
     Vector2 special_movement_target;
     Vector2 special_movement_velocity;
+    public GameObject twoD_AttackAnimation;
 
     [Header("Special Variables")]
     public float wave_force = 20f;
@@ -42,6 +44,9 @@ public class WaterPlayer : PlayerController
 
     protected override void Awake()
     {
+        dashAnimation.SetActive(false);
+        hoverAnimation.SetActive(false);
+        twoD_AttackAnimation.SetActive(false);
         water_bar_size = water_bar.transform.localScale.y;
         base.Awake();
         dash_cool_down += special_dash_time;
@@ -120,7 +125,9 @@ public class WaterPlayer : PlayerController
         {
             if (!hovering)
             {
+                hoverAnimation.SetActive(true);
                 hovering = true;
+               
                 //if (rigbod.velocity.y > 0)
                 //{
                 //    rigbod.velocity = Vector3.zero;
@@ -143,8 +150,10 @@ public class WaterPlayer : PlayerController
         else
         {
             hovering = false;
+            hoverAnimation.SetActive(false);
             base.Airborn();
         }
+        
     }
 
     public override void OnJump(InputValue value)
@@ -166,6 +175,16 @@ public class WaterPlayer : PlayerController
 
         if (is_special_dashing)
         {
+            if(facing == 1)
+            {
+                dashAnimation.transform.rotation = Quaternion.AngleAxis(0, Vector3.up);
+                
+            }
+            if(facing == -1)
+            {
+                dashAnimation.transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            }
+            dashAnimation.SetActive(true);
 
             if (current_special_movement_time < secondary_movement_time && !stunned)
             {
@@ -199,6 +218,7 @@ public class WaterPlayer : PlayerController
 
     public void WavePush()
     {
+        twoD_AttackAnimation.SetActive(true);
         wave_pos = transform.position;
         colliders = Physics.OverlapSphere(wave_pos, wave_radius);
         if(max_hover_time == 0f)
@@ -223,5 +243,60 @@ public class WaterPlayer : PlayerController
         }
         using_wave = false;
 
+    }
+
+
+    protected override void DefineFacingDirection()
+    {
+        float angle = 0;
+        float angle_ease = 0;
+        float assess = 0;
+        float last_angle = animator.gameObject.transform.rotation.eulerAngles.y;
+
+        if(animator.GetBool("landed") && !animator.GetBool("running") && !animator.GetBool("holding_on_wall") &&
+            !animator.GetBool("jumping") && !animator.GetBool("in_air") && !animator.GetBool("dash"))
+        {
+            if (facing == 1)
+            {
+                angle = -1;
+                assess = 90;
+            }
+            else
+            {
+                angle = -1;
+                assess = 270;
+            }
+
+            if(Mathf.Abs(assess - last_angle) >= 1.0f)
+            {
+                angle_ease = angle * (90 * 0.33f);
+                angle = last_angle + angle_ease;
+
+            }
+            else
+            {
+                angle = assess;
+            }
+        }
+        else if (player_collision.on_wall && !player_collision.on_ground)
+        {
+            if (facing == 1)
+            {
+                angle = 0;
+            }
+            else
+            {
+                angle = 180;
+            }
+
+            angle_ease = 0;
+        }
+        else if (facing == 1)
+        {
+            angle = 180;
+            angle_ease = 0;
+        }
+
+        animator.gameObject.transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
     }
 }

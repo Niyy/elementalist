@@ -24,6 +24,8 @@ public class AirPlayer : PlayerController
     Renderer player_renderer;
     AirAudio airAudio;
 
+    public GameObject dashOut;
+
     protected override void Awake()
     {
         base.Awake();
@@ -111,6 +113,7 @@ public class AirPlayer : PlayerController
         base.OnDash(value);
         if (!death_status && is_secondary_moving && player_renderer.enabled)
         {
+            Instantiate(dashAnimation, gameObject.transform.position, Quaternion.identity);
             player_renderer.enabled = false;
             ui_retical.SetActive(false);
         }
@@ -120,6 +123,7 @@ public class AirPlayer : PlayerController
     {
         if (is_secondary_moving && !(current_secondary_movement_time < secondary_movement_time))
         {
+            Instantiate(dashOut, gameObject.transform.position, Quaternion.identity);
             player_renderer.enabled = true;
             ui_retical.SetActive(true);
         }

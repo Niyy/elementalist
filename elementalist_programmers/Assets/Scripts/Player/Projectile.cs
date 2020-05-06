@@ -89,7 +89,7 @@ public class Projectile : MonoBehaviour
     {
         if(!collider.tag.Equals("Player") && !collider.tag.Equals("Projectile"))
         {
-            if(collider.tag.Equals("Enemy"))
+            if(collider.tag.Equals("enemy"))
             {
                 collider.gameObject.GetComponent<Enemy>().alive = false;
             }

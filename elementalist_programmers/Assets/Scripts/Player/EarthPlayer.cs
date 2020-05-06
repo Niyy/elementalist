@@ -27,9 +27,13 @@ public class EarthPlayer : PlayerController
     EarthAudio earthAudio;
 
 
+    public GameObject twoD_Burried;
+
+
     //Animation clip
     private float arise_clip_current;
     private float arise_clip_length;
+
 
     protected override void Awake()
     {
@@ -45,6 +49,10 @@ public class EarthPlayer : PlayerController
         currently_attacking = false;
         collider_height = player_collider[0].size.y * transform.localScale.y;
         earthAudio = GetComponent<EarthAudio>();
+
+        twoD_Burried.SetActive(false);
+
+
     }
 
 
@@ -168,6 +176,7 @@ public class EarthPlayer : PlayerController
     {
         if (value.isPressed && grounded && current_jump_cool_down >= jump_cool_down)
         {
+            Instantiate(dashAnimation, feetPos, Quaternion.identity);
             gameObject.layer = 11;
             is_secondary_moving = true;
             player_collider[0].enabled = false;
@@ -196,7 +205,11 @@ public class EarthPlayer : PlayerController
     {
         if (!player_collision.HeadCollision())
         {
+
+            twoD_Burried.SetActive(false);
+
             earthAudio.Unbury();
+
             gameObject.layer = 8;
             print("unbury");
             is_secondary_moving = false;
@@ -216,6 +229,9 @@ public class EarthPlayer : PlayerController
     {
         if (is_secondary_moving && !surface_blocked)
         {
+
+            twoD_Burried.SetActive(true);
+
             direction = new Vector3(move.x, move.y, 0f);
             if (direction.x != 0)
             {
