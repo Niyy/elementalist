@@ -134,7 +134,7 @@ public class WaterPlayer : PlayerController
                 waterAudio.playAudio(SoundType.hover);
                 hoverAnimation.SetActive(true);
                 hovering = true;
-               
+                
                 //if (rigbod.velocity.y > 0)
                 //{
                 //    rigbod.velocity = Vector3.zero;
@@ -243,7 +243,10 @@ public class WaterPlayer : PlayerController
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
                 if (rb != null && !hit.CompareTag("Player"))
                 {
-                    rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
+                    if (!hit.CompareTag("Enemy"))
+                    {
+                        rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
+                    }
                     rb.AddExplosionForce(wave_force, wave_pos, wave_radius, wave_up_force, ForceMode.Impulse);
                 }
             }

@@ -14,6 +14,7 @@ public class DetectUsers : MonoBehaviour
     public GameObject[] play_test_characters;
     [HideInInspector]
     public bool play_testing = false;
+    bool gameStarted = false;
     string controlScheme = "PlayerControls";
     InputDevice Keyboard = null;
 
@@ -26,8 +27,8 @@ public class DetectUsers : MonoBehaviour
 
     void ListenForUnpairedDevices(InputControl control, InputEventPtr arg)
     {
-        Debug.Log("Found unpaired device " + control);
-        if ((control.device is Gamepad || control.device is Keyboard))
+        //Debug.Log("Found unpaired device " + control);
+        if ((control.device is Gamepad || control.device is Keyboard) && !gameStarted)
         {
             InputDevice pair_with_device = control.device;
             if (playerInputManager.playerCount < 4)
@@ -60,6 +61,13 @@ public class DetectUsers : MonoBehaviour
 
     public void DisableListening()
     {
+        StartCoroutine(MouseDetection());
+    }
+    
+    IEnumerator MouseDetection()
+    {
+        gameStarted = true;
+        yield return new WaitForSeconds(10);
         InputUser.listenForUnpairedDeviceActivity = 0;
         InputUser.onUnpairedDeviceUsed -= ListenForUnpairedDevices;
     }
