@@ -3,8 +3,7 @@
 Elementalist was a group project that was worked on by a team of fourteen members of many different disaplines. The full game can be found here: https://cagd.itch.io/elementalist
 
 ## Austin's(Niyy) Contributions
-----------------------------------
-#### UI Cursors
+### UI Cursors
 Since there were only three engineers we all had many tasks to take the design of the game and implement it. 
 
 One of my large tasks was implementing the UI cursors for players. Each player needed their own cursor to inform the player where their joystick was pointing relative to their player. I had to go over it a couple of times due to bugs and the addition of other features. The reticle uses Unity's raycast system to detect walls, ledges, and enemies. If it hits one of these objects, then the reticle will render where the raycast hits the object, rather than a max radius from the player.
@@ -31,6 +30,8 @@ protected void ReticleMovement()
 
 }
 ```
+<br>
+
 #### Animation's
 I was tasked with implementing 3D animations into the game as well. I learned a lot from this process since it was my first time with 3D animations.
 
